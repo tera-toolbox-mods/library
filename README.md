@@ -31,7 +31,7 @@ Entity requires a mods object as a secondary argument when initilizing it.
 
 #### Variables
 ```JS
-players: An object with all the players in the area. each player object has two sub objects pos and info. Info isn\'t used for players, but for mobs
+players: An object with all the players in the area. each player object has two sub objects pos and info. Info isnt used for players, but for mobs
 
 mobs: see players aswell as info contains huntingZoneId and templateId
 ```
