@@ -2,7 +2,6 @@ const DEFAULT_HOOK_SETTINGS = {order: -1000, filter: {fake: null}};
 
 class entity{
     constructor(dispatch, mods) {
-        this.mods = mods;
         this.mobs = {};
         this.players = {};
 
@@ -43,7 +42,7 @@ class entity{
             let entity = this.mobs[id.toString()] || this.players[id.toString()];
 
             if(object[entity.info.huntingZoneId]) {
-                return object[entity.info.huntingZoneId][entity.info.zone];
+                return object[entity.info.huntingZoneId][entity.info.templateId];
             }
         }
 
@@ -67,7 +66,7 @@ class entity{
                 },
                 info: {
                     huntingZoneId: e.huntingZoneId,
-                    template: e.templateId
+                    templateId: e.templateId
                 }
             };
     
@@ -120,7 +119,7 @@ class entity{
                 for(let idx in e.movement){
                     distance += e.movement[idx].distance;
                 }
-                this.mods.library.applyDistance(pos, distance);
+                mods.library.applyDistance(pos, distance);
             }
     
             if(mob && this.mobs[id]) this.mobs[id].pos = pos;

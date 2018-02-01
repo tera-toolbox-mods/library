@@ -1,7 +1,9 @@
 {
   "files": {
     "index.js": "30a3ddd8bc2e7957cbfa5704982f64fef49fcf146addb2a858dc3a8b60b38896",
-    "class/entity.js": "a15bba806a3288efcada94fbe7672679565c19803a1f136ef4bab4a1a0db368b",
+    "module.json": "36438fe8fe9759bd890de4d18f6113df57f1a5b763ec7cd3f4ddac732ea3a233",
+    "README.md": "535d41250a7f44609e1164b295eb98d93e0357bf911daef1fb36137c1a66a407",
+    "class/entity.js": "056701b5050c6d0a98a4ba342d6059c77b1743ded0023d9b97ce96b506daf992",
     "class/library.js": "6a30b93496a3408842d62fe974991261fcaa9e1f89c9a12e7161e7723cf77201",
     "class/player.js": "fd501787ea45465a09bc4a016f5268210e31dd187a6182cf123e84e9da5ad59f"
   }
