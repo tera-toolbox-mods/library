@@ -31,7 +31,7 @@ Entity requires a mods object as a secondary argument when initilizing it.
 
 #### Variables
 ```JS
-players: An object with all the players in the area. each player object has two sub objects pos and info. Info isn't used for players, but for mobs
+players: An object with all the players in the area. each player object has two sub objects pos and info. Info isn\'t used for players, but for mobs
 
 mobs: see players aswell as info contains huntingZoneId and templateId
 ```
@@ -60,10 +60,10 @@ version: The dispatch.base.protocolVersion after update
 ```JS
 applyDistance(loc, distance): applies distance to a location object, then returns the object. 
 getSkillInfo(id, usingMask): Get the info of a player skill. returns an object with 4 values. raw(actual skill id), id(unpacked skill id), skill(double digit skill) and sub(the skill sub "stage")
-emptyLong: creates an empty long
-jsonEqual: Checks if two json objects are the same
-opositeDirection: Takes a direction value and changes it to the oposite
-arrayItemInArray: What the name says, I have no clue why this is here tbh
+emptyLong(bool=true): creates an empty long
+jsonEqual(a, b): Checks if two json objects are the same
+opositeDirection(direction): Takes a direction value and changes it to the oposite
+arrayItemInArray(idk, idk): What the name says, I have no clue why this is here tbh
 ```
 
 ### Player
