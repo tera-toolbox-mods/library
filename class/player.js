@@ -83,7 +83,6 @@ class player{
                     this.inven.effects = [];
 
                     for(let item of inventoryBuffer) {
-                        if(!item.equipped) continue;
                         switch(item.slot) {
                             case 1:
                                 this.inven.weapon = true;
@@ -121,17 +120,17 @@ class player{
         dispatch.hook('S_ACTION_STAGE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_INSTANT_MOVE', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('C_PLAYER_LOCATION', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PLAYER_LOCATION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
-        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 1, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 1, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 1, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL_EX', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_PRESS_SKILL', 1, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_TARGETED_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL_EX', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PRESS_SKILL', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }
 

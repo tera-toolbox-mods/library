@@ -3,11 +3,11 @@ const path = require('path');
 const fs = require('fs');
 const Long = require("long");
 const Command = require('command');
-const request = require('request');
+
 
 class Library{
-    // I forgot why this :akashrug:
-    arrayItemInArray(a, b) {
+    // Checks if the items in array A, is in array b
+    arraysItemInArray(a, b) {
         for(let item of a) {
             if(b.includes(item)) return true;
         }
@@ -26,13 +26,22 @@ class Library{
         return new Long(0, 0, bool);
     }
 
+    objectLength(obj) {
+        return Object.keys(obj).length;
+    }
+
+    positionsIntersect(a, b, aRadius, bRadius) {
+        return Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2) < Math.pow((aRadius + bRadius), 2)
+    }
+
     getSkillInfo(id, usingMask=true) {
-        let skillId = id - usingMask ? 0x4000000 : 0;
+        let skillId = id - (usingMask ? 0x4000000 : 0);
         return {
-            raw: id + usingMask ? 0 : 0x4000000,
+            raw: id + (usingMask ? 0 : 0x4000000),
             id: skillId,
             skill: Math.floor(skillId / 10000),
-            sub: skillId % 100
+            sub: skillId % 100,
+            level: Math.floor(skillId / 100) % 100
         };
     }
 
@@ -44,13 +53,9 @@ class Library{
         return loc;
     }
 
-    sendRequest(url, data) {
-        request.post(url, {form: JSON.stringify(data)});
-    }
-
     // Might need rework?
-    saveFile(filePath, data) {
-        fs.writeFileSync(path.join(__dirname, filePath), JSON.stringify(data, null, "    "));
+    saveFile(filePath, data, dirname=__dirname) {
+        fs.writeFileSync(path.join(dirname, filePath), JSON.stringify(data, null, "    "));
     }
 
     getEvent(opcode, packetVersion, payload) {

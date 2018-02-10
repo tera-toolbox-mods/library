@@ -1,10 +1,21 @@
 {
   "files": {
-    "index.js": "30a3ddd8bc2e7957cbfa5704982f64fef49fcf146addb2a858dc3a8b60b38896",
+    "index.js": "e85c1fb7b5aa793bba87b0a0b1f122b808434876823ee8cce1c1c6e5526efe3a",
     "module.json": "36438fe8fe9759bd890de4d18f6113df57f1a5b763ec7cd3f4ddac732ea3a233",
     "README.md": "ef2729e4adf7e63ef990497fb1707238704859e0a85fbc9a4a45533bb471c41b",
-    "class/entity.js": "056701b5050c6d0a98a4ba342d6059c77b1743ded0023d9b97ce96b506daf992",
-    "class/library.js": "6a30b93496a3408842d62fe974991261fcaa9e1f89c9a12e7161e7723cf77201",
-    "class/player.js": "fd501787ea45465a09bc4a016f5268210e31dd187a6182cf123e84e9da5ad59f"
+    "class/effect.js": "f2c4248a74b9ef51102b64b6a44c44ac998a4bf7eac5a526abe28812caf87687",
+    "class/entity.js": "a212b068baedb8455e0ef2d0fccf1e54538f0b7deea9f8f678ac6b835947aa02",
+    "class/library.js": "45ccdee0dcfdc77b0b3e625a1125160d67d23783b16ac8c8657dae803d41bb9b",
+    "class/player.js": "33cd4e6b5f534c228d0c73533b5a6ed1142984aac977001c0be5ab9a6b8aaa2c"
+  },
+  "defs":{
+    "S_INSTANT_MOVE": 2,
+    "C_PLAYER_LOCATION": 2,
+    "S_SPAWN_NPC": 5,
+    "S_SPAWN_USER": 11,
+    "S_DESPAWN_NPC": 2,
+    "S_DESPAWN_USER": 3,
+    "S_NPC_LOCATION": 2,
+    "S_USER_LOCATION": 2
   }
 }

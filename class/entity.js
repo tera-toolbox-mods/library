@@ -24,7 +24,7 @@ class entity{
         this.isNearPlayer = (pos, playerRadius = 50, entityRadius = 50) => {
             for(let key in this.players) {
                 let entity = this.players[key];
-                if(Math.pow((entity.pos.x - pos.x), 2) + Math.pow((entity.pos.y - pos.y), 2) < Math.pow((playerRadius + entityRadius), 2)) return true;
+                if(mods.library.positionsIntersect(entity.pos, pos, playerRadius, entityRadius)) return true;
             }
             return false;
         }
@@ -33,7 +33,7 @@ class entity{
         this.isNearBoss = (pos, playerRadius = 50, entityRadius = 50) => {
             for(let key in this.mobs) {
                 let entity = this.mobs[key];
-                if(Math.pow((entity.pos.x - pos.x), 2) + Math.pow((entity.pos.y - pos.y), 2) < Math.pow((playerRadius + entityRadius), 2)) return true;
+                if(mods.library.positionsIntersect(entity.pos, pos, playerRadius, entityRadius)) return true;
             }
             return false;
         }

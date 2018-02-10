@@ -1,3 +1,4 @@
+const Command = require('command');
 const LOAD_MODULES = ['entity', 'player', 'library'];
 
 class Library{
@@ -14,6 +15,8 @@ class Library{
 				process.exit();
 			}
 		}
+		this.command = Command(dispatch);
+		this.cmd = this.command;
 	}
 }
 
