@@ -101,6 +101,13 @@ class entity{
         dispatch.hook('S_NPC_LOCATION', 2, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
         dispatch.hook('S_USER_LOCATION', 2, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
 
+        // Direction update
+        this.directionUpdate = (e) => {
+            let id = e.gameId.toString();
+            if(this.mobs[id]) this.mobs[id].pos.w = e.w;
+        }
+        dispatch.hook('S_CREATURE_ROTATE', 1, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
+
 
         // S_ACTION_STAGE / END location update
         // Make this update position "live" later on

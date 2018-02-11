@@ -62,8 +62,13 @@ class Library{
         return protocol.parse(this.version, opcode, packetVersion, payload);
     }
 
+    // Read a file
+    readFile(dirname, filePath) {
+        return fs.readFileSync(path.join(dirname, filePath));
+    }
+
     constructor(dispatch) {
-        dispatch.hook('S_CHECK_VERSION', ()=> this.version = dispatch.base.protocolVersion);
+        dispatch.hook('C_CHECK_VERSION', 1, e=> { this.version = e.version; });
         this.command = Command(dispatch);
         
         this.startSkillsPackets = [['C_START_SKILL', 3], 

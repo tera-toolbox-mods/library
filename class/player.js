@@ -30,10 +30,12 @@ class player{
 
         // Attack Speed & Stamina
         this.sPlayerStatUpdate = (e) => {
+            this.sPlayerStatUpdate = e;
             this.stamina = e.stamina;
             this.attackSpeed = e.attackSpeed;
             this.attackSpeedBonus = e.attackSpeedBonus;
-            this.aspd = (e.attackSpeed + e.attackSpeedBonus) / (this.job >= 8 ? 100 : e.attackSpeed);
+            this.aspdDivider = (this.job >= 8 ? 100 : e.attackSpeed);
+            this.aspd = (e.attackSpeed + e.attackSpeedBonus) / this.aspdDivider;
         }
         dispatch.hook('S_PLAYER_STAT_UPDATE', 8, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
@@ -54,6 +56,22 @@ class player{
         }
         dispatch.hook('S_MOUNT_VEHICLE', 1, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, true));
         dispatch.hook('S_UNMOUNT_VEHICLE', 1, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, false));
+
+        // Party
+        this.sPartyMemberList = (e) => {
+            this.playersInParty = [];
+			
+			for(let member of e.members){
+				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
+				if(!this.isMe(member.cid)) this.playersInParty.push(member.cid.toString());
+			}
+        }
+        dispatch.hook('S_PARTY_MEMBER_LIST', 5, this.sPartyMemberList);
+
+        this.sLeaveParty = (e) => {
+            this.playersInParty = [];
+        }
+        dispatch.hook('S_LEAVE_PARTY', this.sLeaveParty);
 
         // Alive
         this.sSpawnMe = (e) => {
