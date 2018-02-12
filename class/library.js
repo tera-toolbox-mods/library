@@ -68,7 +68,7 @@ class Library{
     }
 
     constructor(dispatch) {
-        dispatch.hook('C_CHECK_VERSION', 1, e=> { this.version = e.version; });
+        dispatch.hook('C_CHECK_VERSION', 1, {order: 100},()=> this.version = dispatch.base.protocolVersion);
         this.command = Command(dispatch);
         
         this.startSkillsPackets = [['C_START_SKILL', 3], 
