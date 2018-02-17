@@ -1,5 +1,5 @@
 const Command = require('command');
-const LOAD_MODULES = ['entity', 'player', 'library'];
+const LOAD_MODULES = ['entity', 'player', 'library', 'effect'];
 
 class Library{
 	constructor(dispatch) {

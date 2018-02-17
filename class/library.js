@@ -14,6 +14,10 @@ class Library{
         return false;
     }
 
+    dist3D(loc1, loc2) {
+        return Math.sqrt(Math.pow(loc2.x - loc1.x, 2) + Math.pow(loc2.y - loc1.y, 2) + Math.pow(loc2.z - loc1.z, 2))
+    }
+
     opositeDirection(direction) {
         return (direction + 2 * 32768) % (2 * 32768) - 32768;
     }

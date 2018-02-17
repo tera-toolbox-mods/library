@@ -56,6 +56,8 @@ class entity{
         // Entity spawned
         this.spawnEntity = (mob, e) => {
             let id = e.gameId.toString();
+            let job = (e.templateId - 10101) % 100;
+            let race = Math.floor((e.templateId - 10101) / 100);
     
             let data = {
                 pos: {
@@ -66,24 +68,47 @@ class entity{
                 },
                 info: {
                     huntingZoneId: e.huntingZoneId,
-                    templateId: e.templateId
-                }
+                    templateId: e.templateId,
+                    name: e.name,
+                    job: job,
+                    appearance: e.appearance,
+                    weapon: e.weapon,
+                    body: e.body,
+                    hand: e.hand,
+                    feet: e.feet,
+                    underwear: e.underwear,
+                    head: e.head,
+                    face: e.face,
+                    styleHead: e.styleHead,
+                    styleFace: e.styleFace,
+                    styleBack: e.styleBack,
+                    styleWeapon: e.styleWeapon,
+                    styleBody: e.styleBody,
+                    styleFootprint: e.styleFootprint,
+                    styleBodyDye: e.styleBodyDye,
+                    bodyDye: e.bodyDye
+                },
+                job,
+                race
             };
-    
-            if(mob) this.mobs[id] = data;
-            else this.players[id] = data;
+            
+            // relation(10 door), unk15 == isMob
+            if(mob && e.unk15) this.mobs[id] = data;
+            else if(!mob) this.players[id] = data;
         }
-        dispatch.hook('S_SPAWN_NPC', 5, this.spawnEntity.bind(null, true));
-        dispatch.hook('S_SPAWN_USER', 11, this.spawnEntity.bind(null, false));
+        dispatch.hook('S_SPAWN_NPC', 5, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_USER', 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
 
         // Entity despawned
         this.despawnEntity = (mob, e) => {
             let id = e.gameId.toString();
-            if(mob) delete this.mobs[id];
-            else delete this.players[id];
+            try{
+                if(mob) delete this.mobs[id];
+                else delete this.players[id];
+            }catch(e){}
         }
-        dispatch.hook('S_DESPAWN_NPC', 2, this.despawnEntity.bind(null, true));
-        dispatch.hook('S_DESPAWN_USER', 3, this.despawnEntity.bind(null, false));
+        dispatch.hook('S_DESPAWN_NPC', 2, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, true));
+        dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, false));
 
         // Move location update
         this.updatePosition = (mob, e) => {

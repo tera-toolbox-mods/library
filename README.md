@@ -31,9 +31,38 @@ Entity requires a mods object as a secondary argument when initilizing it.
 
 #### Variables
 ```JS
-players: An object with all the players in the area. each player object has two sub objects pos and info. Info isnt used for players, but for mobs
+players: An object with all the players in the area. each player object has two sub objects pos and info.
 
 mobs: see players aswell as info contains huntingZoneId and templateId
+
+pos:
+  x: x position of the entity
+  y: y position of the entity
+  z: z position of the entity
+  w: w value for the entity
+
+info:
+  huntingZoneId: The huntingZoneId for the entity (used for mobs mostly)
+  templateId: The templateId(modelId) for the entity.
+  name: The entities name.
+  job: The entities job. (Used for players mostly)
+  ---------- below is appearance information ----------
+  appearance
+  weapon
+  body
+  hand
+  feet
+  underwear
+  head
+  face
+  styleHead
+  styleFace
+  styleBack
+  styleWeapon
+  styleBody
+  styleFootprint
+  styleBodyDye
+  bodyDye
 ```
 #### Functions
 ```JS
@@ -59,11 +88,21 @@ version: The dispatch.base.protocolVersion after update
 #### Functions
 ```JS
 applyDistance(loc, distance): applies distance to a location object, then returns the object. 
+dist3D(loc1, loc2): Returns the distance between two points(x, y, z)
+opositeDirection(direction): Takes a direction value and changes it to the oposite
+positionsIntersect(a, b, aRadius, bRadius): I don't remember. returns true of two circles intersects? doesn't account for Z value
+
 getSkillInfo(id, usingMask): Get the info of a player skill. returns an object with 4 values. raw(actual skill id), id(unpacked skill id), skill(double digit skill) and sub(the skill sub "stage")
+
+getEvent(opcode, packetVersion, payload): Returns the event of a raw payload.
+
 emptyLong(bool=true): creates an empty long
 jsonEqual(a, b): Checks if two json objects are the same
-opositeDirection(direction): Takes a direction value and changes it to the oposite
+objectLength(obj): Returns the length of an object.
 arrayItemInArray(idk, idk): What the name says, I have no clue why this is here tbh
+
+saveFile(filePath, data, dirname): Saves a json file to filePath with the data data. the dirname variable needs to be passed __dirname
+readFile(dirname, filePath): Reads the context of a file and returns it.
 ```
 
 ### Player
@@ -79,13 +118,37 @@ alive: If the player is alive
 inven: An object containing two keys. weapon(does player have weapon equipped) and effects(active armor effects effecting client)
 loc/pos: x/y/z/w location of the player aswell as a update variable which tells when the position got updated
 stamina: How much stamina the player has left
+
 attackSpeed: The base attack speed of the player
 attackSpeedBonus: The bonus attack speed of the player
+aspdDivider: The value (attackSpeed + attackSpeedBonus) get's divided with to create aspd
 aspd: The attack speed of the player using a secret algorithm (Kappa)
 ```
 #### Functions
 ```
 isMe(arg): takes a long(int 64) argument and checks if it's equal to your player id/gameId
+```
+
+### Effect
+#### Variables
+```JS
+abnormals: 
+
+glyphs: 
+
+permanentBuffs: 
+```
+#### Functions
+```
+hasEffect(id): basically returns true if either of the three below is true
+
+hasAbnormality(id): Checks if the player has the abnormality id.
+hasGlyph(id): Checks if the player has the glyph id.
+hasBuff(id): Checks if the player has the "buff" id.
+
+getAbnormalities(): Returns all the abnormalities the player has
+getGlyphs(): Returns all the glyphs the player has
+getBuffs(): Returns all the "buffs" the player has
 ```
 
 ### Mods object
