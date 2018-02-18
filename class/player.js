@@ -13,6 +13,11 @@ class player{
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
         this.pos = {x: 0, y: 0, z: 0, w: 0, updated: 0};
+        // outfit/apperance info
+        this.outfit = {};
+        this.apperance = this.outfit;
+        this.appearance = this.outfit;
+        this.app = this.outfit;
 
         // Functions
         this.isMe = (arg) => arg.equals(this.gameId);
@@ -38,6 +43,12 @@ class player{
             this.aspd = (e.attackSpeed + e.attackSpeedBonus) / this.aspdDivider;
         }
         dispatch.hook('S_PLAYER_STAT_UPDATE', 8, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+
+        // Outfit information
+        this.sUserExternalChange = (e) => {
+            if(this.isMe(e.gameId)) Object.assign(this.outfit, e);
+        }
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Stamina
         this.sPlayerChangeStamina = (e) => {

@@ -1,11 +1,11 @@
 {
   "files": {
     "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
-    "README.md": "a756530e9e3d598a73cef6ef33417e453f521bf86bd844574a74d2fe87c34caa",
+    "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
     "class/effect.js": "abbff06cf393ff6b1fcc5d3df15893f8a320d689bae1d26d51d6eaab20159945",
-    "class/entity.js": "679d9b52b735675b87975f92a3e768818be479248aee922fece63c1d2ccd1669",
-    "class/library.js": "3245f0d54f6493045901e78223ddd8e048c9eceb2f565be60080f37e6ade30f3",
-    "class/player.js": "2e48f528b752ba6014b9842fd7a8a0c9c7248a549f3d6fa23b09a9868490b76a"
+    "class/entity.js": "1149569f0c25e0e7d2e8cbc319d2d6ab40267c9fccdca89f9684346821836f31",
+    "class/library.js": "e5a9f0c62d3424d212296a8e027cca4747a52663179f1d127f507059cc137d1a",
+    "class/player.js": "7a1641c6e50130aa90beb984267797f626f38b50d75cd94ae8b4253634ff1d8c"
   },
   "defs":{
     "C_CHECK_VERSION": 1,

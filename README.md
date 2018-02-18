@@ -31,38 +31,39 @@ Entity requires a mods object as a secondary argument when initilizing it.
 
 #### Variables
 ```JS
-players: An object with all the players in the area. each player object has two sub objects pos and info.
+players/mobs: Contains the information below -- accessed by their gameId
 
-mobs: see players aswell as info contains huntingZoneId and templateId
+  pos:
+    x: x position of the entity
+    y: y position of the entity
+    z: z position of the entity
+    w: w value for the entity
 
-pos:
-  x: x position of the entity
-  y: y position of the entity
-  z: z position of the entity
-  w: w value for the entity
+  info:
+    huntingZoneId: The huntingZoneId for the entity (used for mobs mostly)
+    templateId: The templateId(modelId) for the entity.
 
-info:
-  huntingZoneId: The huntingZoneId for the entity (used for mobs mostly)
-  templateId: The templateId(modelId) for the entity.
   name: The entities name.
   job: The entities job. (Used for players mostly)
+  race: The entities race. (Used for players mostly)
   ---------- below is appearance information ----------
-  appearance
-  weapon
-  body
-  hand
-  feet
-  underwear
-  head
-  face
-  styleHead
-  styleFace
-  styleBack
-  styleWeapon
-  styleBody
-  styleFootprint
-  styleBodyDye
-  bodyDye
+  outfit/app/apperance/appearance: (passed by reference)
+    appearance
+    weapon
+    body
+    hand
+    feet
+    underwear
+    head
+    face
+    styleHead
+    styleFace
+    styleBack
+    styleWeapon
+    styleBody
+    styleFootprint
+    styleBodyDye
+    bodyDye
 ```
 #### Functions
 ```JS
@@ -95,6 +96,7 @@ positionsIntersect(a, b, aRadius, bRadius): I don't remember. returns true of tw
 getSkillInfo(id, usingMask): Get the info of a player skill. returns an object with 4 values. raw(actual skill id), id(unpacked skill id), skill(double digit skill) and sub(the skill sub "stage")
 
 getEvent(opcode, packetVersion, payload): Returns the event of a raw payload.
+getPayload(opcode, packetVersion, data): Returns the raw payload of an event
 
 emptyLong(bool=true): creates an empty long
 jsonEqual(a, b): Checks if two json objects are the same
@@ -123,6 +125,25 @@ attackSpeed: The base attack speed of the player
 attackSpeedBonus: The bonus attack speed of the player
 aspdDivider: The value (attackSpeed + attackSpeedBonus) get's divided with to create aspd
 aspd: The attack speed of the player using a secret algorithm (Kappa)
+
+---------- below is appearance information ----------
+outfit/app/apperance/appearance: (passed by reference)
+  appearance
+  weapon
+  body
+  hand
+  feet
+  underwear
+  head
+  face
+  styleHead
+  styleFace
+  styleBack
+  styleWeapon
+  styleBody
+  styleFootprint
+  styleBodyDye
+  bodyDye
 ```
 #### Functions
 ```

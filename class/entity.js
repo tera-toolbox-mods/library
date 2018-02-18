@@ -58,8 +58,28 @@ class entity{
             let id = e.gameId.toString();
             let job = (e.templateId - 10101) % 100;
             let race = Math.floor((e.templateId - 10101) / 100);
+
+            let outfit = {
+                appearance: e.appearance,
+                weapon: e.weapon,
+                body: e.body,
+                hand: e.hand,
+                feet: e.feet,
+                underwear: e.underwear,
+                head: e.head,
+                face: e.face,
+                styleHead: e.styleHead,
+                styleFace: e.styleFace,
+                styleBack: e.styleBack,
+                styleWeapon: e.styleWeapon,
+                styleBody: e.styleBody,
+                styleFootprint: e.styleFootprint,
+                styleBodyDye: e.styleBodyDye,
+                bodyDye: e.bodyDye
+            };
     
             let data = {
+                name: e.name,
                 pos: {
                     x: e.x,
                     y: e.y,
@@ -68,26 +88,12 @@ class entity{
                 },
                 info: {
                     huntingZoneId: e.huntingZoneId,
-                    templateId: e.templateId,
-                    name: e.name,
-                    job: job,
-                    appearance: e.appearance,
-                    weapon: e.weapon,
-                    body: e.body,
-                    hand: e.hand,
-                    feet: e.feet,
-                    underwear: e.underwear,
-                    head: e.head,
-                    face: e.face,
-                    styleHead: e.styleHead,
-                    styleFace: e.styleFace,
-                    styleBack: e.styleBack,
-                    styleWeapon: e.styleWeapon,
-                    styleBody: e.styleBody,
-                    styleFootprint: e.styleFootprint,
-                    styleBodyDye: e.styleBodyDye,
-                    bodyDye: e.bodyDye
+                    templateId: e.templateId
                 },
+                apperance: outfit,
+                appearance: outfit,
+                app: outfit,
+                outfit,
                 job,
                 race
             };
@@ -98,6 +104,13 @@ class entity{
         }
         dispatch.hook('S_SPAWN_NPC', 5, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
         dispatch.hook('S_SPAWN_USER', 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
+
+        // Apperance/outfit update
+        this.sUserExternalChange = (e) => {
+            let id = e.gameId.toString();
+            if(this.players[id]) Object.assign(this.players[id].outfit, e);
+        }
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Entity despawned
         this.despawnEntity = (mob, e) => {

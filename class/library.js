@@ -57,13 +57,16 @@ class Library{
         return loc;
     }
 
-    // Might need rework?
     saveFile(filePath, data, dirname=__dirname) {
         fs.writeFileSync(path.join(dirname, filePath), JSON.stringify(data, null, "    "));
     }
 
     getEvent(opcode, packetVersion, payload) {
         return protocol.parse(this.version, opcode, packetVersion, payload);
+    }
+
+    getPayload(opcode, packetVersion, data) {
+        return protocol.write(this.version, opcode, packetVersion, data);
     }
 
     // Read a file
@@ -84,14 +87,11 @@ class Library{
                                     ['C_NOTIMELINE_SKILL', 1]];
 
         this.sp = false;
-        try{
-            require('skill-prediction');
-            this.sp = true;
-        }catch(e) {
-            try{
-                require('skill-prediction-master');
+        for(let x of ['skill-prediction', 'skill-prediction-master', 'sp', 'sp-master']) {
+            try {
+                require(x);
                 this.sp = true;
-            }catch(e) {}
+            }catch(e){}
         }
     }
 }
