@@ -20,7 +20,14 @@ class player{
         this.app = this.outfit;
 
         // Functions
-        this.isMe = (arg) => arg.equals(this.gameId);
+        this.isMe = (arg) => {
+            try {
+                return arg.equals(this.gameId);
+            }catch(e) {
+                console.log(`[Error] library.player. gameId = ${this.gameId} | arg = ${arg}`);
+                return false;
+            }
+        }
 
         // Login
         this.sLogin = (e) => {
