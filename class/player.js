@@ -24,7 +24,7 @@ class player{
             try {
                 return arg.equals(this.gameId);
             }catch(e) {
-                console.log(`[Error] library.player. gameId = ${this.gameId} | arg = ${arg}`);
+                console.log(`[Error] library.player.gameId = ${this.gameId} | arg = ${arg}`);
                 return false;
             }
         }
@@ -43,12 +43,21 @@ class player{
 
         // Attack Speed & Stamina
         this.sPlayerStatUpdate = (e) => {
-            this.sPlayerStatUpdate = e;
+            //this.sPlayerStatUpdate = e;
             this.stamina = e.stamina;
+            // Attack speed
             this.attackSpeed = e.attackSpeed;
             this.attackSpeedBonus = e.attackSpeedBonus;
             this.aspdDivider = (this.job >= 8 ? 100 : e.attackSpeed);
             this.aspd = (e.attackSpeed + e.attackSpeedBonus) / this.aspdDivider;
+            // movement speed
+            this.msWalk = e.walkSpeed + e.walkSpeedBonus;
+            this.msWalkBase = e.walkSpeed;
+            this.msWalkBonus = e.walkSpeedBonus;
+
+            this.msRun = e.runSpeed + e.runSpeedBonus;
+            this.msRunBase = e.runSpeed
+            this.msRunBonus = e.runSpeedBonus;
         }
         dispatch.hook('S_PLAYER_STAT_UPDATE', 8, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
