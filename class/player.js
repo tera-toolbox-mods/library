@@ -37,6 +37,7 @@ class player{
 
             this.race = Math.floor((e.templateId - 10101) / 100);
             this.job = (e.templateId - 10101) % 100;
+            this.name = e.name;
         }
         dispatch.hook('S_LOGIN', 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
 
