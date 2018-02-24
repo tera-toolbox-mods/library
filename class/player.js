@@ -18,6 +18,8 @@ class player{
         this.apperance = this.outfit;
         this.appearance = this.outfit;
         this.app = this.outfit;
+        // zone information
+        this.zone = -1;
 
         // Functions
         this.isMe = (arg) => {
@@ -76,6 +78,7 @@ class player{
         // Mount
         this.sLoadTopo = (e) => {
             this.onMount = false;
+            this.zone = e.zone;
         }
         dispatch.hook('S_LOAD_TOPO', DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
 

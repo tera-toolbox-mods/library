@@ -64,6 +64,7 @@ class Effect{
                 this.abnormals[e.id] = false;
             }
         }
+        dispatch.hook('S_ABNORMALITY_END', 1, DEFAULT_HOOK_SETTINGS, this.abnormalityEnd);
     }
 }
 

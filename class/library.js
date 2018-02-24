@@ -4,7 +4,6 @@ const fs = require('fs');
 const Long = require("long");
 const Command = require('command');
 
-
 class Library{
     // Checks if the items in array A, is in array b
     arraysItemInArray(a, b) {
@@ -16,6 +15,10 @@ class Library{
 
     dist3D(loc1, loc2) {
         return Math.sqrt(Math.pow(loc2.x - loc1.x, 2) + Math.pow(loc2.y - loc1.y, 2) + Math.pow(loc2.z - loc1.z, 2))
+    }
+
+    getDirectionTo(fromPos, toPos) {
+        return Math.atan2(toPos.y - fromPos.y, toPos.x - fromPos.x) * 0x8000 / Math.PI;
     }
 
     opositeDirection(direction) {
@@ -38,14 +41,32 @@ class Library{
         return Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2) < Math.pow((aRadius + bRadius), 2)
     }
 
-    getSkillInfo(id, usingMask=true) {
-        let skillId = id - (usingMask ? 0x4000000 : 0);
+    getSkillInfo(id, usingMask=true, bossSkill=false) {
+        let skillId;
+        let raw;
+        let skill;
+        let sub;
+        let level;
+        if(bossSkill) {
+            skillId = parseInt('0x' + id.toString(16).slice(-4));
+            raw = id;
+            skill =  Math.floor(skillId / 100);
+            level = 1;
+        }else {
+            skillId = id - (usingMask ? 0x4000000 : 0);
+            raw = id + (usingMask ? 0 : 0x4000000);
+            skill = Math.floor(skillId / 10000);
+            level = Math.floor(skillId / 100) % 100
+        }
+        sub = skillId % 100;
+        id = skillId;
+
         return {
-            raw: id + (usingMask ? 0 : 0x4000000),
-            id: skillId,
-            skill: Math.floor(skillId / 10000),
-            sub: skillId % 100,
-            level: Math.floor(skillId / 100) % 100
+            raw,
+            id,
+            skill,
+            sub,
+            level
         };
     }
 
