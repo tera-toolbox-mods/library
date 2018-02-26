@@ -95,8 +95,77 @@ class Library{
         return fs.readFileSync(path.join(dirname, filePath));
     }
 
+    /* Caali™
+        Converts a string coming from for example S_SYSTEM_MESSAGE like this:
+        '@5678 [0x0B] ItemName [0x0B] @item:123456 [0x0B] ItemAmount [0x0B] 5'
+        to an easily usable object like this:
+        {
+            'id': 'SMT_DO_RANDOM_STUFF',
+            'tokens': {
+                'ItemName': '@item:123456',
+                'ItemAmount': 5,
+            }
+        }
+    */
+    parseSystemMessage(message) {
+        // TODO: this just works(TM) but is really ugly...
+        // Split tokens
+        let tokenstrings = message.split('\x0B');
+        if(tokenstrings.length == 0)
+            return null;
+
+        // Get SMT_ ID
+        let msgId = tokenstrings[0];
+        if(msgId.charAt(0) != '@')
+            return null;
+        msgId = this.sysmsgMap.code.get(parseInt(msgId.substring(1)));
+        if(!msgId)
+            return null;
+
+        // Convert tokens to dictionary
+        if(tokenstrings.length % 2 != 1)
+            return null;
+        let tokens = {};
+        for(let i = 1; i < tokenstrings.length; i += 2)
+            tokens[tokenstrings[i]] = tokenstrings[i+1];
+
+        return {id: msgId, tokens: tokens};
+    }
+
+    /* Caali™
+        Converts something like this:
+        {
+            'id': 'SMT_DO_RANDOM_STUFF',
+            'tokens': {
+                'ItemName': '@item:123456',
+                'ItemAmount': 5,
+            }
+        }
+        to a string usable for S_SYSTEM_MESSAGE like this:
+        '@5678 [0x0B] ItemName [0x0B] @item:123456 [0x0B] ItemAmount [0x0B] 5'
+    */
+    buildSystemMessage(message) {
+        if(!message || !message['id'] || !message['tokens'])
+            return null;
+
+        let msgId = this.sysmsgMap.name.get(message['id']);
+        if(!msgId)
+            return null;
+
+        return `@${msgId}\x0B` + Object.entries(message['tokens']).map(([k, v]) => `${k}\x0B${v}`).join('\x0B');
+    }
+
     constructor(dispatch) {
-        dispatch.hook('C_CHECK_VERSION', 1, {order: 100},()=> this.version = dispatch.base.protocolVersion);
+        dispatch.hook('C_CHECK_VERSION', 1, {order: 100, filter: {fake: null}},()=> {
+            this.version = dispatch.base.protocolVersion;
+            this.protocolVersion = dispatch.base.protocolVersion;
+            this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
+        });
+        try {
+            this.version = dispatch.base.protocolVersion;
+            this.protocolVersion = dispatch.base.protocolVersion;
+            this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
+        }catch(e) {}
         this.command = Command(dispatch);
         
         this.startSkillsPackets = [['C_START_SKILL', 3], 

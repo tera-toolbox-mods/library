@@ -13,6 +13,8 @@ class player{
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
         this.pos = {x: 0, y: 0, z: 0, w: 0, updated: 0};
+        // Is the player moving?
+        this.moving = false;
         // outfit/apperance info
         this.outfit = {};
         this.apperance = this.outfit;
@@ -20,6 +22,8 @@ class player{
         this.app = this.outfit;
         // zone information
         this.zone = -1;
+        // List over players in party
+        this.playersInParty = [];
 
         // Functions
         this.isMe = (arg) => {
@@ -151,6 +155,11 @@ class player{
             }
         }
         dispatch.hook('S_INVEN', 11, {filter: {fake: null}, order: 1000}, this.sInven);
+
+        // Player moving
+        dispatch.hook('C_PLAYER_LOCATION', 2, DEFAULT_HOOK_SETTINGS, e=> {
+            this.moving = e.type !== 7;
+        });
 
         // Player location
         this.handleMovement = (serverPacket, e) => {
