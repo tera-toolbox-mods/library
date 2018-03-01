@@ -168,7 +168,7 @@ class player{
                     x: e.x,
                     y: e.y,
                     z: e.z,
-                    w: e.w,
+                    w: e.w || this.loc.w,
                     updated: Date.now()
                 };
                 this.loc = loc;

@@ -98,8 +98,8 @@ class entity{
                 race
             };
             
-            // relation(10 door), unk15 == isMob
-            if(mob && e.unk15) this.mobs[id] = data;
+            // relation(10 door), unk15 == isMob, relation(12 for special cases)
+            if(mob && (e.unk15 || e.relation == 12)) this.mobs[id] = data;
             else if(!mob) this.players[id] = data;
         }
         dispatch.hook('S_SPAWN_NPC', 5, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
