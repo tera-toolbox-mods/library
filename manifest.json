@@ -16,6 +16,7 @@
     "S_DESPAWN_NPC": 2,
     "S_DESPAWN_USER": 3,
     "S_NPC_LOCATION": 2,
-    "S_USER_LOCATION": 2
+    "S_USER_LOCATION": 2,
+    "S_USER_EXTERNAL_CHANGE": [4, 5]
   }
 }
