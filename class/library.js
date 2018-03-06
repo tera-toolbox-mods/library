@@ -90,6 +90,10 @@ class Library{
         return protocol.write(this.version, opcode, packetVersion, data);
     }
 
+    getPacketInformation(identifier) {
+        return protocol.resolveIdentifier(this.version, identifier);
+    }
+
     // Read a file
     readFile(dirname, filePath) {
         return fs.readFileSync(path.join(dirname, filePath));
