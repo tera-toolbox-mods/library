@@ -1,22 +1,114 @@
 {
-  "files": {
-    "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
-    "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
-    "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-    "class/entity.js": "8f5efdad8f864185e5024b2224ac555c72e32450d64056d614f7fed8d3638528",
-    "class/library.js": "500835cafe28d7ea62e7a856e7674181755abbc6e9ae4e86cbb9ade4a28575f4",
-    "class/player.js": "810a2b1cc55b53ebab24933d39a1998ee868d6c90dcf4e195cd4780ccc801b0c"
-  },
-  "defs":{
-    "C_CHECK_VERSION": 1,
-    "S_INSTANT_MOVE": 2,
-    "C_PLAYER_LOCATION": 2,
-    "S_SPAWN_NPC": [5, 6],
-    "S_SPAWN_USER": [11, 12],
-    "S_DESPAWN_NPC": 2,
-    "S_DESPAWN_USER": 3,
-    "S_NPC_LOCATION": 2,
-    "S_USER_LOCATION": 2,
-    "S_USER_EXTERNAL_CHANGE": [4, 5]
-  }
+    "files": {
+        "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
+        "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
+        "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
+        "class/entity.js": "8f5efdad8f864185e5024b2224ac555c72e32450d64056d614f7fed8d3638528",
+        "class/library.js": "500835cafe28d7ea62e7a856e7674181755abbc6e9ae4e86cbb9ade4a28575f4",
+        "class/player.js": "810a2b1cc55b53ebab24933d39a1998ee868d6c90dcf4e195cd4780ccc801b0c"
+    },
+    "defs": {
+        "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
+            1
+        ],
+        "S_CREST_INFO": [
+            1
+        ],
+        "S_CREST_APPLY": [
+            1
+        ],
+        "S_ABNORMALITY_BEGIN": [
+            2
+        ],
+        "S_ABNORMALITY_REFRESH": [
+            1
+        ],
+        "C_CHECK_VERSION": [
+            1
+        ],
+        "S_DESPAWN_NPC": [
+            2
+        ],
+        "S_DESPAWN_USER": [
+            3
+        ],
+        "S_NPC_LOCATION": [
+            2
+        ],
+        "S_USER_LOCATION": [
+            2
+        ],
+        "S_CREATURE_ROTATE": [
+            1
+        ],
+        "S_LOGIN": [
+            9
+        ],
+        "S_PLAYER_STAT_UPDATE": [
+            8
+        ],
+        "S_USER_EXTERNAL_CHANGE": [
+            4,
+            5
+        ],
+        "S_PLAYER_CHANGE_STAMINA": [
+            1
+        ],
+        "S_UNMOUNT_VEHICLE": [
+            1
+        ],
+        "S_PARTY_MEMBER_LIST": [
+            5
+        ],
+        "S_USER_STATUS": [
+            1
+        ],
+        "S_INVEN": [
+            11
+        ],
+        "C_PLAYER_LOCATION": [
+            2
+        ],
+        "S_ACTION_STAGE": [
+            3
+        ],
+        "S_ACTION_END": [
+            2
+        ],
+        "S_INSTANT_MOVE": [
+            2
+        ],
+        "C_NOTIFY_LOCATION_IN_ACTION": [
+            1
+        ],
+        "C_NOTIFY_LOCATION_IN_DASH": [
+            1
+        ],
+        "C_START_SKILL": [
+            3
+        ],
+        "C_START_TARGETED_SKILL": [
+            3
+        ],
+        "C_START_COMBO_INSTANT_SKILL": [
+            1
+        ],
+        "C_START_INSTANCE_SKILL": [
+            2
+        ],
+        "C_START_INSTANCE_SKILL_EX": [
+            2
+        ],
+        "C_PRESS_SKILL": [
+            1
+        ],
+        "S_SPAWN_NPC": [
+            5,
+            6
+        ],
+        "S_SPAWN_USER": [
+            11,
+            12
+        ]
+    }
 }
