@@ -3,7 +3,7 @@
     "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
     "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
     "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-    "class/entity.js": "d2f31ab0c6333ae16b012a43e8f1d7fca59125fb529a18ef3f06f50c51ee7e32",
+    "class/entity.js": "8f5efdad8f864185e5024b2224ac555c72e32450d64056d614f7fed8d3638528",
     "class/library.js": "500835cafe28d7ea62e7a856e7674181755abbc6e9ae4e86cbb9ade4a28575f4",
     "class/player.js": "810a2b1cc55b53ebab24933d39a1998ee868d6c90dcf4e195cd4780ccc801b0c"
   },
@@ -11,7 +11,7 @@
     "C_CHECK_VERSION": 1,
     "S_INSTANT_MOVE": 2,
     "C_PLAYER_LOCATION": 2,
-    "S_SPAWN_NPC": 5,
+    "S_SPAWN_NPC": [5, 6],
     "S_SPAWN_USER": [11, 12],
     "S_DESPAWN_NPC": 2,
     "S_DESPAWN_USER": 3,
