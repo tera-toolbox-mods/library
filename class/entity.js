@@ -90,6 +90,7 @@ class entity{
                     huntingZoneId: e.huntingZoneId,
                     templateId: e.templateId
                 },
+                gameId: e.gameId,
                 apperance: outfit,
                 appearance: outfit,
                 app: outfit,
@@ -103,19 +104,14 @@ class entity{
             else if(!mob) this.players[id] = data;
         }
         dispatch.hook('S_SPAWN_NPC', 5, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_USER', (dispatch.base.majorPatchVersion >= 66) ? 12 : 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
 
         // Apperance/outfit update
         this.sUserExternalChange = (e) => {
             let id = e.gameId.toString();
             if(this.players[id]) Object.assign(this.players[id].outfit, e);
         }
-
-        // Temp hook installment
-        dispatch.hook('C_CHECK_VERSION', 1, e=> {
-            dispatch.hook('S_SPAWN_USER', [328427, 328305].includes(dispatch.base.protocolVersion) ? 12 : 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-
-            dispatch.hook('S_USER_EXTERNAL_CHANGE', [328427, 328305].includes(dispatch.base.protocolVersion) ? 5 : 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
-        });
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', (dispatch.base.majorPatchVersion >= 66) ? 5 : 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Entity despawned
         this.despawnEntity = (mob, e) => {
