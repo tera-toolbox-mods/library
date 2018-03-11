@@ -38,7 +38,8 @@ class Library{
     }
 
     positionsIntersect(a, b, aRadius, bRadius) {
-        return Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2) < Math.pow((aRadius + bRadius), 2)
+        let sum = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
+        return (Math.pow((aRadius - bRadius), 2) <= sum && sum <= Math.pow((aRadius + bRadius), 2));
     }
 
     getSkillInfo(id, usingMask=true, bossSkill=false) {
