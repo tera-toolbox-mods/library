@@ -99,9 +99,44 @@ class entity{
                 race
             };
             
-            // relation(10 door), unk15 == isMob, relation(12 for special cases)
-            if(mob && (e.unk15 || e.relation == 12)) this.mobs[id] = data;
+            // relation(10 door), unk15 == isMob, relation(12 for special cases), rel = 10 & spawnType = 1 == HW dummy
+            if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = data;
             else if(!mob) this.players[id] = data;
+
+            /*
+            { 
+                gameId: Long { low: 372719, high: 1146880, unsigned: true },
+                target: Long { low: 0, high: 0, unsigned: true },
+                loc: Vec3 { x: 23319.291015625, y: 1357.065673828125, z: 6261.15625 },
+                w: 2.338649584930903,
+                relation: 10,
+                templateId: 9997,
+                huntingZoneId: 183,
+                unk4: 0,
+                unk5: 0,
+                unk6: 0,
+                unk7: 5,
+                visible: true,
+                villager: false,
+                spawnType: 1,
+                unk11: Long { low: 0, high: 0, unsigned: true },
+                unk12: 0,
+                unk13: 0,
+                unk14: 0,
+                unk15: 0,
+                owner: Long { low: 0, high: 0, unsigned: true },
+                unk16: 0,
+                unk17: 0,
+                unk18: Long { low: 0, high: 0, unsigned: true },
+                unk19: 0,
+                unk20: 16777216,
+                unk25: 16777216,
+                unk22: [],
+                unk24: [],
+                npcName: '허수아비' 
+            }
+            
+            */
         }
 
         // Apperance/outfit update
