@@ -81,10 +81,10 @@ class entity{
             let data = {
                 name: e.name,
                 pos: {
-                    x: (dispatch.base.majorPatchVersion >= 66) ? e.loc.x : e.x,
-                    y: (dispatch.base.majorPatchVersion >= 66) ? e.loc.y : e.y,
-                    z: (dispatch.base.majorPatchVersion >= 66) ? e.loc.z : e.z,
-                    w: (dispatch.base.majorPatchVersion >= 66) ? e.w * 0x8000 * Math.PI : e.w
+                    x: e.loc.x,
+                    y: e.loc.y,
+                    z: e.loc.z,
+                    w: e.w * 0x8000 * Math.PI
                 },
                 info: {
                     huntingZoneId: e.huntingZoneId,
@@ -138,20 +138,15 @@ class entity{
             
             */
         }
+        dispatch.hook('S_SPAWN_USER', 12, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
+        dispatch.hook('S_SPAWN_NPC', 6, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Apperance/outfit update
         this.sUserExternalChange = (e) => {
             let id = e.gameId.toString();
             if(this.players[id]) Object.assign(this.players[id].outfit, e);
         }
-        
-
-        // temp hook installment
-        dispatch.hook('C_CHECK_VERSION', 1, e=> {
-            dispatch.hook('S_USER_EXTERNAL_CHANGE', (dispatch.base.majorPatchVersion >= 66) ? 5 : 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
-            dispatch.hook('S_SPAWN_USER', (dispatch.base.majorPatchVersion >= 66) ? 12 : 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-            dispatch.hook('S_SPAWN_NPC', (dispatch.base.majorPatchVersion >= 66) ? 6 : 5, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
-        });
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', 5, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Entity despawned
         this.despawnEntity = (mob, e) => {

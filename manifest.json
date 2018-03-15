@@ -3,7 +3,7 @@
         "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "255bf101d305fef6277e5ff9edf27ec64aa1f4f956d878b646361e0e8c3bc671",
+        "class/entity.js": "b50cae100da61e8532ef1336ae7115cbb2ebae883bba19357750e5e46f0929f3",
         "class/library.js": "712a4ddc79868397cf52b7ef57f2c7348bbf086ff9ff629b12e0bad93db3a3b7",
         "class/player.js": "810a2b1cc55b53ebab24933d39a1998ee868d6c90dcf4e195cd4780ccc801b0c"
     },
@@ -23,8 +23,15 @@
         "S_ABNORMALITY_REFRESH": [
             1
         ],
-        "C_CHECK_VERSION": [
-            1
+        "S_SPAWN_USER": [
+            12
+        ],
+        "S_SPAWN_NPC": [
+            6
+        ],
+        "S_USER_EXTERNAL_CHANGE": [
+            4,
+            5
         ],
         "S_DESPAWN_NPC": [
             2
@@ -41,15 +48,14 @@
         "S_CREATURE_ROTATE": [
             1
         ],
+        "C_CHECK_VERSION": [
+            1
+        ],
         "S_LOGIN": [
             9
         ],
         "S_PLAYER_STAT_UPDATE": [
             8
-        ],
-        "S_USER_EXTERNAL_CHANGE": [
-            4,
-            5
         ],
         "S_PLAYER_CHANGE_STAMINA": [
             1
@@ -101,14 +107,6 @@
         ],
         "C_PRESS_SKILL": [
             1
-        ],
-        "S_SPAWN_NPC": [
-            5,
-            6
-        ],
-        "S_SPAWN_USER": [
-            11,
-            12
         ]
     }
 }
