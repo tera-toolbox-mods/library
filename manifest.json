@@ -54,7 +54,8 @@
             9
         ],
         "C_START_SKILL": [
-            3
+            3,
+            4
         ],
         "S_PLAYER_STAT_UPDATE": [
             8
@@ -106,10 +107,6 @@
         ],
         "C_PRESS_SKILL": [
             1
-        ],
-        "C_START_SKILL": [	
-            3,
-            4
-        ],
+        ]
     }
 }
