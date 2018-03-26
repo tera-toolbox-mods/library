@@ -3,9 +3,9 @@
         "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "b50cae100da61e8532ef1336ae7115cbb2ebae883bba19357750e5e46f0929f3",
-        "class/library.js": "003020621368117b1a7a2a7575ebb179af1c676b1e9ea9fd5a1262e20f3f02df",
-        "class/player.js": "810a2b1cc55b53ebab24933d39a1998ee868d6c90dcf4e195cd4780ccc801b0c"
+        "class/entity.js": "8954a8e452d3e4f23ee41bbbff69ae7fdb8edd4d7f1e205c603b59ed2cce4691",
+        "class/library.js": "c53c75de009939b7353f6a973198752ec97c65aba21d18c63b360e0e00636984",
+        "class/player.js": "9c9aba02998664c87e69365d3963b09589611543152b2dcde7b6df6b8e91f47c"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -31,7 +31,8 @@
         ],
         "S_USER_EXTERNAL_CHANGE": [
             4,
-            5
+            5,
+            6
         ],
         "S_DESPAWN_NPC": [
             2
@@ -53,6 +54,9 @@
         ],
         "S_LOGIN": [
             9
+        ],
+        "C_START_SKILL": [
+            3
         ],
         "S_PLAYER_STAT_UPDATE": [
             8
@@ -89,9 +93,6 @@
         ],
         "C_NOTIFY_LOCATION_IN_DASH": [
             1
-        ],
-        "C_START_SKILL": [
-            3
         ],
         "C_START_TARGETED_SKILL": [
             3

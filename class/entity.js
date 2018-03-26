@@ -1,4 +1,5 @@
 const DEFAULT_HOOK_SETTINGS = {order: -1000, filter: {fake: null}};
+const Vec3 = require('tera-vec3');
 
 class entity{
     constructor(dispatch, mods) {
@@ -77,15 +78,12 @@ class entity{
                 styleBodyDye: e.styleBodyDye,
                 bodyDye: e.bodyDye
             };
+
+            let pos = e.loc;
+            pos.w = e.w * 0x8000 * Math.PI;
     
             let data = {
                 name: e.name,
-                pos: {
-                    x: e.loc.x,
-                    y: e.loc.y,
-                    z: e.loc.z,
-                    w: e.w * 0x8000 * Math.PI
-                },
                 info: {
                     huntingZoneId: e.huntingZoneId,
                     templateId: e.templateId
@@ -96,7 +94,8 @@ class entity{
                 app: outfit,
                 outfit,
                 job,
-                race
+                race,
+                pos
             };
             
             // relation(10 door), unk15 == isMob, relation(12 for special cases), rel = 10 & spawnType = 1 == HW dummy
@@ -146,7 +145,7 @@ class entity{
             let id = e.gameId.toString();
             if(this.players[id]) Object.assign(this.players[id].outfit, e);
         }
-        dispatch.hook('S_USER_EXTERNAL_CHANGE', 5, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', 6, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Entity despawned
         this.despawnEntity = (mob, e) => {
@@ -162,12 +161,13 @@ class entity{
         // Move location update
         this.updatePosition = (mob, e) => {
             let id = e.gameId.toString();
-            let pos = {
-                x: ((e.toX || e.x) + e.x) / 2,
-                y: ((e.toY || e.y) + e.y) / 2,
-                z: ((e.toZ || e.z) + e.z) / 2,
-                w: e.w
-            };
+
+            let pos = new Vec3(
+                ((e.toX || e.x) + e.x) / 2,
+                ((e.toY || e.y) + e.y) / 2,
+                ((e.toZ || e.z) + e.z) / 2
+            );
+            pos.w = e.w;
     
             if(mob && this.mobs[id]) this.mobs[id].pos = pos;
             else if(!mob && this.players[id]) this.players[id].pos = pos;
@@ -189,12 +189,13 @@ class entity{
             let id = e.gameId.toString();
             let mob = (this.mobs[id] != undefined);
     
-            let pos = {
+            let pos = new Vec3({
                 x: e.x,
                 y: e.y,
-                z: e.z, 
-                w: e.w
-            };
+                z: e.z
+            });
+            pos.w = e.w;
+            
             if(e.movement) {
                 let distance = 0;
                 for(let idx in e.movement){

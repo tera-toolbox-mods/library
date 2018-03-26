@@ -1,4 +1,5 @@
-const DEFAULT_HOOK_SETTINGS = {order: -1000, filter: {fake: null}};
+const DEFAULT_HOOK_SETTINGS = {order: -1001, filter: {fake: null}};
+const Vec3 = require('tera-vec3');
 
 class player{
     constructor(dispatch, mods) {
@@ -35,6 +36,12 @@ class player{
             }
         }
 
+        // Temp hook installment
+        dispatch.hook('C_CHECK_VERSION', 1, e=> {
+            dispatch.hook('S_LOGIN', dispatch.base.majorPatchVersion >= 67 ? 10 : 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
+            dispatch.hook('C_START_SKILL', dispatch.base.majorPatchVersion >= 67 ? 4 : 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        });
+
         // Login
         this.sLogin = (e) => {
             this.gameId = e.gameId;
@@ -45,7 +52,7 @@ class player{
             this.job = (e.templateId - 10101) % 100;
             this.name = e.name;
         }
-        dispatch.hook('S_LOGIN', 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        //dispatch.hook('S_LOGIN', 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
 
         // Attack Speed & Stamina
         this.sPlayerStatUpdate = (e) => {
@@ -71,7 +78,7 @@ class player{
         this.sUserExternalChange = (e) => {
             if(this.isMe(e.gameId)) Object.assign(this.outfit, e);
         }
-        dispatch.hook('S_USER_EXTERNAL_CHANGE', 4, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
+        dispatch.hook('S_USER_EXTERNAL_CHANGE', 6, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
 
         // Stamina
         this.sPlayerChangeStamina = (e) => {
@@ -164,17 +171,15 @@ class player{
         // Player location
         this.handleMovement = (serverPacket, e) => {
             if(e.type !== 7 && serverPacket?e.gameId.equals(this.gameId):true) {
-                let loc = {
-                    x: e.x,
-                    y: e.y,
-                    z: e.z,
-                    w: e.w || this.loc.w,
-                    updated: Date.now()
-                };
+                let loc = new Vec3(e.x, e.y, e.z);
+                loc.w = e.w || this.loc.w;
+                loc.updated = Date.now();
+
                 this.loc = loc;
                 this.pos = loc;
             }
         }
+        
         dispatch.hook('S_ACTION_STAGE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_INSTANT_MOVE', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
@@ -183,7 +188,7 @@ class player{
         dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        //dispatch.hook('C_START_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_TARGETED_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_COMBO_INSTANT_SKILL', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_INSTANCE_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));

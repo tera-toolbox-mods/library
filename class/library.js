@@ -75,6 +75,9 @@ class Library{
         };
     }
 
+    fromAngle(w) { return w / Math.PI * 0x8000; }
+    toAngle(w) { return w / 0x8000 * Math.PI; }
+
     // Change and return the loc object
     applyDistance(loc, distance) {
         let r = (loc.w / 0x8000) * Math.PI;
