@@ -180,15 +180,9 @@ class player{
         dispatch.hook('S_INVEN', 12, {filter: {fake: null}, order: 1000}, this.sInven);
 
         // Pegasus
-        try{
-            dispatch.hook('S_START_PEGASUS', 2, e=> {
-                if(this.isMe(e.gameId)) this.onPegasus = true;
-            });
-
-            dispatch.hook('S_END_PEGASUS', 1, e=> {
-                if(this.isMe(e.gameId)) this.onPegasus = false;
-            });
-        }catch(e) {}
+        dispatch.hook('S_USER_STATUS', 1, e=> {
+            if(this.isMe(e.target)) this.onPegasus = (e.status === 3);
+        });
 
         // Player moving
         dispatch.hook('C_PLAYER_LOCATION', 3, DEFAULT_HOOK_SETTINGS, e=> {

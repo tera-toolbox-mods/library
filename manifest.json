@@ -5,7 +5,7 @@
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
         "class/entity.js": "a1af257636b0e99f9884bfbb7d6b0133be75ba008d3af5eb304ecf24ec32055f",
         "class/library.js": "43d5c675904eacf22c0a92c90452df419e7b24e13f4d663d0339b7e40381d66b",
-        "class/player.js": "a51f87be92f5f76099d7cc0e6ea2624e8e1c990a65ea77cbdd9c388ca817d1ff"
+        "class/player.js": "89ce5c493ac1e6ce3f39fbea5208ef6a83a3000a42081c992adbcb50d2d7c570"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -79,10 +79,7 @@
             11,
             12
         ],
-        "S_START_PEGASUS": [
-            2
-        ],
-        "S_END_PEGASUS": [
+        "S_USER_STATUS": [
             1
         ],
         "C_PLAYER_LOCATION": [
@@ -129,15 +126,19 @@
             1,
             2
         ],
+        "S_START_PEGASUS": [
+            2
+        ],
+        "S_END_PEGASUS": [
+            1
+        ],
         "S_LOGIN": [
-            9, 10
+            9,
+            10
         ],
         "C_START_SKILL": [
             3,
             4
-        ],
-        "S_USER_STATUS": [
-            1
         ]
     }
 }
