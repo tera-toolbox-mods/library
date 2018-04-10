@@ -37,6 +37,14 @@ class Library{
         return new Long(0, 0, bool);
     }
 
+    long(low=0, high=0, unsigned=true) {
+        return new Long(low, high, unsigned);
+    }
+
+    getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
     objectLength(obj) {
         return Object.keys(obj).length;
     }
@@ -80,7 +88,7 @@ class Library{
 
     // Change and return the loc object
     applyDistance(loc, distance) {
-        let r = (loc.w / 0x8000) * Math.PI;
+        let r = loc.w; //(loc.w / 0x8000) * Math.PI;
         loc.x += Math.cos(r) * distance;
         loc.y += Math.sin(r) * distance;
         return loc;
@@ -179,14 +187,6 @@ class Library{
             this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         }catch(e) {}
         this.command = Command(dispatch);
-        
-        this.startSkillsPackets = [['C_START_SKILL', 3], 
-                                    ['C_START_TARGETED_SKILL', 3], 
-                                    ['C_START_COMBO_INSTANT_SKILL', 1],
-                                    ['C_START_INSTANCE_SKILL', 2], 
-                                    ['C_START_INSTANCE_SKILL_EX', 2], 
-                                    ['C_PRESS_SKILL', 1], 
-                                    ['C_NOTIMELINE_SKILL', 1]];
 
         this.sp = false;
         for(let x of ['skill-prediction', 'skill-prediction-master', 'sp', 'sp-master']) {

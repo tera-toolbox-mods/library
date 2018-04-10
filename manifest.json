@@ -1,11 +1,11 @@
 {
     "files": {
-        "index.js": "184ded6c0d7d65bad556dd77939a6a8c9e45edc93898ebc39bf56a408b7b7d21",
+        "index.js": "52c571da2ac97ea0b371102b13271f2dfcee88b39d99d56c9d54f1235792fbfa",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "8954a8e452d3e4f23ee41bbbff69ae7fdb8edd4d7f1e205c603b59ed2cce4691",
-        "class/library.js": "c53c75de009939b7353f6a973198752ec97c65aba21d18c63b360e0e00636984",
-        "class/player.js": "9c9aba02998664c87e69365d3963b09589611543152b2dcde7b6df6b8e91f47c"
+        "class/entity.js": "a1af257636b0e99f9884bfbb7d6b0133be75ba008d3af5eb304ecf24ec32055f",
+        "class/library.js": "43d5c675904eacf22c0a92c90452df419e7b24e13f4d663d0339b7e40381d66b",
+        "class/player.js": "a51f87be92f5f76099d7cc0e6ea2624e8e1c990a65ea77cbdd9c388ca817d1ff"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -33,32 +33,37 @@
             6
         ],
         "S_DESPAWN_NPC": [
-            2
+            2,
+            3
         ],
         "S_DESPAWN_USER": [
             3
         ],
         "S_NPC_LOCATION": [
-            2
+            2,
+            3
         ],
         "S_USER_LOCATION": [
-            2
+            2,
+            3
         ],
         "S_CREATURE_ROTATE": [
             1
         ],
+        "S_EACH_SKILL_RESULT": [
+            4
+        ],
         "C_CHECK_VERSION": [
             1
         ],
-        "S_LOGIN": [
-            9
-        ],
-        "C_START_SKILL": [
-            3,
-            4
+        "S_USER_LEVELUP": [
+            1
         ],
         "S_PLAYER_STAT_UPDATE": [
             8
+        ],
+        "S_CURRENT_CHANNEL": [
+            2
         ],
         "S_PLAYER_CHANGE_STAMINA": [
             1
@@ -67,46 +72,71 @@
             1
         ],
         "S_PARTY_MEMBER_LIST": [
-            5
-        ],
-        "S_USER_STATUS": [
-            1
+            5,
+            6
         ],
         "S_INVEN": [
-            11
+            11,
+            12
+        ],
+        "S_START_PEGASUS": [
+            2
+        ],
+        "S_END_PEGASUS": [
+            1
         ],
         "C_PLAYER_LOCATION": [
-            2
+            2,
+            3
         ],
         "S_ACTION_STAGE": [
             3,
             4
         ],
         "S_ACTION_END": [
-            2
-        ],
-        "S_INSTANT_MOVE": [
-            2
-        ],
-        "C_NOTIFY_LOCATION_IN_ACTION": [
-            1
-        ],
-        "C_NOTIFY_LOCATION_IN_DASH": [
-            1
-        ],
-        "C_START_TARGETED_SKILL": [
+            2,
             3
         ],
+        "S_INSTANT_MOVE": [
+            2,
+            3
+        ],
+        "C_NOTIFY_LOCATION_IN_ACTION": [
+            1,
+            2
+        ],
+        "C_NOTIFY_LOCATION_IN_DASH": [
+            1,
+            2
+        ],
+        "C_START_TARGETED_SKILL": [
+            3,
+            4
+        ],
         "C_START_COMBO_INSTANT_SKILL": [
-            1
+            1,
+            2
         ],
         "C_START_INSTANCE_SKILL": [
-            2
+            2,
+            3
         ],
         "C_START_INSTANCE_SKILL_EX": [
-            2
+            2,
+            3
         ],
         "C_PRESS_SKILL": [
+            1,
+            2
+        ],
+        "S_LOGIN": [
+            9, 10
+        ],
+        "C_START_SKILL": [
+            3,
+            4
+        ],
+        "S_USER_STATUS": [
             1
         ]
     }

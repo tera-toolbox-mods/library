@@ -1,22 +1,39 @@
 const Command = require('command');
-const LOAD_MODULES = ['entity', 'player', 'library', 'effect'];
+const LOAD_MODULES = ['entity', 'player', 'effect'];
+const PRE_LOAD_MODULES = ['library'];
 
 class Library{
 	constructor(dispatch) {
         this.mods = {};
-		for(let name of LOAD_MODULES) {
+		this.command = Command(dispatch);
+		this.cmd = this.command;
+
+		for(let name of PRE_LOAD_MODULES) {
 			try {
 				let tmp = require(`./class/${name}`);
-                this.mods[name] = new tmp(dispatch, this.mods);
-                this[name] = this.mods[name];
+				this.mods[name] = new tmp(dispatch, this.mods);
+				this[name] = this.mods[name];
 			}catch(e) {
 				console.log(e);
 				console.log(`[Library] Failed to load module ${name}. Will close.`);
 				process.exit();
 			}
 		}
-		this.command = Command(dispatch);
-		this.cmd = this.command;
+
+		// C_LOGIN_ARBITER for ethical purposes. :eyes:
+		dispatch.hook('C_LOGIN_ARBITER', 'raw', ()=> {
+			for(let name of LOAD_MODULES) {
+				try {
+					let tmp = require(`./class/${name}`);
+					this.mods[name] = new tmp(dispatch, this.mods);
+					this[name] = this.mods[name];
+				}catch(e) {
+					console.log(e);
+					console.log(`[Library] Failed to load module ${name}. Will close.`);
+					process.exit();
+				}
+			}
+		});
 	}
 }
 

@@ -5,6 +5,7 @@ class entity{
     constructor(dispatch, mods) {
         this.mobs = {};
         this.players = {};
+        this.npcs = {};
 
         // Functions
         this.getLocationForThisEntity = (id) => {
@@ -13,6 +14,7 @@ class entity{
         }
         this.getLocationForPlayer = (id) => this.players[id].pos;
         this.getLocationForMob = (id) => this.mobs[id].pos;
+        this.getLocationForNpc = (id) => this.npcs[id].pos;
 
         // Pos is player position
         this.isNearEntity = (pos, playerRadius = 50, entityRadius = 50) => {
@@ -40,7 +42,7 @@ class entity{
         }
 
         this.getSettingsForEntity = (id, object) => {
-            let entity = this.mobs[id.toString()] || this.players[id.toString()];
+            let entity = this.npcs[id.toString] || this.mobs[id.toString()] || this.players[id.toString()];
 
             if(object[entity.info.huntingZoneId]) {
                 return object[entity.info.huntingZoneId][entity.info.templateId];
@@ -51,6 +53,7 @@ class entity{
         this.resetCache = () => {
             this.mobs = {};
             this.players = {};
+            this.npcs = {};
         }
         dispatch.hook('S_LOAD_TOPO', DEFAULT_HOOK_SETTINGS, this.resetCache);
 
@@ -88,10 +91,13 @@ class entity{
                     huntingZoneId: e.huntingZoneId,
                     templateId: e.templateId
                 },
+                huntingZoneId: e.huntingZoneId,
+                templateId: e.templateId,
                 gameId: e.gameId,
                 apperance: outfit,
                 appearance: outfit,
                 app: outfit,
+                visible: e.visible,
                 outfit,
                 job,
                 race,
@@ -99,8 +105,10 @@ class entity{
             };
             
             // relation(10 door), unk15 == isMob, relation(12 for special cases), rel = 10 & spawnType = 1 == HW dummy
-            if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = data;
-            else if(!mob) this.players[id] = data;
+            if(mob && e.villager) this.npcs[id] = data;
+            else if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = data;
+            if(!mob) this.players[id] = data;
+
 
             /*
             { 
@@ -151,49 +159,65 @@ class entity{
         this.despawnEntity = (mob, e) => {
             let id = e.gameId.toString();
             try{
-                if(mob) delete this.mobs[id];
+                if(mob) {
+                    delete this.mobs[id];
+                    delete this.npcs[id];
+                }
                 else delete this.players[id];
             }catch(e){}
         }
-        dispatch.hook('S_DESPAWN_NPC', 2, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, true));
+        dispatch.hook('S_DESPAWN_NPC', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, true));
         dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, false));
 
         // Move location update
         this.updatePosition = (mob, e) => {
             let id = e.gameId.toString();
 
-            let pos = new Vec3(
-                ((e.toX || e.x) + e.x) / 2,
-                ((e.toY || e.y) + e.y) / 2,
-                ((e.toZ || e.z) + e.z) / 2
-            );
+            let pos = e.loc;
             pos.w = e.w;
     
-            if(mob && this.mobs[id]) this.mobs[id].pos = pos;
-            else if(!mob && this.players[id]) this.players[id].pos = pos;
+            if(this.mobs[id]) this.mobs[id].pos = pos;
+            if(this.players[id]) this.players[id].pos = pos;
+            if(this.npcs[id]) this.npcs[id].pos = pos;
         }
-        dispatch.hook('S_NPC_LOCATION', 2, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
-        dispatch.hook('S_USER_LOCATION', 2, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
+        dispatch.hook('S_NPC_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
+        dispatch.hook('S_USER_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
 
         // Direction update
         this.directionUpdate = (e) => {
             let id = e.gameId.toString();
             if(this.mobs[id]) this.mobs[id].pos.w = e.w;
+            if(this.players[id]) this.players[id].pos.w = e.w;
+            if(this.npcs[id]) this.npcs[id].pos.w = e.w;
         }
         dispatch.hook('S_CREATURE_ROTATE', 1, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
+
+        // Entity CC'ed -- update location -- (idk how tf this works, so gonna stick to v4 because of :b:inkie changes)
+        dispatch.hook('S_EACH_SKILL_RESULT', 4, DEFAULT_HOOK_SETTINGS, e=> {
+            let id = e.target.toString();
+            let loc = null;
+
+            if(this.npcs[id]) loc = this.npcs[id].pos;
+            if(this.mobs[id]) loc = this.mobs[id].pos;
+            if(this.players[id]) loc = this.players[id].pos;
+
+            if(loc) {
+                if(e.setTargetAction === 1) {
+                    let dist = 0;
+                    for(let i in e.targetMovement) dist += e.targetMovement[i].distance;
+                    dist *= -1;
+                    mods.library.applyDistance(loc, dist);
+                }
+            }
+        });
 
 
         // S_ACTION_STAGE / END location update
         // Make this update position "live" later on
         this.sAction = (e) => {
             let id = e.gameId.toString();
-            let mob = (this.mobs[id] != undefined);
     
-            let pos = new Vec3({
-                x: e.x,
-                y: e.y,
-                z: e.z
-            });
+            let pos = e.loc;
             pos.w = e.w;
             
             if(e.movement) {
@@ -204,11 +228,12 @@ class entity{
                 mods.library.applyDistance(pos, distance);
             }
     
-            if(mob && this.mobs[id]) this.mobs[id].pos = pos;
-            else if(!mob && this.players[id]) this.players[id].pos = pos;
+            if(this.mobs[id]) this.mobs[id].pos = pos;
+            if(this.players[id]) this.players[id].pos = pos;
+            if(this.npcs[id]) this.npcs[id].pos = pos;
         }
-        dispatch.hook('S_ACTION_STAGE', 3, DEFAULT_HOOK_SETTINGS, this.sAction);
-        dispatch.hook('S_ACTION_END', 2, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook('S_ACTION_STAGE', 4, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook('S_ACTION_END', 3, DEFAULT_HOOK_SETTINGS, this.sAction);
     }
 }
 

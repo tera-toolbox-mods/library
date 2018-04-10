@@ -9,7 +9,6 @@ class player{
         this.alive = true;
         // Inventory
         this.inven = {weapon: false, effects: []};
-        let readInventory = true;
         let inventoryBuffer = [];
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
@@ -25,9 +24,14 @@ class player{
         this.zone = -1;
         // List over players in party
         this.playersInParty = [];
+        // Pegasus status
+        this.onPegasus = false;
+        // Channel
+        this.channel = 0;
 
         // Functions
         this.isMe = (arg) => {
+            return arg.equals(this.gameId);
             try {
                 return arg.equals(this.gameId);
             }catch(e) {
@@ -36,14 +40,9 @@ class player{
             }
         }
 
-        // Temp hook installment
-        dispatch.hook('C_CHECK_VERSION', 1, e=> {
-            dispatch.hook('S_LOGIN', dispatch.base.majorPatchVersion >= 67 ? 10 : 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
-            dispatch.hook('C_START_SKILL', dispatch.base.majorPatchVersion >= 67 ? 4 : 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        });
-
         // Login
         this.sLogin = (e) => {
+            this.onPegasus = false;
             this.gameId = e.gameId;
             this.templateId = e.templateId;
             this.serverId = e.serverId;
@@ -51,8 +50,16 @@ class player{
             this.race = Math.floor((e.templateId - 10101) / 100);
             this.job = (e.templateId - 10101) % 100;
             this.name = e.name;
+            this.level = e.level;
         }
-        //dispatch.hook('S_LOGIN', 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        dispatch.hook('S_LOGIN', (dispatch.base.majorPatchVersion >= 67) ? 10 : 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
+
+        // Level up
+        try{
+            dispatch.hook('S_USER_LEVELUP', 1, e=> {
+                if(this.isMe(e.cid)) this.level = e.level;
+            });
+        }catch(e) {}
 
         // Attack Speed & Stamina
         this.sPlayerStatUpdate = (e) => {
@@ -73,6 +80,12 @@ class player{
             this.msRunBonus = e.runSpeedBonus;
         }
         dispatch.hook('S_PLAYER_STAT_UPDATE', 8, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+
+        // Channel/zone information
+        dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
+            this.channel = e.channel - 1;
+            this.zone = e.zone;
+        });
 
         // Outfit information
         this.sUserExternalChange = (e) => {
@@ -105,10 +118,10 @@ class player{
 			
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
-				if(!this.isMe(member.cid)) this.playersInParty.push(member.cid.toString());
+				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId.toString());
 			}
         }
-        dispatch.hook('S_PARTY_MEMBER_LIST', 5, this.sPartyMemberList);
+        dispatch.hook('S_PARTY_MEMBER_LIST', 6, this.sPartyMemberList);
 
         this.sLeaveParty = (e) => {
             this.playersInParty = [];
@@ -122,56 +135,89 @@ class player{
         dispatch.hook('S_SPAWN_ME', DEFAULT_HOOK_SETTINGS, this.sSpawnMe);
 
         this.sCreatureLife = (e) => {
-            if(this.isMe(e.target)) this.alive = e.alive;
+            if(this.isMe(e.gameId)) {
+                this.alive = e.alive;
+                Object.assign(this.loc, e.loc);
+            }
         }
-        dispatch.hook('S_CREATURE_LIFE', 1, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
+        dispatch.hook('S_CREATURE_LIFE', 2, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
-        this.sUserStatus = e => {
-            if(this.isMe(e.target)) {
-                readInventory = e.status === 1;
-            }
-        }
-        dispatch.hook('S_USER_STATUS', 1, DEFAULT_HOOK_SETTINGS, this.sUserStatus);
-
         this.sInven = e => {
-            if(readInventory) {
-                inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
+            inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
+            this.gold = e.gold;
 
-                if(!e.more) {
-                    this.inven.weapon = false;
-                    this.inven.effects = [];
+            if(!e.more) {
+                this.inven.weapon = false;
+                this.inven.effects = [];
+                this.inven.items = {};
 
-                    for(let item of inventoryBuffer) {
-                        switch(item.slot) {
-                            case 1:
-                                this.inven.weapon = true;
-                                break;
-                            case 3:
+                for(let item of inventoryBuffer) {
+                    if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
+                    this.inven.items[item.id].push({ amount: item.amount, dbid: item.dbid });
+                    
+                    switch(item.slot) {
+                        case 1:
+                            this.inven.weapon = true;
+                            break;
+                        case 3:
+                            // We put a try statement here because fuck everything and everyone. :)
+                            try {
                                 for(var set of item.passivitySets) {
                                     for(var id of set.passivities) {
-                                        this.inven.effects.push(Number(id.dbid));
+                                        this.inven.effects.push(Number(id.id));
                                     }
                                 }
-                                break;
-                        }
+                            }catch(e) {this.inven.effects = [];}
+                            
+                            break;
                     }
-
-                    inventoryBuffer = [];
                 }
+
+                inventoryBuffer = [];
             }
         }
-        dispatch.hook('S_INVEN', 11, {filter: {fake: null}, order: 1000}, this.sInven);
+        dispatch.hook('S_INVEN', 12, {filter: {fake: null}, order: 1000}, this.sInven);
+
+        // Pegasus
+        try{
+            dispatch.hook('S_START_PEGASUS', 2, e=> {
+                if(this.isMe(e.gameId)) this.onPegasus = true;
+            });
+
+            dispatch.hook('S_END_PEGASUS', 1, e=> {
+                if(this.isMe(e.gameId)) this.onPegasus = false;
+            });
+        }catch(e) {}
 
         // Player moving
-        dispatch.hook('C_PLAYER_LOCATION', 2, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('C_PLAYER_LOCATION', 3, DEFAULT_HOOK_SETTINGS, e=> {
             this.moving = e.type !== 7;
+        });
+
+        // Player CC'ed -- update location (I'm not doing v5 because idk wtf is going on here, and pinkie messed with it)
+        dispatch.hook('S_EACH_SKILL_RESULT', 4, DEFAULT_HOOK_SETTINGS, e=> {
+            if(this.isMe(e.source) && e.setTargetAction) {
+                if(e.setTargetAction === 1) {
+                    let dist = 0;
+                    for(let i in e.targetMovement) dist += e.targetMovement[i].distance;
+
+                    mods.library.applyDistance(this.loc, dist);
+                }else {
+                    Object.assign(this.loc, {
+                        x: e.targetX,
+                        y: e.targetY,
+                        z: (this.loc.z > e.targetZ) ? this.loc.z : e.targetZ,
+                        w: e.targetW || this.loc.w
+                    });
+                }
+            }
         });
 
         // Player location
         this.handleMovement = (serverPacket, e) => {
             if(e.type !== 7 && serverPacket?e.gameId.equals(this.gameId):true) {
-                let loc = new Vec3(e.x, e.y, e.z);
+                let loc = e.loc;
                 loc.w = e.w || this.loc.w;
                 loc.updated = Date.now();
 
@@ -180,20 +226,20 @@ class player{
             }
         }
         
-        dispatch.hook('S_ACTION_STAGE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_ACTION_END', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_INSTANT_MOVE', 2, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('C_PLAYER_LOCATION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('S_ACTION_STAGE', 4, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_END', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_INSTANT_MOVE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('C_PLAYER_LOCATION', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
-        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        //dispatch.hook('C_START_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL_EX', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_PRESS_SKILL', 1, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_SKILL', (dispatch.base.majorPatchVersion >= 67) ? 5 : 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_TARGETED_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL_EX', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PRESS_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }
 
