@@ -50,6 +50,9 @@
         "S_CREATURE_ROTATE": [
             1
         ],
+        "S_CREATURE_LIFE": [
+            2
+        ],
         "C_CHECK_VERSION": [
             1
         ],
