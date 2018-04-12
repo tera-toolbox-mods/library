@@ -189,25 +189,6 @@ class player{
             this.moving = e.type !== 7;
         });
 
-        // Player CC'ed -- update location (I'm not doing v5 because idk wtf is going on here, and pinkie messed with it)
-        dispatch.hook('S_EACH_SKILL_RESULT', 4, DEFAULT_HOOK_SETTINGS, e=> {
-            if(this.isMe(e.source) && e.setTargetAction) {
-                if(e.setTargetAction === 1) {
-                    let dist = 0;
-                    for(let i in e.targetMovement) dist += e.targetMovement[i].distance;
-
-                    mods.library.applyDistance(this.loc, dist);
-                }else {
-                    Object.assign(this.loc, {
-                        x: e.targetX,
-                        y: e.targetY,
-                        z: (this.loc.z > e.targetZ) ? this.loc.z : e.targetZ,
-                        w: e.targetW || this.loc.w
-                    });
-                }
-            }
-        });
-
         // Player location
         this.handleMovement = (serverPacket, e) => {
             if(e.type !== 7 && serverPacket?e.gameId.equals(this.gameId):true) {

@@ -192,8 +192,8 @@ class entity{
         }
         dispatch.hook('S_CREATURE_ROTATE', 1, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
-        // Entity CC'ed -- update location -- (idk how tf this works, so gonna stick to v4 because of :b:inkie changes)
-        dispatch.hook('S_EACH_SKILL_RESULT', 4, DEFAULT_HOOK_SETTINGS, e=> {
+        // Entity CC'ed -- update location
+        dispatch.hook('S_EACH_SKILL_RESULT', (dispatch.base.majorPatchVersion) ? 5 : 4, DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 
@@ -202,9 +202,9 @@ class entity{
             if(this.players[id]) loc = this.players[id].pos;
 
             if(loc) {
-                if(e.setTargetAction === 1) {
+                if(e.targetAction.enable) {
                     let dist = 0;
-                    for(let i in e.targetMovement) dist += e.targetMovement[i].distance;
+                    for(let i in e.targetAction.movement) dist += e.targetAction.movement[i].distance;
                     dist *= -1;
                     mods.library.applyDistance(loc, dist);
                 }

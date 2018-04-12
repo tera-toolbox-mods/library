@@ -3,7 +3,7 @@ const LOAD_MODULES = ['entity', 'player', 'effect'];
 const PRE_LOAD_MODULES = ['library'];
 
 class Library{
-	constructor(dispatch) {
+	constructor(dispatch, arg1) {
         this.mods = {};
 		this.command = Command(dispatch);
 		this.cmd = this.command;
@@ -20,8 +20,7 @@ class Library{
 			}
 		}
 
-		// C_LOGIN_ARBITER for ethical purposes. :eyes:
-		dispatch.hook('C_LOGIN_ARBITER', 'raw', ()=> {
+		function loadAllModules() {
 			for(let name of LOAD_MODULES) {
 				try {
 					let tmp = require(`./class/${name}`);
@@ -33,16 +32,20 @@ class Library{
 					process.exit();
 				}
 			}
-		});
+		}
+
+		// don't mind this tbh
+		if(arg1) loadAllModules.call(this);
+		else dispatch.hook('C_LOGIN_ARBITER', 'raw', loadAllModules.bind(this));
 	}
 }
 
 let map = new WeakMap();
 
-module.exports = function Require(dispatch) {
+module.exports = function Require(dispatch, ...args) {
 	if(map.has(dispatch.base)) return map.get(dispatch.base);
 
-	let library = new Library(dispatch);
+	let library = new Library(dispatch, ...args);
 	map.set(dispatch.base, library);
 	return library;
 }
