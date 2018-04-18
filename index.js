@@ -35,7 +35,7 @@ class Library{
 		}
 
 		// don't mind this tbh
-		if(arg1) loadAllModules.call(this);
+		if(arg1 || dispatch.base.majorPatchVersion) loadAllModules.call(this);
 		else dispatch.hook('C_LOGIN_ARBITER', 'raw', loadAllModules.bind(this));
 	}
 }

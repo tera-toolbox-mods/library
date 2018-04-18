@@ -1,11 +1,11 @@
 {
     "files": {
-        "index.js": "10f5880538cb061eba87bbf1ec76238ea4afabe840212c2bfa007004948546b3",
+        "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
         "class/entity.js": "e12d2acb1c848a03f4c484f96fba19b7ae0743b24e660035b6a56d0f7d59d424",
         "class/library.js": "43d5c675904eacf22c0a92c90452df419e7b24e13f4d663d0339b7e40381d66b",
-        "class/player.js": "8d46b93915644199cfe51d15cc1e75a7d0fda39dfa3ea3dd64a1181adaed7c13"
+        "class/player.js": "044c2c3d6683d0e49dc4b726272bfd5585a940a72d0ad88792944f49d9cf4387"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -49,9 +49,6 @@
         ],
         "S_CREATURE_ROTATE": [
             1
-        ],
-        "S_CREATURE_LIFE": [
-            2
         ],
         "C_CHECK_VERSION": [
             1
@@ -124,6 +121,9 @@
         ],
         "C_PRESS_SKILL": [
             1,
+            2
+        ],
+        "S_CREATURE_LIFE": [
             2
         ],
         "S_EACH_SKILL_RESULT": [
