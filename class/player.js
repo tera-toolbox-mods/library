@@ -52,7 +52,7 @@ class player{
             this.name = e.name;
             this.level = e.level;
         }
-        dispatch.hook('S_LOGIN', (dispatch.base.majorPatchVersion >= 67) ? 10 : 9, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        dispatch.hook('S_LOGIN', 10, DEFAULT_HOOK_SETTINGS, this.sLogin);
 
         // Level up
         try{
@@ -209,7 +209,7 @@ class player{
         dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', (dispatch.base.majorPatchVersion >= 67) ? 5 : 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_SKILL', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_TARGETED_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_COMBO_INSTANT_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_INSTANCE_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));

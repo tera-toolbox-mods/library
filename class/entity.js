@@ -193,7 +193,7 @@ class entity{
         dispatch.hook('S_CREATURE_ROTATE', 1, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
-        dispatch.hook('S_EACH_SKILL_RESULT', (dispatch.base.majorPatchVersion) ? 5 : 4, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('S_EACH_SKILL_RESULT', 6, DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 

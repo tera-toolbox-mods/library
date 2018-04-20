@@ -3,9 +3,9 @@
         "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "e12d2acb1c848a03f4c484f96fba19b7ae0743b24e660035b6a56d0f7d59d424",
+        "class/entity.js": "b800a90fe23ab0b8443475d7b4ca7ed8147222950fa64ace2467e4ecfa60b83b",
         "class/library.js": "43d5c675904eacf22c0a92c90452df419e7b24e13f4d663d0339b7e40381d66b",
-        "class/player.js": "044c2c3d6683d0e49dc4b726272bfd5585a940a72d0ad88792944f49d9cf4387"
+        "class/player.js": "cb33c90e0292dc863487ff5796b2ac1a18c4903f0c36b62f4036a4660e582e0c"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -33,25 +33,28 @@
             6
         ],
         "S_DESPAWN_NPC": [
-            2,
             3
         ],
         "S_DESPAWN_USER": [
             3
         ],
         "S_NPC_LOCATION": [
-            2,
             3
         ],
         "S_USER_LOCATION": [
-            2,
             3
         ],
         "S_CREATURE_ROTATE": [
             1
         ],
+        "S_EACH_SKILL_RESULT": [
+            6
+        ],
         "C_CHECK_VERSION": [
             1
+        ],
+        "S_LOGIN": [
+            10
         ],
         "S_USER_LEVELUP": [
             1
@@ -69,74 +72,49 @@
             1
         ],
         "S_PARTY_MEMBER_LIST": [
-            5,
             6
         ],
         "S_INVEN": [
-            11,
             12
         ],
         "S_USER_STATUS": [
             1
         ],
         "C_PLAYER_LOCATION": [
-            2,
             3
         ],
         "S_ACTION_STAGE": [
-            3,
             4
         ],
         "S_ACTION_END": [
-            2,
             3
         ],
         "S_INSTANT_MOVE": [
-            2,
             3
         ],
         "C_NOTIFY_LOCATION_IN_ACTION": [
-            1,
             2
         ],
         "C_NOTIFY_LOCATION_IN_DASH": [
-            1,
             2
         ],
+        "C_START_SKILL": [
+            5
+        ],
         "C_START_TARGETED_SKILL": [
-            3,
             4
         ],
         "C_START_COMBO_INSTANT_SKILL": [
-            1,
             2
         ],
         "C_START_INSTANCE_SKILL": [
-            2,
             3
         ],
         "C_START_INSTANCE_SKILL_EX": [
-            2,
             3
         ],
         "C_PRESS_SKILL": [
-            1,
             2
-        ],
-        "S_CREATURE_LIFE": [
-            2
-        ],
-        "S_EACH_SKILL_RESULT": [
-            5,
-            6
-        ],
-        "S_LOGIN": [
-            9,
-            10
-        ],
-        "C_START_SKILL": [
-            4,
-            5
         ]
     }
 }
