@@ -4,6 +4,64 @@ const fs = require('fs');
 const Long = require("long");
 const Command = require('command');
 
+class SkillClasserino{
+    constructor(id, usingMask=true, bossSkill=false) {
+        let val = this.calculateValues(id, usingMask, bossSkill);
+        this.raw = val.raw;
+        this.id = val.id;
+        this.skill = val.skill;
+        this.sub = val.sub;
+        this.level = val.level;
+    }
+
+    calculateValues(id, usingMask=true, bossSkill=false) {
+        let skillId;
+        let raw;
+        let skill;
+        let sub;
+        let level;
+        if(bossSkill) {
+            skillId = parseInt('0x' + id.toString(16).slice(-4));
+            raw = id;
+            skill =  Math.floor(skillId / 100);
+            level = 1;
+        }else {
+            skillId = id - (usingMask ? 0x4000000 : 0);
+            raw = id + (usingMask ? 0 : 0x4000000);
+            skill = Math.floor(skillId / 10000);
+            level = Math.floor(skillId / 100) % 100
+        }
+        sub = skillId % 100;
+        id = skillId;
+
+        return {
+            raw,
+            id,
+            skill,
+            sub,
+            level
+        };
+    }
+
+    setValues(id, usingMask=true, bossSkill=false) {
+        let val = this.calculateValues(id, usingMask, bossSkill);
+        this.raw = val.raw;
+        this.id = val.id;
+        this.skill = val.skill;
+        this.sub = val.sub;
+        this.level = val.level;
+        return this;
+    }
+
+    getBaseId(skill=1, level=1, sub=0) {
+        return ((skill * 10000) + (level * 100)) + sub;
+    }
+
+    setValuesTo(skill, level, sub) {
+        return this.setValues(this.getBaseId(skill, level, sub), false);
+    }
+}
+
 class Library{
     // Checks if the items in array A, is in array b
     arraysItemInArray(a, b) {
@@ -55,32 +113,7 @@ class Library{
     }
 
     getSkillInfo(id, usingMask=true, bossSkill=false) {
-        let skillId;
-        let raw;
-        let skill;
-        let sub;
-        let level;
-        if(bossSkill) {
-            skillId = parseInt('0x' + id.toString(16).slice(-4));
-            raw = id;
-            skill =  Math.floor(skillId / 100);
-            level = 1;
-        }else {
-            skillId = id - (usingMask ? 0x4000000 : 0);
-            raw = id + (usingMask ? 0 : 0x4000000);
-            skill = Math.floor(skillId / 10000);
-            level = Math.floor(skillId / 100) % 100
-        }
-        sub = skillId % 100;
-        id = skillId;
-
-        return {
-            raw,
-            id,
-            skill,
-            sub,
-            level
-        };
+        return new SkillClasserino(id, usingMask, bossSkill);
     }
 
     fromAngle(w) { return w / Math.PI * 0x8000; }
