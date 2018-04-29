@@ -177,7 +177,7 @@ class player{
                 inventoryBuffer = [];
             }
         }
-        dispatch.hook('S_INVEN', 12, {filter: {fake: null}, order: 1000}, this.sInven);
+        dispatch.hook('S_INVEN', 12, DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
         dispatch.hook('S_USER_STATUS', 1, e=> {
