@@ -203,7 +203,8 @@ class player{
         
         dispatch.hook('S_ACTION_STAGE', 4, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_INSTANT_MOVE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        // is this borked?
+        //dispatch.hook('S_INSTANT_MOVE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('C_PLAYER_LOCATION', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
         dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
