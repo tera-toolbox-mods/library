@@ -5,7 +5,7 @@
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
         "class/entity.js": "b800a90fe23ab0b8443475d7b4ca7ed8147222950fa64ace2467e4ecfa60b83b",
         "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
-        "class/player.js": "c90225c656a99d502c344297a41555f1c6596d526313cb56fe5f5010ec2647c6"
+        "class/player.js": "67cdb78421181c2d2dca7564c4c5d2d0758a93a9a9dccea354b4da31c547e03a"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -115,6 +115,7 @@
         ],
         "C_PRESS_SKILL": [
             2
-        ]
+        ],
+        "S_CREATURE_LIFE": [2]
     }
 }
