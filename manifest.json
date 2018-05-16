@@ -3,7 +3,7 @@
         "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
         "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
         "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "b800a90fe23ab0b8443475d7b4ca7ed8147222950fa64ace2467e4ecfa60b83b",
+        "class/entity.js": "a930d3c87b6475cde7f76144d5afc3c94932fab246f4afbc9d3ff35894f2fb8c",
         "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
         "class/player.js": "67cdb78421181c2d2dca7564c4c5d2d0758a93a9a9dccea354b4da31c547e03a"
     },
@@ -27,7 +27,7 @@
             12
         ],
         "S_SPAWN_NPC": [
-            6
+            8
         ],
         "S_USER_EXTERNAL_CHANGE": [
             6
@@ -115,7 +115,6 @@
         ],
         "C_PRESS_SKILL": [
             2
-        ],
-        "S_CREATURE_LIFE": [2]
+        ]
     }
 }

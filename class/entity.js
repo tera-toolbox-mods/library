@@ -146,7 +146,7 @@ class entity{
             */
         }
         dispatch.hook('S_SPAWN_USER', 12, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-        dispatch.hook('S_SPAWN_NPC', 6, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_NPC', 8, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Apperance/outfit update
         this.sUserExternalChange = (e) => {
