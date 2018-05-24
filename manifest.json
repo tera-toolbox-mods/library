@@ -1,11 +1,11 @@
 {
     "files": {
-        "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
-        "README.md": "3af2c51afbb06e8b31f314c7e1d0cfb46e6b1fbafb47fcb264bc5ce464fe7ee8",
-        "class/effect.js": "370f080c417e3c29ad501752aa53bad4e82e8eb74f2bf6b5b7db27d56ffa15e2",
-        "class/entity.js": "a930d3c87b6475cde7f76144d5afc3c94932fab246f4afbc9d3ff35894f2fb8c",
-        "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
-        "class/player.js": "67cdb78421181c2d2dca7564c4c5d2d0758a93a9a9dccea354b4da31c547e03a"
+        "index.js": "8cc51f5dce687c87ed8cfd07f4f7ec110264eded3d66b0c9b75fcc387b9340fd",
+        "README.md": "25f3f96a96fcde9d9f5dc39d578942bdcde9f7ab4aa1e361fa5931026b8f64ac",
+        "class/effect.js": "b7a4efa05d979d1fdbf912f690c542d4e539f7a7bea012fce5111e78f026c930",
+        "class/entity.js": "6d6c70afbb2ad7c6904d6993b551cbd344a64550d4062c7a233898ba9e3f1bb3",
+        "class/library.js": "1378c09e4b9722659d26e2dd28e93dcb6bc13b174add6b165e135a4065be5da3",
+        "class/player.js": "f1d9af80981fcbc7d03b1f8c0886869c76fed8b1ef42e71f7072097ce4764bfc"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
