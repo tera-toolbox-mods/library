@@ -115,6 +115,9 @@
         ],
         "C_PRESS_SKILL": [
             2
+        ],
+        "S_LOAD_TOPO": [
+            3
         ]
     }
 }
