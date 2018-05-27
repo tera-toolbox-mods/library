@@ -1,6 +1,6 @@
 {
     "files": {
-        "index.js": "8cc51f5dce687c87ed8cfd07f4f7ec110264eded3d66b0c9b75fcc387b9340fd",
+        "index.js": "6c8bd777d36814278b988ace5484e8aaf2eaeec9ad96e9a8f932999975a4dbc3",
         "README.md": "25f3f96a96fcde9d9f5dc39d578942bdcde9f7ab4aa1e361fa5931026b8f64ac",
         "class/effect.js": "b7a4efa05d979d1fdbf912f690c542d4e539f7a7bea012fce5111e78f026c930",
         "class/entity.js": "6d6c70afbb2ad7c6904d6993b551cbd344a64550d4062c7a233898ba9e3f1bb3",
@@ -8,6 +8,9 @@
         "class/player.js": "f1d9af80981fcbc7d03b1f8c0886869c76fed8b1ef42e71f7072097ce4764bfc"
     },
     "defs": {
+        "S_CONNECT_SKILL_ARROW": [
+            1
+        ],
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
             1
         ],
