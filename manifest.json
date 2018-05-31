@@ -124,6 +124,7 @@
         ],
         "S_INSTANT_DASH": [
             3
-        ]
+        ],
+        "S_CREATURE_LIFE": [2]
     }
 }
