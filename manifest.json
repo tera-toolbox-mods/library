@@ -121,6 +121,9 @@
         ],
         "S_LOAD_TOPO": [
             3
+        ],
+        "S_INSTANT_DASH": [
+            3
         ]
     }
 }
