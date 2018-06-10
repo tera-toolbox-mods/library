@@ -1,6 +1,8 @@
 # Library
 A generic library for Tera-Proxy.
 
+DO NOT INSTALLED IT AS "library-master" MAKE SURE IT'S NAMED "library"
+
 ## Development examples
 
 ### How to import

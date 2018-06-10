@@ -1,7 +1,7 @@
 {
     "files": {
         "index.js": "6c8bd777d36814278b988ace5484e8aaf2eaeec9ad96e9a8f932999975a4dbc3",
-        "README.md": "25f3f96a96fcde9d9f5dc39d578942bdcde9f7ab4aa1e361fa5931026b8f64ac",
+        "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
         "class/effect.js": "b7a4efa05d979d1fdbf912f690c542d4e539f7a7bea012fce5111e78f026c930",
         "class/entity.js": "6d6c70afbb2ad7c6904d6993b551cbd344a64550d4062c7a233898ba9e3f1bb3",
         "class/library.js": "1378c09e4b9722659d26e2dd28e93dcb6bc13b174add6b165e135a4065be5da3",
@@ -125,6 +125,8 @@
         "S_INSTANT_DASH": [
             3
         ],
-        "S_CREATURE_LIFE": [2]
+        "S_CREATURE_LIFE": [
+            2
+        ]
     }
 }
