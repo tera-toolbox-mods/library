@@ -5,7 +5,7 @@
         "class/effect.js": "f767aa40d315e752644fbae05b0adf3a5cbfaf8e8813613e9f34b268360d0e79",
         "class/entity.js": "952defba015e616f511f32678ba0b2fc2f8b09b8f6201530100f6359b4ac15af",
         "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
-        "class/player.js": "eb8ac9951c72ed5b326fed1bf633b91f6cb0216ccc6d6fd8bd306148b8e1315d"
+        "class/player.js": "5cae7d11b88b2f64fe2027c089135b1ad84978ea344cce21c801b2c1cacedf1b"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [

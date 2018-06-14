@@ -126,7 +126,7 @@ class player{
         this.sLeaveParty = (e) => {
             this.playersInParty = [];
         }
-        dispatch.hook('S_LEAVE_PARTY', this.sLeaveParty);
+        dispatch.hook('S_LEAVE_PARTY', 'raw', this.sLeaveParty);
 
         // Alive
         this.sSpawnMe = (e) => {
