@@ -4,12 +4,6 @@ const PRE_LOAD_MODULES = ['library'];
 
 class Library{
 	constructor(dispatch, arg1) {
-
-		// Sure this will make caali upload the opcode
-		dispatch.hook('S_CONNECT_SKILL_ARROW', 1, e=> {
-			// :)
-		});
-
         this.mods = {};
 		this.command = Command(dispatch);
 		this.cmd = this.command;

@@ -55,7 +55,7 @@ class entity{
             this.players = {};
             this.npcs = {};
         }
-        dispatch.hook('S_LOAD_TOPO', DEFAULT_HOOK_SETTINGS, this.resetCache);
+        dispatch.hook('S_LOAD_TOPO', 'raw', DEFAULT_HOOK_SETTINGS, this.resetCache);
 
         // Entity spawned
         this.spawnEntity = (mob, e) => {
@@ -83,7 +83,7 @@ class entity{
             };
 
             let pos = e.loc;
-            pos.w = e.w * 0x8000 * Math.PI;
+            pos.w = e.w;
     
             let data = {
                 name: e.name,
@@ -98,6 +98,7 @@ class entity{
                 appearance: outfit,
                 app: outfit,
                 visible: e.visible,
+                loc: pos,
                 outfit,
                 job,
                 race,
@@ -145,7 +146,7 @@ class entity{
             
             */
         }
-        dispatch.hook('S_SPAWN_USER', 12, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
+        dispatch.hook('S_SPAWN_USER', 13, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
         dispatch.hook('S_SPAWN_NPC', 8, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Apperance/outfit update
@@ -190,7 +191,7 @@ class entity{
             if(this.players[id]) this.players[id].pos.w = e.w;
             if(this.npcs[id]) this.npcs[id].pos.w = e.w;
         }
-        dispatch.hook('S_CREATURE_ROTATE', 1, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
+        dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
         dispatch.hook('S_EACH_SKILL_RESULT', 6, DEFAULT_HOOK_SETTINGS, e=> {

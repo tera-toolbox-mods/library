@@ -104,7 +104,7 @@ class player{
             this.onMount = false;
             this.zone = e.zone;
         }
-        dispatch.hook('S_LOAD_TOPO', DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
+        dispatch.hook('S_LOAD_TOPO', 3, DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
 
         this.sMount = (onMount, e) => {
             if(this.isMe(e.target)) this.onMount = onMount;
@@ -132,7 +132,7 @@ class player{
         this.sSpawnMe = (e) => {
             this.alive = true;
         }
-        dispatch.hook('S_SPAWN_ME', DEFAULT_HOOK_SETTINGS, this.sSpawnMe);
+        dispatch.hook('S_SPAWN_ME', 'raw', DEFAULT_HOOK_SETTINGS, this.sSpawnMe);
 
         this.sCreatureLife = (e) => {
             if(this.isMe(e.gameId)) {

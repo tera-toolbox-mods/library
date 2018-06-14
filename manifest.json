@@ -1,16 +1,13 @@
 {
     "files": {
-        "index.js": "6c8bd777d36814278b988ace5484e8aaf2eaeec9ad96e9a8f932999975a4dbc3",
+        "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
         "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
-        "class/effect.js": "b7a4efa05d979d1fdbf912f690c542d4e539f7a7bea012fce5111e78f026c930",
-        "class/entity.js": "6d6c70afbb2ad7c6904d6993b551cbd344a64550d4062c7a233898ba9e3f1bb3",
-        "class/library.js": "1378c09e4b9722659d26e2dd28e93dcb6bc13b174add6b165e135a4065be5da3",
-        "class/player.js": "f1d9af80981fcbc7d03b1f8c0886869c76fed8b1ef42e71f7072097ce4764bfc"
+        "class/effect.js": "f767aa40d315e752644fbae05b0adf3a5cbfaf8e8813613e9f34b268360d0e79",
+        "class/entity.js": "952defba015e616f511f32678ba0b2fc2f8b09b8f6201530100f6359b4ac15af",
+        "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
+        "class/player.js": "eb8ac9951c72ed5b326fed1bf633b91f6cb0216ccc6d6fd8bd306148b8e1315d"
     },
     "defs": {
-        "S_CONNECT_SKILL_ARROW": [
-            1
-        ],
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
             1
         ],
@@ -27,7 +24,8 @@
             1
         ],
         "S_SPAWN_USER": [
-            12
+            12,
+            13
         ],
         "S_SPAWN_NPC": [
             8
@@ -48,7 +46,8 @@
             3
         ],
         "S_CREATURE_ROTATE": [
-            1
+            1,
+            2
         ],
         "S_EACH_SKILL_RESULT": [
             6
@@ -69,6 +68,12 @@
             2
         ],
         "S_PLAYER_CHANGE_STAMINA": [
+            1
+        ],
+        "S_LOAD_TOPO": [
+            3
+        ],
+        "S_MOUNT_VEHICLE": [
             1
         ],
         "S_UNMOUNT_VEHICLE": [
@@ -119,8 +124,8 @@
         "C_PRESS_SKILL": [
             2
         ],
-        "S_LOAD_TOPO": [
-            3
+        "S_CONNECT_SKILL_ARROW": [
+            1
         ],
         "S_INSTANT_DASH": [
             3

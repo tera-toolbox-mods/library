@@ -25,7 +25,7 @@ class Effect{
             this.glyphs = {};
             this.permanentBuffs = {};
         }
-        dispatch.hook('S_LOGIN', DEFAULT_HOOK_SETTINGS, this.reset);
+        dispatch.hook('S_LOGIN', 'raw', DEFAULT_HOOK_SETTINGS, this.reset);
 
         // Perma buffs
 		dispatch.hook('S_HOLD_ABNORMALITY_ADD', 1, DEFAULT_HOOK_SETTINGS, e=> {
