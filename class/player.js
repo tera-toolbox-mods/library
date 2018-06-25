@@ -78,8 +78,13 @@ class player{
             this.msRun = e.runSpeed + e.runSpeedBonus;
             this.msRunBase = e.runSpeed
             this.msRunBonus = e.runSpeedBonus;
+
+            // Sorc edge shit
+            this.fireEdge = e.fireEdge;
+            this.iceEdge = e.iceEdge;
+            this.lightningEdge = e.lightningEdge;
         }
-        dispatch.hook('S_PLAYER_STAT_UPDATE', 8, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+        dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.base.majorPatchVersion < 75 ? 9 : 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
         dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
@@ -201,21 +206,21 @@ class player{
             }
         }
         
-        dispatch.hook('S_ACTION_STAGE', 4, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_ACTION_END', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         // is this borked?
         //dispatch.hook('S_INSTANT_MOVE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('C_PLAYER_LOCATION', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
-        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL_EX', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_PRESS_SKILL', 2, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_SKILL', dispatch.base.majorPatchVersion < 74 ? 6:7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_TARGETED_SKILL', dispatch.base.majorPatchVersion < 74 ? 5:6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_COMBO_INSTANT_SKILL', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL', dispatch.base.majorPatchVersion < 74 ? 4:5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL_EX', dispatch.base.majorPatchVersion < 74 ? 4:5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PRESS_SKILL', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }
 

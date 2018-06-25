@@ -1,11 +1,11 @@
 {
     "files": {
-        "index.js": "f7c0199f0ab9e8086f868471a4ae09dab99822b57422fae7c5a8609c939edbb1",
+        "index.js": "c7ae17319426be0b52274f9b3885b1235b4af2ff9e324e21009424d8caaa024d",
         "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
         "class/effect.js": "f767aa40d315e752644fbae05b0adf3a5cbfaf8e8813613e9f34b268360d0e79",
-        "class/entity.js": "952defba015e616f511f32678ba0b2fc2f8b09b8f6201530100f6359b4ac15af",
-        "class/library.js": "d2f13516f50cbb2444a22bdafda6b5a26223a7cb7cfdf17eca967236941fa400",
-        "class/player.js": "5cae7d11b88b2f64fe2027c089135b1ad84978ea344cce21c801b2c1cacedf1b"
+        "class/entity.js": "edb091ff2a229d06775018c97fca9997adb092b2785856602a98fdd16f706b4e",
+        "class/library.js": "1c72fee4ae13ba25e16a7c8db77ad0742829c29fec0f3478e5d3727efd899f91",
+        "class/player.js": "c1766b6a04759fbd93b1758c59e93ac0283116fce89a6f7252a10cc19bd13b25"
     },
     "defs": {
         "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
@@ -50,7 +50,8 @@
             2
         ],
         "S_EACH_SKILL_RESULT": [
-            6
+            10,
+            11
         ],
         "C_CHECK_VERSION": [
             1
@@ -62,7 +63,7 @@
             1
         ],
         "S_PLAYER_STAT_UPDATE": [
-            8
+            9, 10
         ],
         "S_CURRENT_CHANNEL": [
             2
@@ -92,37 +93,37 @@
             3
         ],
         "S_ACTION_STAGE": [
-            4
+            6,7,8
         ],
         "S_ACTION_END": [
-            3
+            4,5
         ],
         "S_INSTANT_MOVE": [
             3
         ],
         "C_NOTIFY_LOCATION_IN_ACTION": [
-            2
+            3,4
         ],
         "C_NOTIFY_LOCATION_IN_DASH": [
-            2
+            3,4
         ],
         "C_START_SKILL": [
-            5
+            6,7
         ],
         "C_START_TARGETED_SKILL": [
-            4
+            5,6
         ],
         "C_START_COMBO_INSTANT_SKILL": [
-            2
+            3,4
         ],
         "C_START_INSTANCE_SKILL": [
-            3
+            4,5
         ],
         "C_START_INSTANCE_SKILL_EX": [
-            3
+            4,5
         ],
         "C_PRESS_SKILL": [
-            2
+            3,4
         ],
         "S_CONNECT_SKILL_ARROW": [
             1

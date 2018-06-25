@@ -194,7 +194,7 @@ class entity{
         dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
-        dispatch.hook('S_EACH_SKILL_RESULT', 6, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('S_EACH_SKILL_RESULT', dispatch.base.majorPatchVersion < 74 ? 10 : 11, DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 
@@ -203,9 +203,9 @@ class entity{
             if(this.players[id]) loc = this.players[id].pos;
 
             if(loc) {
-                if(e.targetAction.enable) {
+                if(e.reaction.enable) {
                     let dist = 0;
-                    for(let i in e.targetAction.movement) dist += e.targetAction.movement[i].distance;
+                    for(let i in e.reaction.movement) dist += e.reaction.movement[i].distance;
                     dist *= -1;
                     mods.library.applyDistance(loc, dist);
                 }
@@ -233,8 +233,8 @@ class entity{
             if(this.players[id]) this.players[id].pos = pos;
             if(this.npcs[id]) this.npcs[id].pos = pos;
         }
-        dispatch.hook('S_ACTION_STAGE', 4, DEFAULT_HOOK_SETTINGS, this.sAction);
-        dispatch.hook('S_ACTION_END', 3, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, DEFAULT_HOOK_SETTINGS, this.sAction);
     }
 }
 

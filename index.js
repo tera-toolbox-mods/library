@@ -4,6 +4,7 @@ const PRE_LOAD_MODULES = ['library'];
 
 class Library{
 	constructor(dispatch, arg1) {
+
         this.mods = {};
 		this.command = Command(dispatch);
 		this.cmd = this.command;
