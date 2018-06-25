@@ -4,7 +4,7 @@
         "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
         "class/effect.js": "f767aa40d315e752644fbae05b0adf3a5cbfaf8e8813613e9f34b268360d0e79",
         "class/entity.js": "edb091ff2a229d06775018c97fca9997adb092b2785856602a98fdd16f706b4e",
-        "class/library.js": "95246371214ff50e5f4828708ab9f78f78bd5db976400baf9837a86922dadd66",
+        "class/library.js": "0ba36a9f2ee297b7ef5cdebadbb0b68c753cf5ed089925db99ee3ec641039f3d",
         "class/player.js": "c1766b6a04759fbd93b1758c59e93ac0283116fce89a6f7252a10cc19bd13b25"
     },
     "defs": {
@@ -50,8 +50,8 @@
             2
         ],
         "S_EACH_SKILL_RESULT": [
-            11,
-            10
+            10,
+            11
         ],
         "C_CHECK_VERSION": [
             1
@@ -110,30 +110,37 @@
             4
         ],
         "C_NOTIFY_LOCATION_IN_DASH": [
+            
             3,
             4
         ],
         "C_START_SKILL": [
+            
             6,
             7
         ],
         "C_START_TARGETED_SKILL": [
+            
             5,
             6
         ],
         "C_START_COMBO_INSTANT_SKILL": [
+            
             3,
             4
         ],
         "C_START_INSTANCE_SKILL": [
+            
             4,
             5
         ],
         "C_START_INSTANCE_SKILL_EX": [
+            
             4,
             5
         ],
         "C_PRESS_SKILL": [
+            
             3,
             4
         ],

@@ -5,14 +5,13 @@ const Long = require("long");
 const Command = require('command');
 
 class SkillClasserino{
-    constructor(id, usingMask=true, bossSkill=false, patchVersion) {
+    constructor(id, usingMask=true, bossSkill=false) {
         let val = this.calculateValues(id, usingMask, bossSkill);
         this.raw = val.raw;
         this.id = val.id;
         this.skill = val.skill;
         this.sub = val.sub;
         this.level = val.level;
-        this.maskValue = patchVersion < 74 ? 0x4000000 : 0xC000000;
     }
 
     calculateValues(id, usingMask=true, bossSkill=false) {
@@ -28,8 +27,8 @@ class SkillClasserino{
             skill =  Math.floor(skillId / 100);
             level = 1;
         }else {
-            skillId = id - (usingMask ? this.maskValue : 0);
-            raw = id + (usingMask ? 0 : this.maskValue);
+            skillId = id - (usingMask ? 0x4000000 : 0);
+            raw = id + (usingMask ? 0 : 0x4000000);
             skill = Math.floor(skillId / 10000);
             level = Math.floor(skillId / 100) % 100
         }
@@ -115,7 +114,7 @@ class Library{
     }
 
     getSkillInfo(id, usingMask=true, bossSkill=false) {
-        return new SkillClasserino(id, usingMask, bossSkill, this.dispatch.base.majorPatchVersion);
+        return new SkillClasserino(id, usingMask, bossSkill);
     }
 
     fromAngle(w) { return w / Math.PI * 0x8000; }
