@@ -115,7 +115,7 @@ class Library{
     }
 
     getSkillInfo(id, usingMask=true, bossSkill=false) {
-        return new SkillClasserino(id, usingMask, bossSkill);
+        return new SkillClasserino(id, usingMask, bossSkill, this.dispatch.base.majorPatchVersion);
     }
 
     fromAngle(w) { return w / Math.PI * 0x8000; }
@@ -211,6 +211,7 @@ class Library{
     }
 
     constructor(dispatch) {
+        this.dispatch = dispatch;
         dispatch.hook('C_CHECK_VERSION', 1, {order: 100, filter: {fake: null}},()=> {
             this.version = dispatch.base.protocolVersion;
             this.protocolVersion = dispatch.base.protocolVersion;
