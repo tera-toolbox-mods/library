@@ -90,13 +90,6 @@ class entity{
         dispatch.hook('S_SPAWN_USER', 13, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
         dispatch.hook('S_SPAWN_NPC', 9, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
-        // Apperance/outfit update
-        this.sUserExternalChange = (e) => {
-            let id = e.gameId.toString();
-            if(this.players[id]) Object.assign(this.players[id].outfit, e);
-        }
-        dispatch.hook('S_USER_EXTERNAL_CHANGE', 6, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
-
         // Entity despawned
         this.despawnEntity = (mob, e) => {
             let id = e.gameId.toString();

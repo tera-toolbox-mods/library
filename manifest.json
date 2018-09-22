@@ -3,8 +3,118 @@
         "index.js": "c7ae17319426be0b52274f9b3885b1235b4af2ff9e324e21009424d8caaa024d",
         "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
         "class/effect.js": "8eeffb36ee771968f8e4b659cbfb5de3532a6bd569456493008ebca786fdf756",
-        "class/entity.js": "3099f8327f1472d7e13bda4d9ba45434604ba511ccb6c9d9f6cf3eea6a7fec84",
+        "class/entity.js": "06876b7f9c42e2a60c3458e64bd8860fc468bb906e1d6ed688523ee7bfbd7c4b",
         "class/library.js": "0ba36a9f2ee297b7ef5cdebadbb0b68c753cf5ed089925db99ee3ec641039f3d",
         "class/player.js": "88a4ae98983d17a83bf4fefbd82f8b75193472d2d64ef938ba73e00206a79297"
+    },
+    "defs": {
+        "S_CLEAR_ALL_HOLDED_ABNORMALITY": [
+            1
+        ],
+        "S_CREST_INFO": [
+            1
+        ],
+        "S_CREST_APPLY": [
+            1
+        ],
+        "S_ABNORMALITY_BEGIN": [
+            2
+        ],
+        "S_ABNORMALITY_REFRESH": [
+            1
+        ],
+        "S_SPAWN_USER": [
+            13
+        ],
+        "S_SPAWN_NPC": [
+            9
+        ],
+        "S_DESPAWN_NPC": [
+            3
+        ],
+        "S_DESPAWN_USER": [
+            3
+        ],
+        "S_NPC_LOCATION": [
+            3
+        ],
+        "S_USER_LOCATION": [
+            5
+        ],
+        "S_CREATURE_ROTATE": [
+            2
+        ],
+        "S_EACH_SKILL_RESULT": [
+            12
+        ],
+        "C_CHECK_VERSION": [
+            1
+        ],
+        "S_LOGIN": [
+            10
+        ],
+        "S_USER_LEVELUP": [
+            1
+        ],
+        "S_PLAYER_STAT_UPDATE": [
+            75
+        ],
+        "S_CURRENT_CHANNEL": [
+            2
+        ],
+        "S_PLAYER_CHANGE_STAMINA": [
+            1
+        ],
+        "S_LOAD_TOPO": [
+            3
+        ],
+        "S_MOUNT_VEHICLE": [
+            2
+        ],
+        "S_UNMOUNT_VEHICLE": [
+            2
+        ],
+        "S_PARTY_MEMBER_LIST": [
+            7
+        ],
+        "S_INVEN": [
+            16
+        ],
+        "S_USER_STATUS": [
+            2
+        ],
+        "C_PLAYER_LOCATION": [
+            5
+        ],
+        "S_ACTION_STAGE": [
+            74
+        ],
+        "S_ACTION_END": [
+            74
+        ],
+        "C_NOTIFY_LOCATION_IN_ACTION": [
+            74
+        ],
+        "C_NOTIFY_LOCATION_IN_DASH": [
+            74
+        ],
+        "C_START_SKILL": [
+            74
+        ],
+        "C_START_TARGETED_SKILL": [
+            74
+        ],
+        "C_START_COMBO_INSTANT_SKILL": [
+            74
+        ],
+        "C_START_INSTANCE_SKILL": [
+            74
+        ],
+        "C_START_INSTANCE_SKILL_EX": [
+            74
+        ],
+        "C_PRESS_SKILL": [
+            74
+        ]
     }
 }
