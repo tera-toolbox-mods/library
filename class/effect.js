@@ -28,7 +28,7 @@ class Effect{
         dispatch.hook('S_LOGIN', 'raw', DEFAULT_HOOK_SETTINGS, this.reset);
 
         // Perma buffs
-		dispatch.hook('S_HOLD_ABNORMALITY_ADD', 1, DEFAULT_HOOK_SETTINGS, e=> {
+		dispatch.hook('S_HOLD_ABNORMALITY_ADD', 2, DEFAULT_HOOK_SETTINGS, e=> {
 			this.permanentBuffs[e.id] = true;
 		});
 

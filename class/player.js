@@ -15,11 +15,6 @@ class player{
         this.pos = {x: 0, y: 0, z: 0, w: 0, updated: 0};
         // Is the player moving?
         this.moving = false;
-        // outfit/apperance info
-        this.outfit = {};
-        this.apperance = this.outfit;
-        this.appearance = this.outfit;
-        this.app = this.outfit;
         // zone information
         this.zone = -1;
         // List over players in party
@@ -92,12 +87,6 @@ class player{
             this.zone = e.zone;
         });
 
-        // Outfit information
-        this.sUserExternalChange = (e) => {
-            if(this.isMe(e.gameId)) Object.assign(this.outfit, e);
-        }
-        dispatch.hook('S_USER_EXTERNAL_CHANGE', 6, DEFAULT_HOOK_SETTINGS, this.sUserExternalChange);
-
         // Stamina
         this.sPlayerChangeStamina = (e) => {
             this.stamina = e.current;
@@ -112,10 +101,10 @@ class player{
         dispatch.hook('S_LOAD_TOPO', 3, DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
 
         this.sMount = (onMount, e) => {
-            if(this.isMe(e.target)) this.onMount = onMount;
+            if(this.isMe(e.gameId)) this.onMount = onMount;
         }
-        dispatch.hook('S_MOUNT_VEHICLE', 1, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, true));
-        dispatch.hook('S_UNMOUNT_VEHICLE', 1, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, false));
+        dispatch.hook('S_MOUNT_VEHICLE', 2, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, true));
+        dispatch.hook('S_UNMOUNT_VEHICLE', 2, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, false));
 
         // Party
         this.sPartyMemberList = (e) => {
@@ -126,7 +115,7 @@ class player{
 				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId.toString());
 			}
         }
-        dispatch.hook('S_PARTY_MEMBER_LIST', 6, this.sPartyMemberList);
+        dispatch.hook('S_PARTY_MEMBER_LIST', 7, this.sPartyMemberList);
 
         this.sLeaveParty = (e) => {
             this.playersInParty = [];
@@ -182,15 +171,15 @@ class player{
                 inventoryBuffer = [];
             }
         }
-        dispatch.hook('S_INVEN', 12, DEFAULT_HOOK_SETTINGS, this.sInven);
+        dispatch.hook('S_INVEN', 16, DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
-        dispatch.hook('S_USER_STATUS', 1, e=> {
-            if(this.isMe(e.target)) this.onPegasus = (e.status === 3);
+        dispatch.hook('S_USER_STATUS', 2, e=> {
+            if(this.isMe(e.gameId)) this.onPegasus = (e.status === 3);
         });
 
         // Player moving
-        dispatch.hook('C_PLAYER_LOCATION', 3, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('C_PLAYER_LOCATION', 5, DEFAULT_HOOK_SETTINGS, e=> {
             this.moving = e.type !== 7;
         });
 
@@ -208,9 +197,7 @@ class player{
         
         dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        // is this borked?
-        //dispatch.hook('S_INSTANT_MOVE', 3, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('C_PLAYER_LOCATION', 3, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
         dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));

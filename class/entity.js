@@ -63,25 +63,6 @@ class entity{
             let job = (e.templateId - 10101) % 100;
             let race = Math.floor((e.templateId - 10101) / 100);
 
-            let outfit = {
-                appearance: e.appearance,
-                weapon: e.weapon,
-                body: e.body,
-                hand: e.hand,
-                feet: e.feet,
-                underwear: e.underwear,
-                head: e.head,
-                face: e.face,
-                styleHead: e.styleHead,
-                styleFace: e.styleFace,
-                styleBack: e.styleBack,
-                styleWeapon: e.styleWeapon,
-                styleBody: e.styleBody,
-                styleFootprint: e.styleFootprint,
-                styleBodyDye: e.styleBodyDye,
-                bodyDye: e.bodyDye
-            };
-
             let pos = e.loc;
             pos.w = e.w;
     
@@ -94,12 +75,8 @@ class entity{
                 huntingZoneId: e.huntingZoneId,
                 templateId: e.templateId,
                 gameId: e.gameId,
-                apperance: outfit,
-                appearance: outfit,
-                app: outfit,
                 visible: e.visible,
                 loc: pos,
-                outfit,
                 job,
                 race,
                 pos
@@ -109,45 +86,9 @@ class entity{
             if(mob && e.villager) this.npcs[id] = data;
             else if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = data;
             if(!mob) this.players[id] = data;
-
-
-            /*
-            { 
-                gameId: Long { low: 372719, high: 1146880, unsigned: true },
-                target: Long { low: 0, high: 0, unsigned: true },
-                loc: Vec3 { x: 23319.291015625, y: 1357.065673828125, z: 6261.15625 },
-                w: 2.338649584930903,
-                relation: 10,
-                templateId: 9997,
-                huntingZoneId: 183,
-                unk4: 0,
-                unk5: 0,
-                unk6: 0,
-                unk7: 5,
-                visible: true,
-                villager: false,
-                spawnType: 1,
-                unk11: Long { low: 0, high: 0, unsigned: true },
-                unk12: 0,
-                unk13: 0,
-                unk14: 0,
-                unk15: 0,
-                owner: Long { low: 0, high: 0, unsigned: true },
-                unk16: 0,
-                unk17: 0,
-                unk18: Long { low: 0, high: 0, unsigned: true },
-                unk19: 0,
-                unk20: 16777216,
-                unk25: 16777216,
-                unk22: [],
-                unk24: [],
-                npcName: '허수아비' 
-            }
-            
-            */
         }
         dispatch.hook('S_SPAWN_USER', 13, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-        dispatch.hook('S_SPAWN_NPC', 8, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_NPC', 9, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Apperance/outfit update
         this.sUserExternalChange = (e) => {
@@ -182,7 +123,7 @@ class entity{
             if(this.npcs[id]) this.npcs[id].pos = pos;
         }
         dispatch.hook('S_NPC_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
-        dispatch.hook('S_USER_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
+        dispatch.hook('S_USER_LOCATION', 5, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
 
         // Direction update
         this.directionUpdate = (e) => {
@@ -194,7 +135,7 @@ class entity{
         dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
-        dispatch.hook('S_EACH_SKILL_RESULT', dispatch.base.majorPatchVersion < 74 ? 10 : 11, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('S_EACH_SKILL_RESULT', 12, DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 
