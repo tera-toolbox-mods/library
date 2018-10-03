@@ -51,8 +51,8 @@ class player{
 
         // Level up
         try{
-            dispatch.hook('S_USER_LEVELUP', 1, e=> {
-                if(this.isMe(e.cid)) this.level = e.level;
+            dispatch.hook('S_USER_LEVELUP', 2, e=> {
+                if(this.isMe(e.gameId)) this.level = e.level;
             });
         }catch(e) {}
 
