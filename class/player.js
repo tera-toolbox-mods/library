@@ -109,7 +109,7 @@ class player{
         // Party
         this.sPartyMemberList = (e) => {
             this.playersInParty = [];
-
+			
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
 				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId.toString());
@@ -149,7 +149,7 @@ class player{
                 for(let item of inventoryBuffer) {
                     if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
                     this.inven.items[item.id].push({ amount: item.amount, dbid: item.dbid, slot: item.slot });
-
+                    
                     switch(item.slot) {
                         case 1:
                             this.inven.weapon = true;
@@ -196,7 +196,7 @@ class player{
                 this.pos = loc;
             }
         }
-
+        
         dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));

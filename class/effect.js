@@ -55,7 +55,7 @@ class Effect{
                 this.abnormals[e.id] = true;
             }
         }
-        dispatch.hook('S_ABNORMALITY_BEGIN', 2, DEFAULT_HOOK_SETTINGS, this.abnormalityApply);
+        dispatch.hook('S_ABNORMALITY_BEGIN', 3, DEFAULT_HOOK_SETTINGS, this.abnormalityApply);
         dispatch.hook('S_ABNORMALITY_REFRESH', 1, DEFAULT_HOOK_SETTINGS, this.abnormalityApply);
 
         // End

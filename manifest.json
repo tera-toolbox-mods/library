@@ -2,9 +2,9 @@
     "files": {
         "index.js": "c7ae17319426be0b52274f9b3885b1235b4af2ff9e324e21009424d8caaa024d",
         "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
-        "class/effect.js": "8eeffb36ee771968f8e4b659cbfb5de3532a6bd569456493008ebca786fdf756",
+        "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
         "class/entity.js": "06876b7f9c42e2a60c3458e64bd8860fc468bb906e1d6ed688523ee7bfbd7c4b",
         "class/library.js": "0ba36a9f2ee297b7ef5cdebadbb0b68c753cf5ed089925db99ee3ec641039f3d",
-        "class/player.js": "42dbfdb02c3816da415404cc525303a3a10b697cba56d93a94868cb55bba1a39"
+        "class/player.js": "8f0b621d5307401932b4cf19a845a345899bd39495082ce1aa6b5b5049f8d658"
     }
 }
