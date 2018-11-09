@@ -6,11 +6,14 @@ class entity{
         this.mobs = {};
         this.players = {};
         this.npcs = {};
+        this.unknown = {};
 
         // Functions
         this.getLocationForThisEntity = (id) => {
             if(this.players[id]) return this.players[id].pos;
-            else if(this.mobs[id]) return this.mobs[id].pos;
+            if(this.mobs[id]) return this.mobs[id].pos;
+            if(this.npcs[id]) return this.npcs[id].pos;
+            if(this.unknown[id]) return this.unknown[id].pos;
         }
         this.getLocationForPlayer = (id) => this.players[id].pos;
         this.getLocationForMob = (id) => this.mobs[id].pos;
@@ -41,8 +44,12 @@ class entity{
             return false;
         }
 
+        this.getEntityData = (id) => {
+            return this.npcs[id.toString] || this.mobs[id.toString()] || this.players[id.toString()] || this.unknown[id.toString()];
+        };
+
         this.getSettingsForEntity = (id, object) => {
-            let entity = this.npcs[id.toString] || this.mobs[id.toString()] || this.players[id.toString()];
+            let entity = this.npcs[id.toString] || this.mobs[id.toString()] || this.players[id.toString()] || this.unknown[id.toString()];
 
             if(object[entity.info.huntingZoneId]) {
                 return object[entity.info.huntingZoneId][entity.info.templateId];
@@ -54,6 +61,7 @@ class entity{
             this.mobs = {};
             this.players = {};
             this.npcs = {};
+            this.unknown = {};
         }
         dispatch.hook('S_LOAD_TOPO', 'raw', DEFAULT_HOOK_SETTINGS, this.resetCache);
 
@@ -83,9 +91,10 @@ class entity{
             };
             
             // relation(10 door), unk15 == isMob, relation(12 for special cases), rel = 10 & spawnType = 1 == HW dummy
-            if(mob && e.villager) this.npcs[id] = data;
-            else if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = data;
-            if(!mob) this.players[id] = data;
+            if(mob && e.villager) this.npcs[id] = Object.assign(data, {"var": "npcs"});
+            else if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = Object.assign(data, {"var": "mobs"});
+            else this.unknown[id] = Object.assign(data, {"var": "unknown"});
+            if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
         dispatch.hook('S_SPAWN_USER', 13, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
         dispatch.hook('S_SPAWN_NPC', 9, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
@@ -99,7 +108,11 @@ class entity{
                     delete this.npcs[id];
                 }
                 else delete this.players[id];
-            }catch(e){}
+            }catch(e){
+                try {
+                    delete this.unknown[id];
+                }catch(e) {}
+            }
         }
         dispatch.hook('S_DESPAWN_NPC', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, true));
         dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, false));
@@ -114,6 +127,7 @@ class entity{
             if(this.mobs[id]) this.mobs[id].pos = pos;
             if(this.players[id]) this.players[id].pos = pos;
             if(this.npcs[id]) this.npcs[id].pos = pos;
+            if(this.unknown[id]) this.unknown[id].pos = pos;
         }
         dispatch.hook('S_NPC_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
         dispatch.hook('S_USER_LOCATION', 5, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
@@ -124,6 +138,7 @@ class entity{
             if(this.mobs[id]) this.mobs[id].pos.w = e.w;
             if(this.players[id]) this.players[id].pos.w = e.w;
             if(this.npcs[id]) this.npcs[id].pos.w = e.w;
+            if(this.unknown[id]) this.unknown[id].pos.w = e.w;
         }
         dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
@@ -135,6 +150,7 @@ class entity{
             if(this.npcs[id]) loc = this.npcs[id].pos;
             if(this.mobs[id]) loc = this.mobs[id].pos;
             if(this.players[id]) loc = this.players[id].pos;
+            if(this.unknown[id]) loc = this.unknown[id].pos;
 
             if(loc) {
                 if(e.reaction.enable) {
@@ -166,6 +182,7 @@ class entity{
             if(this.mobs[id]) this.mobs[id].pos = pos;
             if(this.players[id]) this.players[id].pos = pos;
             if(this.npcs[id]) this.npcs[id].pos = pos;
+            if(this.unknown[id]) this.unknown[id].pos = pos;
         }
         dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, DEFAULT_HOOK_SETTINGS, this.sAction);
         dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, DEFAULT_HOOK_SETTINGS, this.sAction);

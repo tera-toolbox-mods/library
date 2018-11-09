@@ -84,6 +84,7 @@ def getDefForSyntax(data, syntax):
     return ret
 
 def getDefsForFile(path):
+    return {}
     """ Get the definitions for a file path """
     defs = {}
     try:

@@ -1,4 +1,3 @@
-const Command = require('command');
 const LOAD_MODULES = ['entity', 'player', 'effect'];
 const PRE_LOAD_MODULES = ['library'];
 
@@ -6,7 +5,7 @@ class Library{
 	constructor(dispatch, arg1) {
 
         this.mods = {};
-		this.command = Command(dispatch);
+		this.command = dispatch.command;
 		this.cmd = this.command;
 
 		for(let name of PRE_LOAD_MODULES) {

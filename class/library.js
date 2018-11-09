@@ -2,7 +2,6 @@ const {protocol, sysmsg} = require('tera-data-parser');
 const path = require('path');
 const fs = require('fs');
 const Long = require("long");
-const Command = require('command');
 
 class SkillClasserino{
     constructor(id, usingMask=true, bossSkill=false) {
@@ -221,7 +220,7 @@ class Library{
             this.protocolVersion = dispatch.base.protocolVersion;
             this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         }catch(e) {}
-        this.command = Command(dispatch);
+        this.command = dispatch.command;
 
         this.sp = false;
         for(let x of ['skill-prediction', 'skill-prediction-master', 'sp', 'sp-master']) {

@@ -137,7 +137,10 @@ class player{
         dispatch.hook('S_CREATURE_LIFE', 2, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
-        this.sInven = e => {
+        this.sInven = (opcode, payload, incoming, fake) => {
+            const e = mods.library.getEvent(opcode, 16, payload);
+
+
             inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
             this.gold = e.gold;
 
@@ -173,7 +176,7 @@ class player{
                 inventoryBuffer = [];
             }
         }
-        dispatch.hook('S_INVEN', 16, DEFAULT_HOOK_SETTINGS, this.sInven);
+        dispatch.hook('S_INVEN', 'raw', DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
         dispatch.hook('S_USER_STATUS', 2, e=> {
