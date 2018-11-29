@@ -26,13 +26,7 @@ class player{
 
         // Functions
         this.isMe = (arg) => {
-            return arg.equals(this.gameId);
-            try {
-                return arg.equals(this.gameId);
-            }catch(e) {
-                console.log(`[Error] library.player.gameId = ${this.gameId} | arg = ${arg}`);
-                return false;
-            }
+            return arg == this.gameId;
         }
 
         // Login
@@ -190,7 +184,7 @@ class player{
 
         // Player location
         this.handleMovement = (serverPacket, e) => {
-            if(e.type !== 7 && serverPacket?e.gameId.equals(this.gameId):true) {
+            if(e.type !== 7 && serverPacket ? e.gameId == this.gameId : true) {
                 let loc = e.loc;
                 loc.w = e.w || this.loc.w;
                 loc.updated = Date.now();
