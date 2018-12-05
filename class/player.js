@@ -73,7 +73,7 @@ class player{
             this.iceEdge = e.iceEdge;
             this.lightningEdge = e.lightningEdge;
         }
-        dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.base.majorPatchVersion < 75 ? 9 : 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+        dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.majorPatchVersion < 75 ? 9 : 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
         dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
@@ -194,19 +194,19 @@ class player{
             }
         }
         
-        dispatch.hook('S_ACTION_STAGE', dispatch.base.majorPatchVersion < 74 ? 6 : dispatch.base.majorPatchVersion < 75 ? 7 : 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_ACTION_END', dispatch.base.majorPatchVersion < 74 ? 4 : 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_STAGE', 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_END', 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
-        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', dispatch.base.majorPatchVersion < 74 ? 6:7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', dispatch.base.majorPatchVersion < 74 ? 5:6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', dispatch.base.majorPatchVersion < 74 ? 4:5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL_EX', dispatch.base.majorPatchVersion < 74 ? 4:5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_PRESS_SKILL', dispatch.base.majorPatchVersion < 74 ? 3:4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_TARGETED_SKILL', 6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL_EX', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_PRESS_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }
 

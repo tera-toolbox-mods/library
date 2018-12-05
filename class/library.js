@@ -211,13 +211,13 @@ class Library{
     constructor(dispatch) {
         this.dispatch = dispatch;
         dispatch.hook('C_CHECK_VERSION', 1, {order: 100, filter: {fake: null}},()=> {
-            this.version = dispatch.base.protocolVersion;
-            this.protocolVersion = dispatch.base.protocolVersion;
+            this.version = dispatch.protocolVersion;
+            this.protocolVersion = dispatch.protocolVersion;
             this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         });
         try {
-            this.version = dispatch.base.protocolVersion;
-            this.protocolVersion = dispatch.base.protocolVersion;
+            this.version = dispatch.protocolVersion;
+            this.protocolVersion = dispatch.protocolVersion;
             this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         }catch(e) {}
         this.command = dispatch.command;

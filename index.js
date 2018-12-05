@@ -35,7 +35,7 @@ class Library{
 		}
 
 		// don't mind this tbh
-		if(arg1 || dispatch.base.majorPatchVersion) loadAllModules.call(this);
+		if(arg1 || dispatch.majorPatchVersion) loadAllModules.call(this);
 		else dispatch.hook('C_LOGIN_ARBITER', 'raw', loadAllModules.bind(this));
 	}
 }
@@ -43,9 +43,9 @@ class Library{
 let map = new WeakMap();
 
 module.exports = function Require(dispatch, ...args) {
-	if(map.has(dispatch.base)) return map.get(dispatch.base);
+	if(map.has(dispatch.dispatch)) return map.get(dispatch.dispatch);
 
 	let library = new Library(dispatch, ...args);
-	map.set(dispatch.base, library);
+	map.set(dispatch.dispatch, library);
 	return library;
 }
