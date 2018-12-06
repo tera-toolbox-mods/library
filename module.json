@@ -1,4 +1,6 @@
 {
     "servers": ["https://raw.githubusercontent.com/Kaseaa/library/master/"],
-    "supportUrl": "https://github.com/Kaseaa/library/issues"
+    "supportUrl": "https://github.com/Kaseaa/library/issues",
+    "name": "library",
+    "autoUpdateDisabled": false
 }
