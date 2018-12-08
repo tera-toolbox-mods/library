@@ -8,17 +8,15 @@ DO NOT INSTALLED IT AS "library-master" MAKE SURE IT'S NAMED "library"
 ### How to import
 After successfully importing the library refer to the "Class functions" section to figure out how to access variables
 ```JS
-const Library = require('library');
-
 module.exports = (dispatch)=> {
-  const library = Library(dispatch);
+  const library = dispatch.require.library;
   library.<class library>.<class function/variable>;
 }
 ```
 
 ### How to inherit
 ```JS
-const PlayerLibrary = require('library/class/player');
+const PlayerLibrary = require('../library/class/player');
 class Player extends PlayerLibrary {
   constructor(dispatch) {
     super(dispatch);

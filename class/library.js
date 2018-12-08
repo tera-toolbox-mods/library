@@ -80,10 +80,12 @@ class Library{
     }
 
     getDirectionTo(fromPos, toPos) {
+        console.warn(`DeprecationWarning: Library.getDirectionTo is deprecated. Use "Angle" equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
         return Math.atan2(toPos.y - fromPos.y, toPos.x - fromPos.x) * 0x8000 / Math.PI;
     }
 
     opositeDirection(direction) {
+        console.warn(`DeprecationWarning: Library.opositeDirection is deprecated. Use "Angle" equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
         return (direction + 2 * 32768) % (2 * 32768) - 32768;
     }
 
@@ -92,10 +94,12 @@ class Library{
     }
 
     emptyLong(bool=true) {
+        console.warn(`DeprecationWarning: Library.emptyLong is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
         return new Long(0, 0, bool);
     }
 
     long(low=0, high=0, unsigned=true) {
+        console.warn(`DeprecationWarning: Library.long is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
         return new Long(low, high, unsigned);
     }
 
