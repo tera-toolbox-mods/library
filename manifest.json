@@ -1,10 +1,10 @@
 {
     "files": {
         "index.js": "25dec4ffcc9c11d12e48715847327a5ed329282d43a09909c05194b32e45e695",
-        "README.md": "b02b6a4e5888929f19d305bc5d9f85c9dd8ff05953bf699f3281587490a4e735",
+        "README.md": "bfa4a98a7926e9efa2a04921d2f23d7bf0151b595de782e3d0a6730f02875df8",
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
         "class/entity.js": "429cc35db771562c49f0371ac718b9d2952a332b8a9ed00e4b2ad1c40f31e449",
-        "class/library.js": "626202b7c1127f8449c1106f146ce86a3282abbe3efb0c2b70e44e421f38527a",
+        "class/library.js": "c7538461806a8346a91a73571930815de7afb54ec953fb7210d97f4b3a2af85e",
         "class/player.js": "4a425e1d6026dbbfd71d3f56dc877c47a6ba81a7667fd47a0f43b81c30e36d55"
     },
     "defs": {}
