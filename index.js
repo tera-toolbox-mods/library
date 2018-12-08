@@ -3,7 +3,7 @@ const PRE_LOAD_MODULES = ['library'];
 
 class Library{
 	constructor(dispatch, arg1) {
-		// Kasea
+
         this.mods = {};
 		this.command = dispatch.command;
 		this.cmd = this.command;
