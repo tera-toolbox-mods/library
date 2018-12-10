@@ -40,12 +40,9 @@ class Library{
 	}
 }
 
-let map = new WeakMap();
-
 module.exports = function Require(dispatch, ...args) {
-	if(map.has(dispatch.dispatch)) return map.get(dispatch.dispatch);
+	if(dispatch.name !== 'library')
+		throw error(`Tried to require library module: ${dispatch.name}`);
 
-	let library = new Library(dispatch, ...args);
-	map.set(dispatch.dispatch, library);
-	return library;
+	return new Library(dispatch, ...args);
 }
