@@ -1,6 +1,7 @@
 {
     "files": {
-        "index.js": "25dec4ffcc9c11d12e48715847327a5ed329282d43a09909c05194b32e45e695",
+        ".gitignore": "e6fdaf48ec339e2166f48043597d67d91464d12ef34fb958b12d6c93ba5f6fe3",
+        "index.js": "b911686a39f0821c2e10382ee600cdd10a4bbdd78f3b28c6f0d403f5f325400d",
         "README.md": "bfa4a98a7926e9efa2a04921d2f23d7bf0151b595de782e3d0a6730f02875df8",
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
         "class/entity.js": "429cc35db771562c49f0371ac718b9d2952a332b8a9ed00e4b2ad1c40f31e449",
