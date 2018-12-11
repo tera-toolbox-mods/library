@@ -186,7 +186,7 @@ class player{
         this.handleMovement = (serverPacket, e) => {
             if(e.type !== 7 && serverPacket ? e.gameId == this.gameId : true) {
                 let loc = e.loc;
-                loc.w = e.w || this.loc.w;
+                loc.w = (e.w === undefined ? this.loc.w : e.w);
                 loc.updated = Date.now();
 
                 this.loc = loc;

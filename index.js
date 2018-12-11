@@ -42,7 +42,7 @@ class Library{
 
 module.exports = function Require(dispatch, ...args) {
 	if(dispatch.name !== 'library')
-		throw error(`Tried to require library module: ${dispatch.name}`);
+		throw new Error(`Tried to require library module: ${dispatch.name}`);
 
 	return new Library(dispatch, ...args);
 }
