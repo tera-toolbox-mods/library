@@ -96,7 +96,7 @@ class entity{
             else this.unknown[id] = Object.assign(data, {"var": "unknown"});
             if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
-        dispatch.hook('S_SPAWN_USER', 13, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
+        dispatch.hook('S_SPAWN_USER', 14, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
         dispatch.hook('S_SPAWN_NPC', 10, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Entity despawned
@@ -184,7 +184,7 @@ class entity{
             if(this.npcs[id]) this.npcs[id].pos = pos;
             if(this.unknown[id]) this.unknown[id].pos = pos;
         }
-        dispatch.hook('S_ACTION_STAGE', 8, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook('S_ACTION_STAGE', 9, DEFAULT_HOOK_SETTINGS, this.sAction);
         dispatch.hook('S_ACTION_END', 5, DEFAULT_HOOK_SETTINGS, this.sAction);
     }
 }
