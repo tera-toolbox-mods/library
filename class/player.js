@@ -41,7 +41,7 @@ class player{
             this.name = e.name;
             this.level = e.level;
         }
-        dispatch.hook('S_LOGIN', 10, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        dispatch.hook('S_LOGIN', 12, DEFAULT_HOOK_SETTINGS, this.sLogin);
 
         // Level up
         try{
@@ -128,7 +128,7 @@ class player{
                 Object.assign(this.loc, e.loc);
             }
         }
-        dispatch.hook('S_CREATURE_LIFE', 2, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
+        dispatch.hook('S_CREATURE_LIFE', 3, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
         this.sInven = (opcode, payload, incoming, fake) => {
@@ -194,7 +194,7 @@ class player{
             }
         }
         
-        dispatch.hook('S_ACTION_STAGE', 8, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook('S_ACTION_STAGE', 9, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('S_ACTION_END', 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
         dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
