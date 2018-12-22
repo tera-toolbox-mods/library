@@ -1,7 +1,6 @@
 const {protocol, sysmsg} = require('tera-data-parser');
 const path = require('path');
 const fs = require('fs');
-const Long = require("long");
 
 class SkillClasserino{
     constructor(id, usingMask=true, bossSkill=false) {
@@ -91,16 +90,6 @@ class Library{
 
     jsonEqual(a, b) {
         return JSON.stringify(a) === JSON.stringify(b);
-    }
-
-    emptyLong(bool=true) {
-        console.warn(`DeprecationWarning: Library.emptyLong is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
-        return new Long(0, 0, bool);
-    }
-
-    long(low=0, high=0, unsigned=true) {
-        console.warn(`DeprecationWarning: Library.long is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
-        return new Long(low, high, unsigned);
     }
 
     getRandomInt(min, max) {
