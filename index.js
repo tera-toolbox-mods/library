@@ -8,6 +8,14 @@ class Library{
 		this.command = dispatch.command;
 		this.cmd = this.command;
 
+		// just gonna leave this here for a bit because of pinkie's dispatch.proxyAuthor == "caali" stunt.
+		if(!global.TeraProxy && !arg1) {
+			console.log("Yikes... Looks like you're using pinkie's proxy.");
+			console.log("It's outdated fam. Get a new one here https://discord.gg/dUNDDtw");
+			console.log("Technically their both the same since both have proxyAuthor set to Caali though :)");
+			process.exit(69);
+		}
+
 		for(let name of PRE_LOAD_MODULES) {
 			try {
 				let tmp = require(`./class/${name}`);
