@@ -4,7 +4,7 @@
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
         "class/entity.js": "a68a41a4760d19df07cc40f1a09c30438eb65fe068b6bb1f3ced38d61ad635a4",
         "class/library.js": "e293342b9ecac705e8097b2a51776e3062fb6508a152057ab61e0a428df41190",
-        "class/player.js": "3146485fd95e6667e901bd9139646b16a86ca70cbca2a3a7342419ff0505759c",
+        "class/player.js": "abc1aafc94ca4d81c32022da7d091f92dd6fb7795a3981798391e4f523a3f6c6",
         "index.js": "87478b7bd75d1e57bbbe5581c21abe6e043be3e2611a00479a5dfbb987a67ef9",
         "module.json": "75cfc13e8da0e9a7be524c11f5a11efa6ba4530ce1fe404b48e7ceb0a42cbcd4"
     },
@@ -50,6 +50,6 @@
         "S_UNMOUNT_VEHICLE": 2,
         "S_USER_LEVELUP": 2,
         "S_USER_LOCATION": 5,
-        "S_USER_STATUS": 2
+        "S_USER_STATUS": 3
     }
 }
