@@ -1,7 +1,16 @@
 const {protocol, sysmsg} = require('tera-data-parser');
 const path = require('path');
 const fs = require('fs');
-const Long = require("long"); // just gonna leave this here for a bit because of pinkie's dispatch.proxyAuthor == "caali" stunt.
+
+try {
+    require("long"); // just gonna leave this here for a bit because of pinkie's dispatch.proxyAuthor == "caali" stunt.
+}catch(e) {
+    console.log("Yikes... Looks like you're using pinkie's proxy.");
+    console.log("It's outdated fam. Get a new one here https://discord.gg/dUNDDtw");
+    console.log("Technically their both the same since both have proxyAuthor set to Caali though :)");
+    process.exit(69);
+}
+
 
 class SkillClasserino{
     constructor(id, usingMask=true, bossSkill=false) {
