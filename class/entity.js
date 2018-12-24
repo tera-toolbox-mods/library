@@ -1,5 +1,4 @@
 const DEFAULT_HOOK_SETTINGS = {order: -1000, filter: {fake: null}};
-const Vec3 = require('tera-vec3');
 
 class entity{
     constructor(dispatch, mods) {

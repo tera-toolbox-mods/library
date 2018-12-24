@@ -84,13 +84,13 @@ getSettingsForEntity(id, object): returns an objects values in entity[entity.inf
 sp: true if sp is found
 startSkillsPackets: A list of C packets which are called when client presses any skill
 command: The command module
-version: The dispatch.base.protocolVersion after update
+version: The dispatch.protocolVersion after update
 ```
 #### Functions
 ```JS
 applyDistance(loc, distance): applies distance to a location object, then returns the object. 
 dist3D(loc1, loc2): Returns the distance between two points(x, y, z)
-opositeDirection(direction): Takes a direction value and changes it to the oposite
+opositeDirection(direction): Takes a direction value and changes it to the oposite (deprecated, use Angle equivalents).
 positionsIntersect(a, b, aRadius, bRadius): I don't remember. returns true of two circles intersects? doesn't account for Z value
 
 getSkillInfo(id, usingMask): Get the info of a player skill. returns an object with 4 values. raw(actual skill id), id(unpacked skill id), skill(double digit skill) and sub(the skill sub "stage")
@@ -98,7 +98,7 @@ getSkillInfo(id, usingMask): Get the info of a player skill. returns an object w
 getEvent(opcode, packetVersion, payload): Returns the event of a raw payload.
 getPayload(opcode, packetVersion, data): Returns the raw payload of an event
 
-emptyLong(bool=true): creates an empty long
+emptyLong(bool=true): creates an empty long (deprecated, use BigInt equivalents).
 jsonEqual(a, b): Checks if two json objects are the same
 objectLength(obj): Returns the length of an object.
 arrayItemInArray(idk, idk): What the name says, I have no clue why this is here tbh
@@ -123,7 +123,7 @@ stamina: How much stamina the player has left
 
 attackSpeed: The base attack speed of the player
 attackSpeedBonus: The bonus attack speed of the player
-aspdDivider: The value (attackSpeed + attackSpeedBonus) get's divided with to create aspd
+aspdDivider: The value (attackSpeed + attackSpeedBonus) "get's divided with to create aspd"
 aspd: The attack speed of the player using a secret algorithm (Kappa)
 
 ---------- below is appearance information ----------
@@ -147,7 +147,7 @@ outfit/app/apperance/appearance: (passed by reference)
 ```
 #### Functions
 ```
-isMe(arg): takes a long(int 64) argument and checks if it's equal to your player id/gameId
+isMe(arg): takes a BigInt(int 64) argument and checks if it's equal to your player id/gameId
 ```
 
 ### Effect

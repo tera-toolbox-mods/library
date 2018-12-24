@@ -1,7 +1,7 @@
 const {protocol, sysmsg} = require('tera-data-parser');
 const path = require('path');
 const fs = require('fs');
-const Long = require("long");
+const Long = require("long"); // just gonna leave this here for a bit because of pinkie's dispatch.proxyAuthor == "caali" stunt.
 
 class SkillClasserino{
     constructor(id, usingMask=true, bossSkill=false) {
@@ -94,13 +94,11 @@ class Library{
     }
 
     emptyLong(bool=true) {
-        console.warn(`DeprecationWarning: Library.emptyLong is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
-        return new Long(0, 0, bool);
+        throw new Error(`DeprecationWarning: Library.emptyLong is deprecated. Use BigInt equivalents instead.\n    ${Error().stack}`);
     }
 
     long(low=0, high=0, unsigned=true) {
-        console.warn(`DeprecationWarning: Library.long is deprecated. Use BigInt equivalents instead.\n    at ${Error().stack.split('\n')[3].slice(7)}`);
-        return new Long(low, high, unsigned);
+        throw new Error(`DeprecationWarning: Library.long is deprecated. Use BigInt equivalents instead.\n    ${Error().stack}`);
     }
 
     getRandomInt(min, max) {

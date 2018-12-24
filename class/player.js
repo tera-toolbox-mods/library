@@ -1,5 +1,4 @@
 const DEFAULT_HOOK_SETTINGS = {order: -1001, filter: {fake: null}};
-const Vec3 = require('tera-vec3');
 
 class player{
     constructor(dispatch, mods) {
@@ -173,7 +172,7 @@ class player{
         dispatch.hook('S_INVEN', 'raw', DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
-        dispatch.hook('S_USER_STATUS', 2, e=> {
+        dispatch.hook('S_USER_STATUS', 3, e=> {
             if(this.isMe(e.gameId)) this.onPegasus = (e.status === 3);
         });
 
