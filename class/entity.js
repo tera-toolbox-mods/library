@@ -99,22 +99,16 @@ class entity{
         dispatch.hook('S_SPAWN_NPC', 10, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Entity despawned
-        this.despawnEntity = (mob, e) => {
+        this.despawnEntity = (e) => {
             let id = e.gameId.toString();
-            try{
-                if(mob) {
-                    delete this.mobs[id];
-                    delete this.npcs[id];
-                }
-                else delete this.players[id];
-            }catch(e){
-                try {
-                    delete this.unknown[id];
-                }catch(e) {}
-            }
-        }
-        dispatch.hook('S_DESPAWN_NPC', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, true));
-        dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity.bind(null, false));
+            
+            if (this.mobs[id]) delete this.mobs[id];
+            if (this.npcs[id]) delete this.npcs[id];
+            if (this.players[id]) delete this.players[id];
+            if (this.unknown[id]) delete this.unknown[id];
+        };
+        dispatch.hook('S_DESPAWN_NPC', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity);
+        dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity);
 
         // Move location update
         this.updatePosition = (mob, e) => {
