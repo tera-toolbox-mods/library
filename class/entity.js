@@ -96,7 +96,7 @@ class entity{
             if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
         dispatch.hook('S_SPAWN_USER', 14, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-        dispatch.hook('S_SPAWN_NPC', 10, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_NPC', (dispatch.majorPatchVersion < 79 ? 10 : 11), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Entity despawned
         this.despawnEntity = (e) => {
