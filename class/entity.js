@@ -91,7 +91,7 @@ class entity{
             
             // relation(10 door), unk15 == isMob, relation(12 for special cases), rel = 10 & spawnType = 1 == HW dummy
             if(mob && e.villager) this.npcs[id] = Object.assign(data, {"var": "npcs"});
-            else if(mob && (e.unk15 || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = Object.assign(data, {"var": "mobs"});
+            else if(mob && (e.aggressive || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = Object.assign(data, {"var": "mobs"});
             else this.unknown[id] = Object.assign(data, {"var": "unknown"});
             if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
