@@ -3,7 +3,11 @@
         "index.js": "87478b7bd75d1e57bbbe5581c21abe6e043be3e2611a00479a5dfbb987a67ef9",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
+<<<<<<< HEAD
         "class/entity.js": "c0d269a25d9142ca3c7bbd4330a828b9c46527b3473b9ec7416df777ff846444",
+=======
+        "class/entity.js": "3fdc149365d6fbde2df70c024f2d12379c21737238d790dd7510be05c2afb014",
+>>>>>>> 3bb634f6ce11f0f78d1ce69d1e972f31ffcd587d
         "class/library.js": "668d83cc1c096b235007a61e9a5561d1680f6c3bfc5b2052b45050ef19150906",
         "class/player.js": "94edc53820c2523e4cd76fcbdb1f6bfea77d849c4db083e7afc887c6327f8845"
     },
