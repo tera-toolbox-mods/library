@@ -51,7 +51,7 @@ class player{
 
         // Attack Speed & Stamina
         this.sPlayerStatUpdate = (e) => {
-            //this.sPlayerStatUpdate = e;
+            this.previous_sPlayerStatUpdate = e;
             this.stamina = e.stamina;
             // Attack speed
             this.attackSpeed = e.attackSpeed;

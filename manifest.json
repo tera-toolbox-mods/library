@@ -3,9 +3,9 @@
         "index.js": "87478b7bd75d1e57bbbe5581c21abe6e043be3e2611a00479a5dfbb987a67ef9",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
-        "class/entity.js": "a23594ab4da73c5a8281345aac353395b73e35767295f8055f3190388b8a78dd",
+        "class/entity.js": "c0d269a25d9142ca3c7bbd4330a828b9c46527b3473b9ec7416df777ff846444",
         "class/library.js": "668d83cc1c096b235007a61e9a5561d1680f6c3bfc5b2052b45050ef19150906",
-        "class/player.js": "cc0cd8dc35ea4719ac1e5f22069f767e3483d2bfc9bd6b777273236df9128317"
+        "class/player.js": "94edc53820c2523e4cd76fcbdb1f6bfea77d849c4db083e7afc887c6327f8845"
     },
     "defs": {}
 }
