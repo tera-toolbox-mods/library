@@ -131,7 +131,7 @@ class player{
 
         // Inventory
         this.sInven = (opcode, payload, incoming, fake) => {
-            const e = mods.library.getEvent(opcode, 17, payload);
+            const e = mods.library.getEvent(opcode, dispatch.majorPatchVersion < 80 ? 17 : 18, payload);
 
 
             inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
