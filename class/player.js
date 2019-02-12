@@ -75,10 +75,12 @@ class player{
         dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.majorPatchVersion < 75 ? 9 : 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
-        dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
-            this.channel = e.channel - 1;
-            this.zone = e.zone;
-        });
+        if(!dispatch.isClassic) {
+            dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
+                this.channel = e.channel - 1;
+                this.zone = e.zone;
+            });
+        }
 
         // Stamina
         this.sPlayerChangeStamina = (e) => {
@@ -130,10 +132,7 @@ class player{
         dispatch.hook('S_CREATURE_LIFE', 3, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
-        this.sInven = (opcode, payload, incoming, fake) => {
-            const e = mods.library.getEvent(opcode, dispatch.majorPatchVersion < 80 ? 17 : 18, payload);
-
-
+        this.sInven = (e) => {
             inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
             this.gold = e.gold;
 
@@ -152,9 +151,14 @@ class player{
                             break;
                         case 3:
                             // We put a try statement here because fuck everything and everyone. :)
-                            let activeSet = item.passivitySets[item.passivitySet];
-                            if(!activeSet)
-                                activeSet = item.passivitySets[0];
+                            let activeSet = [];
+
+                            if(dispatch.isClassic) activeSet = item.passivities;
+                            else {
+                                activeSet = item.passivitySets[item.passivitySet];
+                                if(!activeSet)
+                                    activeSet = item.passivitySets[0];
+                            }
 
                             try {
                                 for (const effect of activeSet.passivities) {
@@ -169,7 +173,7 @@ class player{
                 inventoryBuffer = [];
             }
         }
-        dispatch.hook('S_INVEN', 'raw', DEFAULT_HOOK_SETTINGS, this.sInven);
+        dispatch.hook('S_INVEN', dispatch.majorPatchVersion < 80 ? 17 : 18, DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
         dispatch.hook('S_USER_STATUS', 3, e=> {
@@ -198,13 +202,15 @@ class player{
         dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
         dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        if(!dispatch.isClassic)
+            dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
         dispatch.hook('C_START_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_TARGETED_SKILL', 6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_COMBO_INSTANT_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_START_INSTANCE_SKILL', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL_EX', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        if(!dispatch.isClassic)
+            dispatch.hook('C_START_INSTANCE_SKILL_EX', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_PRESS_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }

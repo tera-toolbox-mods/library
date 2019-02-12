@@ -1,4 +1,3 @@
-const {protocol, sysmsg} = require('tera-data-parser');
 const path = require('path');
 const fs = require('fs');
 
@@ -134,15 +133,15 @@ class Library{
     }
 
     getEvent(opcode, packetVersion, payload) {
-        return protocol.parse(this.version, opcode, packetVersion, payload);
+        return this.dispatch.dispatch.protocol.parse(this.version, opcode, packetVersion, payload);
     }
 
     getPayload(opcode, packetVersion, data) {
-        return protocol.write(this.version, opcode, packetVersion, data);
+        return this.dispatch.dispatch.protocol.write(this.version, opcode, packetVersion, data);
     }
 
     getPacketInformation(identifier) {
-        return protocol.resolveIdentifier(this.version, identifier);
+        return this.dispatch.dispatch.protocol.resolveIdentifier(this.version, identifier);
     }
 
     // Read a file
@@ -163,28 +162,7 @@ class Library{
         }
     */
     parseSystemMessage(message) {
-        // TODO: this just works(TM) but is really ugly...
-        // Split tokens
-        let tokenstrings = message.split('\x0B');
-        if(tokenstrings.length == 0)
-            return null;
-
-        // Get SMT_ ID
-        let msgId = tokenstrings[0];
-        if(msgId.charAt(0) != '@')
-            return null;
-        msgId = this.sysmsgMap.code.get(parseInt(msgId.substring(1)));
-        if(!msgId)
-            return null;
-
-        // Convert tokens to dictionary
-        if(tokenstrings.length % 2 != 1)
-            return null;
-        let tokens = {};
-        for(let i = 1; i < tokenstrings.length; i += 2)
-            tokens[tokenstrings[i]] = tokenstrings[i+1];
-
-        return {id: msgId, tokens: tokens};
+        return this.dispatch.parseSystemMessage(message);
     }
 
     /* Caali™
@@ -200,14 +178,7 @@ class Library{
         '@5678 [0x0B] ItemName [0x0B] @item:123456 [0x0B] ItemAmount [0x0B] 5'
     */
     buildSystemMessage(message) {
-        if(!message || !message['id'] || !message['tokens'])
-            return null;
-
-        let msgId = this.sysmsgMap.name.get(message['id']);
-        if(!msgId)
-            return null;
-
-        return `@${msgId}\x0B` + Object.entries(message['tokens']).map(([k, v]) => `${k}\x0B${v}`).join('\x0B');
+        return this.dispatch.buildSystemMessage(message);
     }
 
     constructor(dispatch) {
@@ -215,12 +186,10 @@ class Library{
         dispatch.hook('C_CHECK_VERSION', 1, {order: 100, filter: {fake: null}},()=> {
             this.version = dispatch.protocolVersion;
             this.protocolVersion = dispatch.protocolVersion;
-            this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         });
         try {
             this.version = dispatch.protocolVersion;
             this.protocolVersion = dispatch.protocolVersion;
-            this.sysmsgMap = sysmsg.maps.get(this.protocolVersion);
         }catch(e) {}
         this.command = dispatch.command;
 

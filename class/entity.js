@@ -96,7 +96,7 @@ class entity{
             if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
         dispatch.hook('S_SPAWN_USER', 14, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-        dispatch.hook('S_SPAWN_NPC', (dispatch.majorPatchVersion < 79 ? 10 : 11), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook('S_SPAWN_NPC', 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Entity despawned
         this.despawnEntity = (e) => {
@@ -136,7 +136,7 @@ class entity{
         dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
-        dispatch.hook('S_EACH_SKILL_RESULT', 12, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook('S_EACH_SKILL_RESULT', 13, DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 
