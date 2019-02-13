@@ -148,7 +148,7 @@ class entity{
             if(loc) {
                 if(e.reaction.enable) {
                     let dist = 0;
-                    for(let i in e.reaction.movement) dist += e.reaction.movement[i].distance;
+                    for(let i in e.reaction.animSeq) dist += e.reaction.animSeq[i].distance;
                     dist *= -1;
                     mods.library.applyDistance(loc, dist);
                 }
