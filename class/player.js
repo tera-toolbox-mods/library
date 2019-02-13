@@ -72,7 +72,7 @@ class player{
             this.iceEdge = e.iceEdge;
             this.lightningEdge = e.lightningEdge;
         }
-        dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.majorPatchVersion < 75 ? 9 : 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+        dispatch.hook('S_PLAYER_STAT_UPDATE', 10, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
         if(!dispatch.isClassic) {
