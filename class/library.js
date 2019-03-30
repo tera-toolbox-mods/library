@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-
+const util = require('util');
 
 class SkillClasserino{
     constructor(id, usingMask=true, bossSkill=false) {
@@ -62,6 +62,53 @@ class SkillClasserino{
 }
 
 class Library{
+    async query(query, ...args) {
+        args = [...args];
+        return await this.dispatch.queryData(query, args, args.length != 0);
+    }
+
+    /**
+     * queryData is the data returned from "query"
+     * path is the path to the data you want, accesses the same way as you would through a query
+     */
+    getQueryEntry(queryData, path, ...argsData) {
+        path = path.split("/");
+        queryData = queryData.children;
+
+        while(path.length && queryData.length) {
+            const path_info = path.shift();
+            if(path_info == "") break;
+            const name = path_info.split("@")[0];
+            const argsNames = (path_info.replace("=?", "").split("@")[1] || "").split("&");
+            
+            let argData = [];
+            for(const i in argsNames) argData.push(argsData.shift());
+            //console.log(`Looking for ${name} with args: ${argsNames} == ${argData}`);
+
+            for(const child of queryData) {
+                //console.log(child.name, name, child.name == name);
+                if(child.name == name) {
+                    let found_all = true;
+                    for(const i in argsNames) {
+                        const name = argsNames[i];
+                        const data = argData[i];
+                        //console.log(`comparing ${name}: child: ${child.attributes[name]} | data: ${data} | ${child.attributes[name] == data}`)
+                        if(child.attributes[name] != data) found_all = false;
+                    }
+                    if(found_all) {
+                        queryData = (path.length && path[0] != "") ? child.children : [child];
+                        break;
+                    }
+                }
+            }
+        }
+        return queryData;
+    }
+
+    print(...args) {
+        console.log(util.inspect(...args, false, null, true));
+    }
+
     // Checks if the items in array A, is in array b
     arraysItemInArray(a, b) {
         for(let item of a) {
