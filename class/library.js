@@ -67,6 +67,10 @@ class Library{
         return await this.dispatch.queryData(query, args, args.length != 0);
     }
 
+    async queryF(query) {
+        return await this.dispatch.queryData(query, [], true);
+    }
+
     /**
      * queryData is the data returned from "query"
      * path is the path to the data you want, accesses the same way as you would through a query

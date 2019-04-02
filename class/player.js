@@ -143,7 +143,7 @@ class player{
 
                 for(let item of inventoryBuffer) {
                     if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
-                    this.inven.items[item.id].push({ amount: item.amount, dbid: item.dbid, slot: item.slot });
+                    this.inven.items[item.id].push({ amount: item.amount, dbid: item.dbid, slot: item.slot, itemId: item.id });
                     
                     switch(item.slot) {
                         case 1:
