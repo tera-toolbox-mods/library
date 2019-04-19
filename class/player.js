@@ -34,13 +34,14 @@ class player{
             this.gameId = e.gameId;
             this.templateId = e.templateId;
             this.serverId = e.serverId;
+            this.playerId = e.playerId;
 
             this.race = Math.floor((e.templateId - 10101) / 100);
             this.job = (e.templateId - 10101) % 100;
             this.name = e.name;
             this.level = e.level;
         }
-        dispatch.hook('S_LOGIN', 12, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        dispatch.hook('S_LOGIN', dispatch.majorPatchVersion < 81 ? 12 : 13, DEFAULT_HOOK_SETTINGS, this.sLogin);
 
         // Level up
         try{
@@ -187,7 +188,8 @@ class player{
 
         // Player location
         this.handleMovement = (serverPacket, e) => {
-            if(e.type !== 7 && serverPacket ? e.gameId == this.gameId : true) {
+            // e.type !== 7 &&  (why was this here? idk, let's see if shit fucks up)
+            if(serverPacket ? e.gameId == this.gameId : true) {
                 let loc = e.loc;
                 loc.w = (e.w === undefined ? this.loc.w : e.w);
                 loc.updated = Date.now();
