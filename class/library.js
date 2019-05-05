@@ -67,8 +67,21 @@ class Library{
         return await this.dispatch.queryData(query, args, args.length != 0);
     }
 
-    async queryF(query) {
-        return await this.dispatch.queryData(query, [], true);
+    async queryF(query, concat=true) {
+        const result =  await this.dispatch.queryData(query, [], true);
+        let ret = {
+            attributes: {},
+            children: []
+        };
+        if(concat) {
+            for(const res of result) {
+                ret.attributes = {...ret.attributes, ...res.attributes};
+                ret.children.push(...res.children);
+            }
+        } else {
+            ret = result;
+        }
+        return ret;
     }
 
     /**

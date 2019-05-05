@@ -108,7 +108,7 @@ class player{
 			
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
-				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId.toString());
+				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId);
 			}
         }
         dispatch.hook('S_PARTY_MEMBER_LIST', 7, this.sPartyMemberList);

@@ -4,8 +4,8 @@
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "a3493ee397346cd97b7840654a479fd173d979d37fabfa6193a32b7896ecdcd3",
         "class/entity.js": "d7e746229e43c5d0c020f9a776264d339a901525642fd67defd8dd56d6bf7303",
-        "class/library.js": "909f673ea48e73bd41012603c8a465d8d556817f73c9806444139381101113e3",
-        "class/player.js": "312487a242ddc484eca5086f32ba8104ed54aacdf62d01c85445d1683e852cd4"
+        "class/library.js": "b210a5cee036d349cd2ecac6111a4cffebbe639ec0b0770ad7c819f20c13fb78",
+        "class/player.js": "06b041fe289444c6c423fd7c6e19311076227aededcdecd9d3b4f39399985972"
     },
     "defs": {}
 }
