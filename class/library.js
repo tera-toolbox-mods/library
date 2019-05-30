@@ -64,11 +64,23 @@ class SkillClasserino{
 class Library{
     async query(query, ...args) {
         args = [...args];
-        return await this.dispatch.queryData(query, args, args.length != 0);
+        try {
+            return await this.dispatch.queryData(query, args, args.length != 0);
+        } catch(e) {
+            console.log("FATAL ERROR in Library. Failed to execute query:", query);
+            throw new Error(e);
+        }
     }
 
     async queryF(query, concat=true) {
-        const result =  await this.dispatch.queryData(query, [], true);
+        let result;
+        try {
+            result = await this.dispatch.queryData(query, [], true);
+        } catch(e) {
+            console.log("FATAL ERROR in Library. Failed to execute query:", query);
+            throw new Error(e);
+        }
+        
         let ret = {
             attributes: {},
             children: []
