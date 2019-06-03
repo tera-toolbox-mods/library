@@ -209,15 +209,17 @@ class Library{
     }
 
     getEvent(opcode, packetVersion, payload) {
+        return this.dispatch.dispatch.fromRaw(opcode, packetVersion, data);
         return this.dispatch.dispatch.protocol.parse(this.version, opcode, packetVersion, payload);
     }
 
     getPayload(opcode, packetVersion, data) {
+        return this.dispatch.dispatch.toRaw(opcode, packetVersion, data);
         return this.dispatch.dispatch.protocol.write(this.version, opcode, packetVersion, data);
     }
 
     getPacketInformation(identifier) {
-        return this.dispatch.dispatch.protocol.resolveIdentifier(this.version, identifier);
+        return this.dispatch.dispatch.resolve(identifier);
     }
 
     // Read a file
