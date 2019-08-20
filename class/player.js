@@ -133,48 +133,137 @@ class player{
         dispatch.hook('S_CREATURE_LIFE', 3, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
-        this.sInven = (e) => {
-            inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
-            this.gold = e.gold;
+        // this is ugly but guess what, if you're reading my code idk what you expect -- I know you're reading this Caali and I know you hate it
+        if(mod.majorPatchVersion >= 85) {
+            this.sInven = (e) => {
+                if(!this.isMe(e.gameId)) return;
 
-            if(!e.more) {
-                this.inven.weapon = false;
-                this.inven.effects = [];
-                this.inven.items = {};
+                inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
+                this.gold = e.money;
+    
+                if(!e.more) {
+                    switch(e.container) {
+                        // inven
+                        case 0: {
+                            this.inven.items = {};
 
-                for(let item of inventoryBuffer) {
-                    if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
-                    this.inven.items[item.id].push({ amount: item.amount, dbid: item.dbid, slot: item.slot, itemId: item.id });
-                    
-                    switch(item.slot) {
-                        case 1:
-                            this.inven.weapon = true;
-                            break;
-                        case 3:
-                            // We put a try statement here because fuck everything and everyone. :)
-                            let activeSet = [];
-
-                            if(dispatch.isClassic) activeSet = item.passivities;
-                            else {
-                                activeSet = item.passivitySets[item.passivitySet];
-                                if(!activeSet)
-                                    activeSet = item.passivitySets[0];
+                            for(const item of inventoryBuffer) {
+                                if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
+                                this.inven.items[item.id].push(Object.assign(item, {
+                                    itemId: item.id
+                                }));
                             }
-
-                            try {
-                                for (const effect of activeSet.passivities) {
-                                    this.inven.effects.push(Number(effect.id));
-                                }
-                            }catch(e) {this.inven.effects = [];}
-
                             break;
-                    }
-                }
+                        }
 
-                inventoryBuffer = [];
-            }
+                        // equip
+                        case 14: {
+                            this.inven.weapon = false;
+                            this.inven.effects = [];
+                            
+                            for(const item of inventoryBuffer) {
+                                switch(item.slot) {
+                                    case 1: {
+                                        this.inven.weapon = true;
+                                        break;
+                                    }
+                                    case 3: {
+                                        let activeSet = item.passivitySets[item.passivitySet];
+                                        if(!activeSet) activeSet = item.passivitySets[0];
+                                        if(!activeSet) break;
+
+                                        this.inven.effects = activeSet.passivities;
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+    
+                    for(let item of inventoryBuffer) {
+                        if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
+                        this.inven.items[item.id].push(Object.assign(item, {
+                            itemId: item.id
+                        }));
+                        
+                        switch(item.slot) {
+                            case 1:
+                                this.inven.weapon = true;
+                                break;
+                            case 3:
+                                let activeSet = [];
+    
+                                if(dispatch.isClassic) activeSet = item.passivities;
+                                else {
+                                    activeSet = item.passivitySets[item.passivitySet];
+                                    if(!activeSet)
+                                        activeSet = item.passivitySets[0];
+                                }
+                                
+                                // We put a try statement here because fuck everything and everyone. :)
+                                try {
+                                    for (const effect of activeSet.passivities) {
+                                        this.inven.effects.push(Number(effect.id));
+                                    }
+                                }catch(e) {this.inven.effects = [];}
+    
+                                break;
+                        }
+                    }
+    
+                    inventoryBuffer = [];
+                }
+            };
+            dispatch.hook('S_ITEMLIST', 1, DEFAULT_HOOK_SETTINGS, this.sInven);
+        }else {
+            this.sInven = (e) => {
+                if(!this.isMe(e.gameId)) return;
+
+                inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
+                this.gold = e.gold;
+    
+                if(!e.more) {
+                    this.inven.weapon = false;
+                    this.inven.effects = [];
+                    this.inven.items = {};
+    
+                    for(let item of inventoryBuffer) {
+                        if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
+                        this.inven.items[item.id].push(Object.assign(item, {
+                            itemId: item.id
+                        }));
+                        
+                        switch(item.slot) {
+                            case 1:
+                                this.inven.weapon = true;
+                                break;
+                            case 3:
+                                // We put a try statement here because fuck everything and everyone. :)
+                                let activeSet = [];
+    
+                                if(dispatch.isClassic) activeSet = item.passivities;
+                                else {
+                                    activeSet = item.passivitySets[item.passivitySet];
+                                    if(!activeSet)
+                                        activeSet = item.passivitySets[0];
+                                }
+    
+                                try {
+                                    for (const effect of activeSet.passivities) {
+                                        this.inven.effects.push(Number(effect.id));
+                                    }
+                                }catch(e) {this.inven.effects = [];}
+    
+                                break;
+                        }
+                    }
+    
+                    inventoryBuffer = [];
+                }
+            };
+            dispatch.hook('S_INVEN', dispatch.majorPatchVersion < 80 ? 17 : 18, DEFAULT_HOOK_SETTINGS, this.sInven);
         }
-        dispatch.hook('S_INVEN', dispatch.majorPatchVersion < 80 ? 17 : 18, DEFAULT_HOOK_SETTINGS, this.sInven);
 
         // Pegasus
         dispatch.hook('S_USER_STATUS', 3, e=> {
