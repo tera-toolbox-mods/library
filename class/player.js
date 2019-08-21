@@ -134,7 +134,7 @@ class player{
 
         // Inventory
         // this is ugly but guess what, if you're reading my code idk what you expect -- I know you're reading this Caali and I know you hate it
-        if(mod.majorPatchVersion >= 85) {
+        if(dispatch.majorPatchVersion >= 85) {
             this.sInven = (e) => {
                 if(!this.isMe(e.gameId)) return;
 
