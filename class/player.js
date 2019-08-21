@@ -181,37 +181,6 @@ class player{
                         }
                     }
     
-                    for(let item of inventoryBuffer) {
-                        if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
-                        this.inven.items[item.id].push(Object.assign(item, {
-                            itemId: item.id
-                        }));
-                        
-                        switch(item.slot) {
-                            case 1:
-                                this.inven.weapon = true;
-                                break;
-                            case 3:
-                                let activeSet = [];
-    
-                                if(dispatch.isClassic) activeSet = item.passivities;
-                                else {
-                                    activeSet = item.passivitySets[item.passivitySet];
-                                    if(!activeSet)
-                                        activeSet = item.passivitySets[0];
-                                }
-                                
-                                // We put a try statement here because fuck everything and everyone. :)
-                                try {
-                                    for (const effect of activeSet.passivities) {
-                                        this.inven.effects.push(Number(effect.id));
-                                    }
-                                }catch(e) {this.inven.effects = [];}
-    
-                                break;
-                        }
-                    }
-    
                     inventoryBuffer = [];
                 }
             };
