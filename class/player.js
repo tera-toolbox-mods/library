@@ -266,9 +266,9 @@ class player{
             dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
         dispatch.hook('C_START_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', 6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_TARGETED_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook('C_START_INSTANCE_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         if(!dispatch.isClassic)
             dispatch.hook('C_START_INSTANCE_SKILL_EX', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook('C_PRESS_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));

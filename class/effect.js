@@ -37,15 +37,15 @@ class Effect{
         });
         
         // Glyph/Crest
-		dispatch.hook("S_CREST_INFO", 1, DEFAULT_HOOK_SETTINGS, e=>{
+		dispatch.hook("S_CREST_INFO", 2, DEFAULT_HOOK_SETTINGS, e=>{
 			this.glyphs = {};
-			for(let glyph of e.glyphs){
-				if(glyph.enabled) this.glyphs[glyph.id] = true;
+			for(let glyph of e.crests){
+				if(glyph.enable) this.glyphs[glyph.id] = true;
 			}
 		});
 
-		dispatch.hook('S_CREST_APPLY', 1, DEFAULT_HOOK_SETTINGS, e=> {
-			this.glyphs[e.id] = e.enabled?true:false;
+		dispatch.hook('S_CREST_APPLY', 2, DEFAULT_HOOK_SETTINGS, e=> {
+			this.glyphs[e.id] = e.enable?true:false;
         });
         
         // Abnormality

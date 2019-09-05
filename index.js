@@ -14,9 +14,8 @@ class Library{
 				this.mods[name] = new tmp(dispatch, this.mods);
 				this[name] = this.mods[name];
 			}catch(e) {
-				console.log(e);
 				console.log(`[Library] Failed to load module ${name}. Will close.`);
-				process.exit();
+				throw e;
 			}
 		}
 
@@ -27,9 +26,8 @@ class Library{
 					this.mods[name] = new tmp(dispatch, this.mods);
 					this[name] = this.mods[name];
 				}catch(e) {
-					console.log(e);
 					console.log(`[Library] Failed to load module ${name}. Will close.`);
-					process.exit();
+					throw e;
 				}
 			}
 		}
