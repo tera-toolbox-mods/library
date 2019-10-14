@@ -95,8 +95,8 @@ class entity{
             else this.unknown[id] = Object.assign(data, {"var": "unknown"});
             if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
         }
-        dispatch.hook('S_SPAWN_USER', 15, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
-        dispatch.hook('S_SPAWN_NPC', 11, DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
+        dispatch.hook(...mods.packet.get_all("S_SPAWN_USER"), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("S_SPAWN_NPC"), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
 
         // Entity despawned
         this.despawnEntity = (e) => {
@@ -107,8 +107,8 @@ class entity{
             if (this.players[id]) delete this.players[id];
             if (this.unknown[id]) delete this.unknown[id];
         };
-        dispatch.hook('S_DESPAWN_NPC', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity);
-        dispatch.hook('S_DESPAWN_USER', 3, DEFAULT_HOOK_SETTINGS, this.despawnEntity);
+        dispatch.hook(...mods.packet.get_all("S_DESPAWN_NPC"), DEFAULT_HOOK_SETTINGS, this.despawnEntity);
+        dispatch.hook(...mods.packet.get_all("S_DESPAWN_USER"), DEFAULT_HOOK_SETTINGS, this.despawnEntity);
 
         // Move location update
         this.updatePosition = (mob, e) => {
@@ -122,8 +122,8 @@ class entity{
             if(this.npcs[id]) this.npcs[id].pos = pos;
             if(this.unknown[id]) this.unknown[id].pos = pos;
         }
-        dispatch.hook('S_NPC_LOCATION', 3, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
-        dispatch.hook('S_USER_LOCATION', 5, DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("S_NPC_LOCATION"), DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, true));
+        dispatch.hook(...mods.packet.get_all("S_USER_LOCATION"), DEFAULT_HOOK_SETTINGS, this.updatePosition.bind(null, false));
 
         // Direction update
         this.directionUpdate = (e) => {
@@ -133,10 +133,10 @@ class entity{
             if(this.npcs[id]) this.npcs[id].pos.w = e.w;
             if(this.unknown[id]) this.unknown[id].pos.w = e.w;
         }
-        dispatch.hook('S_CREATURE_ROTATE', 2, DEFAULT_HOOK_SETTINGS, this.directionUpdate);
+        dispatch.hook(...mods.packet.get_all("S_CREATURE_ROTATE"), DEFAULT_HOOK_SETTINGS, this.directionUpdate);
 
         // Entity CC'ed -- update location
-        dispatch.hook('S_EACH_SKILL_RESULT', 13, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook(...mods.packet.get_all("S_EACH_SKILL_RESULT"), DEFAULT_HOOK_SETTINGS, e=> {
             let id = e.target.toString();
             let loc = null;
 
@@ -177,8 +177,8 @@ class entity{
             if(this.npcs[id]) this.npcs[id].pos = pos;
             if(this.unknown[id]) this.unknown[id].pos = pos;
         }
-        dispatch.hook('S_ACTION_STAGE', 9, DEFAULT_HOOK_SETTINGS, this.sAction);
-        dispatch.hook('S_ACTION_END', 5, DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook(...mods.packet.get_all("S_ACTION_STAGE"), DEFAULT_HOOK_SETTINGS, this.sAction);
+        dispatch.hook(...mods.packet.get_all("S_ACTION_END"), DEFAULT_HOOK_SETTINGS, this.sAction);
     }
 }
 

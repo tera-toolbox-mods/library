@@ -41,11 +41,11 @@ class player{
             this.name = e.name;
             this.level = e.level;
         }
-        dispatch.hook('S_LOGIN', dispatch.majorPatchVersion < 81 ? 12 : 13, DEFAULT_HOOK_SETTINGS, this.sLogin);
+        dispatch.hook(...mods.packet.get_all("S_LOGIN"), DEFAULT_HOOK_SETTINGS, this.sLogin);
 
         // Level up
         try{
-            dispatch.hook('S_USER_LEVELUP', 2, e=> {
+            dispatch.hook(...mods.packet.get_all("S_USER_LEVELUP"), e=> {
                 if(this.isMe(e.gameId)) this.level = e.level;
             });
         }catch(e) {}
@@ -54,6 +54,10 @@ class player{
         this.sPlayerStatUpdate = (e) => {
             this.previous_sPlayerStatUpdate = e;
             this.stamina = e.stamina;
+            this.health = e.hp;
+            this.maxHealth = e.maxHp;
+            this.mana = e.mp;
+            this.maxMana = e.maxMp;
             // Attack speed
             this.attackSpeed = e.attackSpeed;
             this.attackSpeedBonus = e.attackSpeedBonus;
@@ -73,11 +77,11 @@ class player{
             this.iceEdge = e.iceEdge;
             this.lightningEdge = e.lightningEdge;
         }
-        dispatch.hook('S_PLAYER_STAT_UPDATE', dispatch.majorPatchVersion < 80 ? 11 : 12, DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
+        dispatch.hook(...mods.packet.get_all("S_PLAYER_STAT_UPDATE"), DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
         if(!dispatch.isClassic) {
-            dispatch.hook('S_CURRENT_CHANNEL', 2, e=> {
+            dispatch.hook(...mods.packet.get_all("S_CURRENT_CHANNEL"), e=> {
                 this.channel = e.channel - 1;
                 this.zone = e.zone;
             });
@@ -87,20 +91,36 @@ class player{
         this.sPlayerChangeStamina = (e) => {
             this.stamina = e.current;
         }
-        dispatch.hook('S_PLAYER_CHANGE_STAMINA', 1, DEFAULT_HOOK_SETTINGS, this.sPlayerChangeStamina);
+        dispatch.hook(...mods.packet.get_all("S_PLAYER_CHANGE_STAMINA"), DEFAULT_HOOK_SETTINGS, this.sPlayerChangeStamina);
+
+        // health
+        this.s_creature_change_hp = e => {
+            if(!this.isMe(e.target)) return;
+            this.health = e.curHp;
+            this.maxHealth = e.maxHp;
+        }
+        dispatch.hook(...mods.packet.get_all("S_CREATURE_CHANGE_HP"), DEFAULT_HOOK_SETTINGS, this.s_creature_change_hp);
+
+        // mana
+        this.s_player_change_mp = e => {
+            if(!this.isMe(e.target)) return;
+            this.mana = e.currentMp;
+            this.maxMana = e.maxMp;
+        }
+        dispatch.hook(...mods.packet.get_all("S_PLAYER_CHANGE_MP"), DEFAULT_HOOK_SETTINGS, this.s_player_change_mp);
 
         // Mount
         this.sLoadTopo = (e) => {
             this.onMount = false;
             this.zone = e.zone;
         }
-        dispatch.hook('S_LOAD_TOPO', 3, DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
+        dispatch.hook(...mods.packet.get_all("S_LOAD_TOPO"), DEFAULT_HOOK_SETTINGS, this.sLoadTopo);
 
         this.sMount = (onMount, e) => {
             if(this.isMe(e.gameId)) this.onMount = onMount;
         }
-        dispatch.hook('S_MOUNT_VEHICLE', 2, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, true));
-        dispatch.hook('S_UNMOUNT_VEHICLE', 2, DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("S_MOUNT_VEHICLE"), DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, true));
+        dispatch.hook(...mods.packet.get_all("S_UNMOUNT_VEHICLE"), DEFAULT_HOOK_SETTINGS, this.sMount.bind(null, false));
 
         // Party
         this.sPartyMemberList = (e) => {
@@ -111,7 +131,7 @@ class player{
 				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId);
 			}
         }
-        dispatch.hook('S_PARTY_MEMBER_LIST', 7, this.sPartyMemberList);
+        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_LIST"), this.sPartyMemberList);
 
         this.sLeaveParty = (e) => {
             this.playersInParty = [];
@@ -130,7 +150,7 @@ class player{
                 Object.assign(this.loc, e.loc);
             }
         }
-        dispatch.hook('S_CREATURE_LIFE', 3, DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
+        dispatch.hook(...mods.packet.get_all("S_CREATURE_LIFE"), DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
 
         // Inventory
         // this is ugly but guess what, if you're reading my code idk what you expect -- I know you're reading this Caali and I know you hate it
@@ -184,7 +204,7 @@ class player{
                     inventoryBuffer = [];
                 }
             };
-            dispatch.hook('S_ITEMLIST', 1, DEFAULT_HOOK_SETTINGS, this.sInven);
+            dispatch.hook(...mods.packet.get_all("S_ITEMLIST"), DEFAULT_HOOK_SETTINGS, this.sInven);
         }else {
             this.sInven = (e) => {
                 if(!this.isMe(e.gameId)) return;
@@ -235,12 +255,12 @@ class player{
         }
 
         // Pegasus
-        dispatch.hook('S_USER_STATUS', 3, e=> {
+        dispatch.hook(...mods.packet.get_all("S_USER_STATUS"), e=> {
             if(this.isMe(e.gameId)) this.onPegasus = (e.status === 3);
         });
 
         // Player moving
-        dispatch.hook('C_PLAYER_LOCATION', 5, DEFAULT_HOOK_SETTINGS, e=> {
+        dispatch.hook(...mods.packet.get_all("C_PLAYER_LOCATION"), DEFAULT_HOOK_SETTINGS, e=> {
             this.moving = e.type !== 7;
         });
 
@@ -257,21 +277,21 @@ class player{
             }
         }
         
-        dispatch.hook('S_ACTION_STAGE', 9, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('S_ACTION_END', 5, {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
-        dispatch.hook('C_PLAYER_LOCATION', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("S_ACTION_STAGE"), {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook(...mods.packet.get_all("S_ACTION_END"), {filter: {fake: null}, order: 10000}, this.handleMovement.bind(null, true));
+        dispatch.hook(...mods.packet.get_all("C_PLAYER_LOCATION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
-        dispatch.hook('C_NOTIFY_LOCATION_IN_ACTION', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_ACTION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         if(!dispatch.isClassic)
-            dispatch.hook('C_NOTIFY_LOCATION_IN_DASH', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+            dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_DASH"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
-        dispatch.hook('C_START_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_TARGETED_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_COMBO_INSTANT_SKILL', 6, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_START_INSTANCE_SKILL', 7, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_START_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_START_TARGETED_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_START_COMBO_INSTANT_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_START_INSTANCE_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         if(!dispatch.isClassic)
-            dispatch.hook('C_START_INSTANCE_SKILL_EX', 5, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook('C_PRESS_SKILL', 4, {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+            dispatch.hook(...mods.packet.get_all("C_START_INSTANCE_SKILL_EX"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_PRESS_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }
 

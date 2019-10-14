@@ -260,9 +260,9 @@ class Library{
         return this.dispatch.buildSystemMessage(message);
     }
 
-    constructor(dispatch) {
+    constructor(dispatch, mods) {
         this.dispatch = dispatch;
-        dispatch.hook('C_CHECK_VERSION', 1, {order: 100, filter: {fake: null}},()=> {
+        dispatch.hook(...mods.packet.get_all("C_CHECK_VERSION"), {order: 100, filter: {fake: null}},()=> {
             this.version = dispatch.protocolVersion;
             this.protocolVersion = dispatch.protocolVersion;
         });

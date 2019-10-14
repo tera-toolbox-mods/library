@@ -1,11 +1,12 @@
 {
     "files": {
-        "index.js": "910e9ddef82ab7ece383aead7f3daa6f884bb78d29c2da99ffec5d4311a958da",
+        "index.js": "ab3d2a95f7910751e66597cc8f57c0f28f3002c6b21730ff95cbcaf2dbf3ba27",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
-        "class/effect.js": "d1770f3463a46bcb8dfab5dc739fc6f7a11f5b69764d013e58fc496a47e8ecaa",
-        "class/entity.js": "106724f493cb615b59287bf02d211efb90b6745e6fbd07111a20829a9e1cdbed",
-        "class/library.js": "87f288d039dd39d3f2e6b29d8e7be016e9dc16025bb4cc65ccbbf496bbc0cbbf",
-        "class/player.js": "bbc918307bf8d25f940e5383f038ce9b48c2fe6be6f9e504b26d93e38c27b791"
+        "class/effect.js": "77c902a60571a995d2af95ca0acb60bf9e866a308340f70140b5652028b94ffb",
+        "class/entity.js": "ae3cba658ab9f5094b7f01731014c08120f32c7865a15dc95aa276ab3635ae9f",
+        "class/library.js": "13e723dbb79309362f49535d4a3ebbf00128058e9ba9061723b00b936223905a",
+        "class/packet.js": "91f78c6133c626535df5520708b712128224e79f48175d26326104d3678ef8cc",
+        "class/player.js": "09a2b157c26aee50c5ac8ecd350657f169a005f788041484072b532c9915e395"
     },
     "defs": {}
 }

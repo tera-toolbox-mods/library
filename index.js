@@ -1,5 +1,5 @@
 const LOAD_MODULES = ['entity', 'player', 'effect'];
-const PRE_LOAD_MODULES = ['library'];
+const PRE_LOAD_MODULES = ['packet', 'library'];
 
 class Library{
 	constructor(dispatch, arg1) {
