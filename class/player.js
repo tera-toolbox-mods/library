@@ -22,6 +22,7 @@ class player{
         this.onPegasus = false;
         // Channel
         this.channel = 0;
+        this.inCombat = false;
 
         // Functions
         this.isMe = (arg) => {
@@ -31,6 +32,7 @@ class player{
         // Login
         this.sLogin = (e) => {
             this.onPegasus = false;
+            this.inCombat = false;
             this.gameId = e.gameId;
             this.templateId = e.templateId;
             this.serverId = e.serverId;
@@ -256,7 +258,10 @@ class player{
 
         // Pegasus
         dispatch.hook(...mods.packet.get_all("S_USER_STATUS"), e=> {
-            if(this.isMe(e.gameId)) this.onPegasus = (e.status === 3);
+            if(this.isMe(e.gameId)) {
+                this.onPegasus = (e.status === 3);
+                this.inCombat = e.status === 1;
+            }
         });
 
         // Player moving
