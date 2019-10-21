@@ -79,7 +79,10 @@ class Library{
             ret.push(await this.dispatch.queryData(query, args, true));
         }
 
-        return ret;
+        return ret.reduce((acc, val)=> {
+            acc.push(...val);
+            return acc;
+        }, []);
     }
 
     async queryF(query, concat=true) {
