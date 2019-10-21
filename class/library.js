@@ -72,6 +72,16 @@ class Library{
         }
     }
 
+    async queryM(queries) {
+        let ret = [];
+
+        for(const {query, ...args} of queries) {
+            ret.push(await this.dispatch.queryData(query, args, true));
+        }
+
+        return ret;
+    }
+
     async queryF(query, concat=true) {
         let result;
         try {
