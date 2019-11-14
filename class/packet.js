@@ -709,6 +709,10 @@ const PACKET_DATA = {
         {
             "patch": 86,
             "version": 2
+        },
+        {
+            "patch": 87,
+            "version": 3
         }
     ],
 

@@ -167,6 +167,7 @@ class player{
                     switch(e.container) {
                         // inven
                         case 0: {
+                            this.inven.slots = e.size;
                             this.inven.items = {};
 
                             for(const item of inventoryBuffer) {
