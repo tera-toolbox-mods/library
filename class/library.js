@@ -85,10 +85,10 @@ class Library{
         }, []);
     }
 
-    async queryF(query, concat=true) {
+    async queryF(query, concat=true, findAll=true, children=true, attributeFilter=null) {
         let result;
         try {
-            result = await this.dispatch.queryData(query, [], true);
+            result = await this.dispatch.queryData(query, [], findAll, children, attributeFilter);
         } catch(e) {
             console.log("FATAL ERROR in Library. Failed to execute query:", query);
             throw new Error(e);

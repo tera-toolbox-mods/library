@@ -18,6 +18,7 @@ class player{
         this.zone = -1;
         // List over players in party
         this.playersInParty = [];
+        this.partyLeader = false;
         // Pegasus status
         this.onPegasus = false;
         // Channel
@@ -127,7 +128,8 @@ class player{
         // Party
         this.sPartyMemberList = (e) => {
             this.playersInParty = [];
-			
+
+            this.partyLeader = e.leaderServerId === this.serverId && e.leaderPlayerId == this.playerId;
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
 				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId);

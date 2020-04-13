@@ -729,6 +729,20 @@ const PACKET_DATA = {
             "version": 3
         }
     ],
+
+    "S_FEARMOVE_STAGE": [
+        {
+            "patch": 90,
+            "version": 2
+        }
+    ],
+
+    "S_FEARMOVE_END": [
+        {
+            "patch": 90,
+            "version": 2
+        }
+    ],
 };
 
 class PacketHandler {
