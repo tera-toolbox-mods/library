@@ -85,7 +85,7 @@ class Library{
         }, []);
     }
 
-    async queryF(query, concat=true, findAll=false, children=true, attributeFilter=null) {
+    async queryF(query, concat=true, findAll=true, children=true, attributeFilter=null) {
         let result;
         try {
             result = await this.dispatch.queryData(query, [], findAll, children, attributeFilter);
