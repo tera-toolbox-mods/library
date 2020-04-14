@@ -98,8 +98,9 @@ class Library{
             attributes: {},
             children: []
         };
+
         if(concat) {
-            for(const res of result) {
+            for(const res of (Array.isArray(result) ? result : [result])) {
                 ret.attributes = {...ret.attributes, ...res.attributes};
                 ret.children.push(...res.children);
             }
