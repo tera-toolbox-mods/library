@@ -533,6 +533,10 @@ const PACKET_DATA = {
         {
             "patch": 86,
             "version": 13
+        },
+        {
+            "patch": 93,
+            "version": 14
         }
     ],
 
