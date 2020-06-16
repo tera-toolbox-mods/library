@@ -277,12 +277,12 @@ class Library{
     constructor(dispatch, mods) {
         this.dispatch = dispatch;
         dispatch.hook(...mods.packet.get_all("C_CHECK_VERSION"), {order: 100, filter: {fake: null}},()=> {
-            this.version = dispatch.protocolVersion;
-            this.protocolVersion = dispatch.protocolVersion;
+            this.version = dispatch.dispatch.protocolVersion;
+            this.protocolVersion = dispatch.dispatch.protocolVersion;
         });
         try {
-            this.version = dispatch.protocolVersion;
-            this.protocolVersion = dispatch.protocolVersion;
+            this.version = dispatch.dispatch.protocolVersion;
+            this.protocolVersion = dispatch.dispatch.protocolVersion;
         }catch(e) {}
         this.command = dispatch.command;
 

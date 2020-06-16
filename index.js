@@ -38,9 +38,10 @@ class Library{
 	}
 }
 
-module.exports = function Require(dispatch, ...args) {
-	if(dispatch.name !== 'library')
-		throw new Error(`Tried to require library module: ${dispatch.name}`);
+module.exports.NetworkMod = function Require(dispatch, ...args) {
+	if(dispatch.info.name !== 'library')
+		throw new Error(`Tried to require library module: ${dispatch.info.name}`);
 
 	return new Library(dispatch, ...args);
 }
+module.exports.RequireInterface = (globalMod, clientMod, networkMod) => networkMod;
