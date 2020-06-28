@@ -747,6 +747,20 @@ const PACKET_DATA = {
             "version": 2
         }
     ],
+
+    "C_REQUEST_ABNORMALITY_TOOLTIP_VALUE": [
+        {
+            "patch": 94,
+            "version": 1
+        }
+    ],
+
+    "S_ABNORMALITY_TOOLTIP_VALUE": [
+        {
+            "patch": 94,
+            "version": 1
+        }
+    ],
 };
 
 class PacketHandler {
