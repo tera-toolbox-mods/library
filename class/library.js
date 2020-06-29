@@ -190,6 +190,26 @@ class Library{
         throw new Error(`DeprecationWarning: Library.long is deprecated. Use BigInt equivalents instead.\n    ${Error().stack}`);
     }
 
+    jsonStringify(data, spaces="") {
+        return JSON.stringify(data, (key, value)=> {
+            if(typeof value === "bigint") {
+                return `BigIntttttttttt-${value.toString()}`;
+            }
+
+            return value;
+        }, spaces);
+    }
+
+    parseJson(data) {
+        return JSON.parse(data, (key, value)=> {
+            if(typeof value === "string" && value.includes("BigIntttttttttt-")) {
+                return BigInt(value.replace("BigIntttttttttt-", ""))
+            }
+
+            return value;
+        });
+    }
+
     getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
