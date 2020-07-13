@@ -8,6 +8,10 @@ const PACKET_DATA = {
         {
             "patch": 75,
             "version": 3 
+        },
+        {
+            "patch": 95,
+            "version": 4 
         }
     ],
 
@@ -15,6 +19,10 @@ const PACKET_DATA = {
         {
             "patch": 67,
             "version": 1
+        },
+        {
+            "patch": 95,
+            "version": 2
         }
     ],
 

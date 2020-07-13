@@ -193,7 +193,7 @@ class Library{
     jsonStringify(data, spaces="") {
         return JSON.stringify(data, (key, value)=> {
             if(typeof value === "bigint") {
-                return `BigIntttttttttt-${value.toString()}`;
+                return `BI/-${value.toString()}`;
             }
 
             return value;
@@ -202,8 +202,8 @@ class Library{
 
     parseJson(data) {
         return JSON.parse(data, (key, value)=> {
-            if(typeof value === "string" && value.includes("BigIntttttttttt-")) {
-                return BigInt(value.replace("BigIntttttttttt-", ""))
+            if(typeof value === "string" && value.includes("BI/-")) {
+                return BigInt(value.replace("BI/-", ""))
             }
 
             return value;
@@ -239,7 +239,9 @@ class Library{
     }
 
     saveFile(filePath, data, dirname=__dirname) {
-        fs.writeFileSync(path.join(dirname, filePath), JSON.stringify(data, null, "    "));
+        const str = typeof data === "object" ? JSON.stringify(data, null, "    ") : data;
+
+        fs.writeFileSync(path.join(dirname, filePath), str);
     }
 
     getEvent(opcode, packetVersion, payload) {
