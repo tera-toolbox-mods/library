@@ -83,12 +83,10 @@ class player{
         dispatch.hook(...mods.packet.get_all("S_PLAYER_STAT_UPDATE"), DEFAULT_HOOK_SETTINGS, this.sPlayerStatUpdate);
 
         // Channel/zone information
-        if(!dispatch.isClassic) {
-            dispatch.hook(...mods.packet.get_all("S_CURRENT_CHANNEL"), e=> {
-                this.channel = e.channel - 1;
-                this.zone = e.zone;
-            });
-        }
+        dispatch.hook(...mods.packet.get_all("S_CURRENT_CHANNEL"), e=> {
+            this.channel = e.channel - 1;
+            this.zone = e.zone;
+        });
 
         // Stamina
         this.sPlayerChangeStamina = (e) => {
@@ -236,12 +234,9 @@ class player{
                                 // We put a try statement here because fuck everything and everyone. :)
                                 let activeSet = [];
     
-                                if(dispatch.isClassic) activeSet = item.passivities;
-                                else {
-                                    activeSet = item.passivitySets[item.passivitySet];
-                                    if(!activeSet)
-                                        activeSet = item.passivitySets[0];
-                                }
+                                activeSet = item.passivitySets[item.passivitySet];
+                                if(!activeSet)
+                                    activeSet = item.passivitySets[0];
     
                                 try {
                                     for (const effect of activeSet.passivities) {
@@ -290,15 +285,13 @@ class player{
         dispatch.hook(...mods.packet.get_all("C_PLAYER_LOCATION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
         dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_ACTION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        if(!dispatch.isClassic)
-            dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_DASH"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_DASH"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // skills
         dispatch.hook(...mods.packet.get_all("C_START_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook(...mods.packet.get_all("C_START_TARGETED_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook(...mods.packet.get_all("C_START_COMBO_INSTANT_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook(...mods.packet.get_all("C_START_INSTANCE_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        if(!dispatch.isClassic)
-            dispatch.hook(...mods.packet.get_all("C_START_INSTANCE_SKILL_EX"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        dispatch.hook(...mods.packet.get_all("C_START_INSTANCE_SKILL_EX"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook(...mods.packet.get_all("C_PRESS_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
     }
 }

@@ -781,8 +781,6 @@ class PacketHandler {
         if(!array) throw new Error(`PacketHandler looking for invalid packet name ${name}`);
         const patch = this.dispatch.majorPatchVersion;
 
-        if(this.dispatch.isClassic) return array[array.length - 1].version;
-
         let version = -1;
         for(let idx in array) {
             const obj = array[idx];
