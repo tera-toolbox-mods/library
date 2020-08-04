@@ -107,7 +107,11 @@ const PACKET_DATA = {
         {
             "patch": 67,
             "version": 1
-        }
+        },
+        {
+            "patch": 96,
+            "version": 2
+        },
     ],
 
     "S_PLAYER_RESET_EP": [
@@ -769,6 +773,13 @@ const PACKET_DATA = {
             "version": 1
         }
     ],
+
+    "TTB_S_LOAD_EP_PAGE": [
+        {
+            "patch": 96,
+            "version": 1
+        }
+    ],
 };
 
 class PacketHandler {
@@ -781,7 +792,7 @@ class PacketHandler {
         if(!array) throw new Error(`PacketHandler looking for invalid packet name ${name}`);
         const patch = this.dispatch.majorPatchVersion;
 
-        let version = -1;
+        let version = null;
         for(let idx in array) {
             const obj = array[idx];
             if(patch >= obj.patch) version = obj.version;
