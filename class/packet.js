@@ -729,7 +729,11 @@ const PACKET_DATA = {
         {
             "patch": 87,
             "version": 3
-        }
+        },
+        {
+            "patch": 96,
+            "version": 4
+        },
     ],
 
     "C_CHECK_VERSION": [
