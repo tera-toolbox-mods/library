@@ -6,7 +6,7 @@
         "class/entity.js": "2c2309fd1888b655a64740325c0fde96230c541fad53328a230582ebf15c311d",
         "class/library.js": "c30bdeae2b81c9321898357d8982b33c5f1f47722f49f3e58ab91060a387a459",
         "class/packet.js": "8649df606b10088bc7423de526007e86ec0ed10ce720e1eebb26a0c47a184ada",
-        "class/player.js": "6264e2cf7ea438b5fa6e5ccbdc25cd10e9625dafa08aab17aea46286f4189042"
+        "class/player.js": "5c51609a44b09692d08836a9207ccdec227ad47fbfeba6855ed3db65da22b1e5"
     },
     "defs": {}
 }

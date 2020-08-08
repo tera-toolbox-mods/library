@@ -134,7 +134,7 @@ class player{
                     if(member.gameId) this.playersInParty.push(member.gameId);
                     else {
                         let found = false;
-                        for(const [gameId, {serverId, playerId}] of Object.values(mods.entity.players)) {
+                        for(const [gameId, {serverId, playerId}] of Object.entries(mods.entity.players)) {
                             if(serverId === member.serverId && playerId === member.playerId) {
                                 found = true;
                                 this.playersInParty.push(BigInt(gameId));
