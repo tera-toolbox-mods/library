@@ -3,10 +3,10 @@
         "index.js": "4c88d0b7c6e5652f3cc789846f9092a5bceb1efb18fe038829549901c65e4209",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "77c902a60571a995d2af95ca0acb60bf9e866a308340f70140b5652028b94ffb",
-        "class/entity.js": "ae3cba658ab9f5094b7f01731014c08120f32c7865a15dc95aa276ab3635ae9f",
+        "class/entity.js": "2c2309fd1888b655a64740325c0fde96230c541fad53328a230582ebf15c311d",
         "class/library.js": "c30bdeae2b81c9321898357d8982b33c5f1f47722f49f3e58ab91060a387a459",
         "class/packet.js": "8649df606b10088bc7423de526007e86ec0ed10ce720e1eebb26a0c47a184ada",
-        "class/player.js": "54a01bdaadab3a106cf7668a1423b78c47fb50d7c7b628ce61296e0bbd3794f0"
+        "class/player.js": "6264e2cf7ea438b5fa6e5ccbdc25cd10e9625dafa08aab17aea46286f4189042"
     },
     "defs": {}
 }

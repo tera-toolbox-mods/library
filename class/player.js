@@ -130,10 +130,40 @@ class player{
             this.partyLeader = e.leaderServerId === this.serverId && e.leaderPlayerId == this.playerId;
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
-				if(!this.isMe(member.gameId)) this.playersInParty.push(member.gameId);
+				if(!this.isMe(member.gameId)) {
+                    if(member.gameId) this.playersInParty.push(member.gameId);
+                    else {
+                        let found = false;
+                        for(const [gameId, {serverId, playerId}] of Object.values(mods.entity.players)) {
+                            if(serverId === member.serverId && playerId === member.playerId) {
+                                found = true;
+                                this.playersInParty.push(BigInt(gameId));
+                                break;
+                            }
+                        }
+                        if(found) continue;
+
+                        this.playersInParty.push(member);
+                    }
+                }
 			}
         }
         dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_LIST"), this.sPartyMemberList);
+
+        this.sSpawnUser = (e) => {
+            if(!this.playersInParty.length) return;
+
+            for(const idx in this.playersInParty) {
+                const data = this.playersInParty[idx];
+                if(typeof data !== "object") continue;
+
+                const { serverId, playerId } = data;
+                if(serverId === e.serverId && playerId === e.playerId) {
+                    this.playersInParty[idx] = e.gameId;
+                }
+            }
+        };
+        dispatch.hook(...mods.packet.get_all("S_SPAWN_USER"), this.sSpawnUser);
 
         this.sLeaveParty = (e) => {
             this.playersInParty = [];

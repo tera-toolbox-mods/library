@@ -93,7 +93,7 @@ class entity{
             if(mob && e.villager) this.npcs[id] = Object.assign(data, {"var": "npcs"});
             else if(mob && (e.aggressive || e.relation == 12 || (e.relation == 10 && e.spawnType == 1))) this.mobs[id] = Object.assign(data, {"var": "mobs"});
             else this.unknown[id] = Object.assign(data, {"var": "unknown"});
-            if(!mob) this.players[id] = Object.assign(data, {"var": "players"});
+            if(!mob) this.players[id] = Object.assign(data, { "var": "players", serverId: e.serverId, playerId: e.playerId });
         }
         dispatch.hook(...mods.packet.get_all("S_SPAWN_USER"), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, false));
         dispatch.hook(...mods.packet.get_all("S_SPAWN_NPC"), DEFAULT_HOOK_SETTINGS, this.spawnEntity.bind(null, true));
