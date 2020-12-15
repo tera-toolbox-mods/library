@@ -627,7 +627,11 @@ const PACKET_DATA = {
         {
             "patch": 80,
             "version": 11
-        }
+        },
+        {
+            "patch": 101,
+            "version": 12
+        },
     ],
 
     "S_DESPAWN_NPC": [
@@ -786,6 +790,13 @@ const PACKET_DATA = {
         {
             "patch": 96,
             "version": 1
+        }
+    ],
+
+    "S_SKILL_LIST": [
+        {
+            "patch": 100,
+            "version": 2
         }
     ],
 };
