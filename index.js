@@ -3,9 +3,6 @@ const PRE_LOAD_MODULES = ['packet', 'library'];
 
 class Library{
 	constructor(dispatch, arg1) {
-		setTimeout(()=> {
-			throw new Error("Tell Salty (Powah#2354) to fix Toolbox");
-		}, 1);
         this.mods = {};
 		this.command = dispatch.command;
 		this.cmd = this.command;
