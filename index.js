@@ -3,8 +3,6 @@ const PRE_LOAD_MODULES = ['packet', 'library'];
 
 class Library{
 	constructor(dispatch, arg1) {
-		console.log("tell salty to fix toolbox :)");
-		process.exit();
         this.mods = {};
 		this.command = dispatch.command;
 		this.cmd = this.command;
