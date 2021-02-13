@@ -114,7 +114,7 @@ class entity{
         this.updatePosition = (mob, e) => {
             let id = e.gameId.toString();
 
-            let pos = e.loc;
+            let pos = e.dest;
             pos.w = e.w;
     
             if(this.mobs[id]) this.mobs[id].pos = pos;
