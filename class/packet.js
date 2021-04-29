@@ -112,6 +112,10 @@ const PACKET_DATA = {
             "patch": 96,
             "version": 2
         },
+        {
+            "patch": 105,
+            "version": 3,
+        }
     ],
 
     "S_PLAYER_RESET_EP": [
@@ -549,6 +553,10 @@ const PACKET_DATA = {
         {
             "patch": 93,
             "version": 14
+        },
+        {
+            "patch": 105,
+            "version": 15,
         }
     ],
 
@@ -652,6 +660,10 @@ const PACKET_DATA = {
         {
             "patch": 80,
             "version": 5
+        },
+        {
+            "patch": 105,
+            "version": 6,
         }
     ],
 
