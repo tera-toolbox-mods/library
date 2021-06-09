@@ -737,7 +737,11 @@ const PACKET_DATA = {
     "S_PARTY_MEMBER_LIST": [
         {
             "patch": 80,
-            "version": 7
+            "version": 8,
+        },
+        {
+            "patch": 106,
+            "version": 9,
         }
     ],
     

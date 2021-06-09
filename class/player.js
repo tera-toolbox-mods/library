@@ -127,7 +127,7 @@ class player{
         this.sPartyMemberList = (e) => {
             this.playersInParty = [];
 
-            this.partyLeader = e.leaderServerId === this.serverId && e.leaderPlayerId == this.playerId;
+            this.partyLeader = e.leader.serverId === this.serverId && e.leader.playerId == this.playerId;
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
 				if(!this.isMe(member.gameId)) {
