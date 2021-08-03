@@ -565,6 +565,10 @@ const PACKET_DATA = {
         {
             "patch": 106,
             "version": 16,
+        },
+        {
+            "patch": 108,
+            "version": 17
         }
     ],
 
@@ -783,7 +787,11 @@ const PACKET_DATA = {
         {
             "patch": 80,
             "version": 3
-        }
+        },
+        {
+            "patch": 108,
+            "version": 4
+        },
     ],
 
     "S_FEARMOVE_STAGE": [
