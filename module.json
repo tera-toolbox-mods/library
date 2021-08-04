@@ -1,6 +1,6 @@
 {
-    "servers": ["https://raw.githubusercontent.com/Kaseaa/library/master/"],
-    "supportUrl": "https://github.com/Kaseaa/library/issues",
+    "servers": ["https://raw.githubusercontent.com/tera-toolbox-mods/library/master/"],
+    "supportUrl": "https://github.com/tera-toolbox-mods/library/issues",
     "name": "library",
     "disableAutoUpdate": false
 }
