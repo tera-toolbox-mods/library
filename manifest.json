@@ -6,8 +6,8 @@
         "class/effect.js": "77c902a60571a995d2af95ca0acb60bf9e866a308340f70140b5652028b94ffb",
         "class/entity.js": "5abe14986b1fa26561f1c1665d048f4fdbc63e8c6a36230d1ffcb8261bad0e6d",
         "class/library.js": "c30bdeae2b81c9321898357d8982b33c5f1f47722f49f3e58ab91060a387a459",
-        "class/packet.js": "7f735dc7fd4df24861b5eccc7cbf37cc67d4381ef0e5290f89a414d3a2050c73",
-        "class/player.js": "24ac50237e1ee991679a4aa4af1a4fecb6e81f8615a719af69343d6231583c76"
+        "class/packet.js": "666974df8d5f2fb15c1d76aa9dde5312d82e0c211c754d8ff83bf93f30b56a58",
+        "class/player.js": "b5dee964ebe6c51678e9b0df6e4ac9cf7413d224e3e4819f78f927da8495a01a"
     },
     "defs": {}
 }

@@ -533,6 +533,13 @@ const PACKET_DATA = {
         },
     ],
 
+    "S_PARTY_MEMBER_STAT_UPDATE": [
+        {
+            "patch": 108,
+            "version": 4
+        }
+    ],
+
     "S_PLAYER_STAT_UPDATE": [
         {
             "patch": 67,

@@ -17,7 +17,8 @@ class player{
         // zone information
         this.zone = -1;
         // List over players in party
-        this.playersInParty = [];
+        this.playersInParty = new Map();
+        this.unsetPlayersInParty = [];
         this.partyLeader = false;
         // Pegasus status
         this.onPegasus = false;
@@ -125,48 +126,57 @@ class player{
 
         // Party
         this.sPartyMemberList = (e) => {
-            this.playersInParty = [];
+            this.unsetPlayersInParty = [];
+            this.playersInParty.clear();
 
             this.partyLeader = e.leader.serverId === this.serverId && e.leader.playerId == this.playerId;
 			for(let member of e.members){
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
 				if(!this.isMe(member.gameId)) {
-                    if(member.gameId) this.playersInParty.push(member.gameId);
+                    if(member.gameId) this.playersInParty.set(member.gameId, member);
                     else {
                         let found = false;
                         for(const [gameId, {serverId, playerId}] of Object.entries(mods.entity.players)) {
                             if(serverId === member.serverId && playerId === member.playerId) {
                                 found = true;
-                                this.playersInParty.push(BigInt(gameId));
+                                this.playersInParty.set(BigInt(gameId), member);
                                 break;
                             }
                         }
                         if(found) continue;
 
-                        this.playersInParty.push(member);
+                        this.unsetPlayersInParty.push(member);
                     }
                 }
 			}
         }
         dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_LIST"), this.sPartyMemberList);
 
+        this.sPartyMemberStatUpdate = (e) => {
+            this.playersInParty.forEach((gameId, member)=> {
+                if(e.serverId !== member.serverId || e.playerId !== member.playerId) return;
+                this.playersInParty.set(gameId, { ...member, ...e });
+            });
+        }
+        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_STAT_UPDATE"), this.sPartyMemberStatUpdate);
+
         this.sSpawnUser = (e) => {
-            if(!this.playersInParty.length) return;
+            if(!this.unsetPlayersInParty.length) return;
 
-            for(const idx in this.playersInParty) {
-                const data = this.playersInParty[idx];
-                if(typeof data !== "object") continue;
+            for(const idx in this.unsetPlayersInParty) {
+                const { serverId, playerId } = this.unsetPlayersInParty[idx];
+                if(serverId !== e.serverId || playerId !== e.playerId) continue;
 
-                const { serverId, playerId } = data;
-                if(serverId === e.serverId && playerId === e.playerId) {
-                    this.playersInParty[idx] = e.gameId;
-                }
+                this.playersInParty.set(e.gameId, { ...this.unsetPlayersInParty[idx], ...e });
+                this.unsetPlayersInParty.splice(this.unsetPlayersInParty.find(this.unsetPlayersInParty[idx]), 1);
+                break;
             }
         };
         dispatch.hook(...mods.packet.get_all("S_SPAWN_USER"), this.sSpawnUser);
 
         this.sLeaveParty = (e) => {
-            this.playersInParty = [];
+            this.unsetPlayersInParty = [];
+            this.playersInParty.clear();
         }
         dispatch.hook('S_LEAVE_PARTY', 'raw', this.sLeaveParty);
 
