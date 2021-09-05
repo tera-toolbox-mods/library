@@ -168,7 +168,7 @@ class player{
                 if(serverId !== e.serverId || playerId !== e.playerId) continue;
 
                 this.playersInParty.set(e.gameId, { ...this.unsetPlayersInParty[idx], ...e });
-                this.unsetPlayersInParty.splice(this.unsetPlayersInParty.find(this.unsetPlayersInParty[idx]), 1);
+                this.unsetPlayersInParty.splice(this.unsetPlayersInParty.indexOf(this.unsetPlayersInParty[idx]), 1);
                 break;
             }
         };
