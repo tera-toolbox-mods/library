@@ -498,7 +498,11 @@ const PACKET_DATA = {
         {
             "patch": 86,
             "version": 14
-        }
+        },
+		{
+			"patch": 110,
+			"version": 15
+		}
     ],
 
     "S_LOAD_TOPO": [
