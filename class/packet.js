@@ -354,7 +354,11 @@ const PACKET_DATA = {
         {
             "patch": 67,
             "version": 3
-        }
+        },
+        {
+            "patch": 110,
+            "version": 4
+        },
     ],
 
     "S_START_COOLTIME_SKILL": [
@@ -498,6 +502,10 @@ const PACKET_DATA = {
         {
             "patch": 86,
             "version": 14
+        },
+        {
+            "patch": 110,
+            "version": 15
         }
     ],
 
