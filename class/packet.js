@@ -245,6 +245,10 @@ const PACKET_DATA = {
         {
             "patch": 74,
             "version": 7
+        },
+        {
+            "patch": 114,
+            "version": 8
         }
     ],
 
@@ -268,6 +272,10 @@ const PACKET_DATA = {
             "patch": 74,
             "version": 4
         },
+        {
+            "patch": 114,
+            "version": 5
+        }
     ],
 
     "C_NOTIMELINE_SKILL": [
@@ -370,6 +378,10 @@ const PACKET_DATA = {
             "patch": 74,
             "version": 3
         },
+        {
+            "patch": 114,
+            "version": 4
+        }
     ],
 
     "S_DECREASE_COOLTIME_SKILL": [
@@ -465,6 +477,10 @@ const PACKET_DATA = {
         {
             "patch": 86,
             "version": 14
+        },
+        {
+            "patch": 114,
+            "version": 15
         }
     ],
 
@@ -793,6 +809,10 @@ const PACKET_DATA = {
             "patch": 109,
             "version": 6
         },
+        {
+            "patch": 114,
+            "version": 7
+        }
     ],
 
     "C_CHECK_VERSION": [

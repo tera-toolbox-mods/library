@@ -44,6 +44,7 @@ class player{
             this.job = (e.templateId - 10101) % 100;
             this.name = e.name;
             this.level = e.level;
+            this.classChangeLevel = e.classChangeLevel;
         }
         dispatch.hook(...mods.packet.get_all("S_LOGIN"), DEFAULT_HOOK_SETTINGS, this.sLogin);
 
