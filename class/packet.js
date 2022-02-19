@@ -393,6 +393,10 @@ const PACKET_DATA = {
             "patch": 74,
             "version": 3
         },
+        {
+            "patch": 114,
+            "version": 4
+        }
     ],
 
     "S_DEFEND_SUCCESS": [
