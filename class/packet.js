@@ -874,7 +874,7 @@ const PACKET_DATA = {
 
     "S_SKILL_LIST": [
         {
-            "patch": 100,
+            "patch": 90,
             "version": 2
         }
     ],
@@ -894,6 +894,10 @@ class PacketHandler {
         for(let idx in array) {
             const obj = array[idx];
             if(patch >= obj.patch) version = obj.version;
+        }
+
+        if(version === null) {
+            console.log("Trying to get packet version that does not exist in patch:", name);
         }
 
         return version;
