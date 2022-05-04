@@ -898,6 +898,7 @@ class PacketHandler {
 
         if(version === null) {
             console.log("Trying to get packet version that does not exist in patch:", name);
+            return "*";
         }
 
         return version;
