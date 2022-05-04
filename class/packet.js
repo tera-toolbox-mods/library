@@ -563,6 +563,10 @@ const PACKET_DATA = {
 
     "S_PARTY_MEMBER_STAT_UPDATE": [
         {
+            "patch": 67,
+            "version": 3,
+        },
+        {
             "patch": 108,
             "version": 4
         }
@@ -898,7 +902,6 @@ class PacketHandler {
 
         if(version === null) {
             console.log("Trying to get packet version that does not exist in patch:", name);
-            return "*";
         }
 
         return version;
