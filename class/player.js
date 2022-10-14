@@ -1,5 +1,21 @@
 const DEFAULT_HOOK_SETTINGS = {order: -1001, filter: {fake: null}};
 
+const BASE_CLASS_SPEEDS = {
+    0: 120,
+    1: 100,
+    2: 110,
+    3: 90,
+    4: 110,
+    5: 120,
+    6: 105,
+    7: 105,
+    8: 105,
+    9: 90,
+    10: 90,
+    11: 100,
+    12: 100,
+};
+
 class player{
     constructor(dispatch, mods) {
         // Mount
@@ -66,7 +82,8 @@ class player{
             // Attack speed
             this.attackSpeed = e.attackSpeed;
             this.attackSpeedBonus = e.attackSpeedBonus;
-            this.aspdDivider = (this.job >= 8 ? 100 : e.attackSpeed);
+            const multiplier = e.attackSpeed / BASE_CLASS_SPEEDS[this.job];
+            this.aspdDivider = (this.job >= 8 ? 100 : (e.attackSpeed / multiplier));
             this.aspd = (e.attackSpeed + e.attackSpeedBonus) / this.aspdDivider;
             // movement speed
             this.msWalk = e.walkSpeed + e.walkSpeedBonus;

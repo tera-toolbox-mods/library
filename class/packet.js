@@ -10,8 +10,8 @@ const PACKET_DATA = {
             "version": 3 
         },
         {
-            "patch": 95,
-            "version": 4 
+            "patch": 75, // just new format
+            "version": 4
         },
         {
             "patch": 107,
@@ -25,7 +25,7 @@ const PACKET_DATA = {
             "version": 1
         },
         {
-            "patch": 95,
+            "patch": 75, // just new format
             "version": 2
         }
     ],
@@ -875,12 +875,55 @@ const PACKET_DATA = {
             "version": 1
         }
     ],
+    "S_LOAD_EP_PAGE": [
+        {
+            "patch": 96,
+            "version": 1
+        }
+    ],
 
     "S_SKILL_LIST": [
         {
             "patch": 90,
             "version": 2
         }
+    ],
+
+    "S_GET_USER_LIST": [
+        {
+            "patch": 86,
+            "version": 17,
+        },
+        {
+            "patch": 95,
+            "version": 18,
+        },
+        {
+            "patch": 104,
+            "version": 21,
+        },
+    ],
+
+    "S_LOGIN_ACCOUNT_INFO": [
+        {
+            "patch": 60,
+            "version": 2,
+        },
+        {
+            "patch": 93,
+            "version": 3,
+        },
+    ],
+
+    "S_WEAK_POINT": [
+        {
+            "patch": 60,
+            "version": 1,
+        },
+        {
+            "patch": 114,
+            "version": 2,
+        },
     ],
 };
 
@@ -889,10 +932,10 @@ class PacketHandler {
         this.dispatch = dispatch;
     }
 
-    get(name) {
+    get(name, patchOverride) {
         const array = PACKET_DATA[name];
         if(!array) throw new Error(`PacketHandler looking for invalid packet name ${name}`);
-        const patch = this.dispatch.majorPatchVersion;
+        const patch = patchOverride || this.dispatch.majorPatchVersion;
 
         let version = null;
         for(let idx in array) {
