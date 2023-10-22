@@ -643,6 +643,13 @@ const PACKET_DATA = {
         }
     ],
 
+    "S_CHANGE_RELATION": [
+        {
+            "patch": 90,
+            "version": 1,
+        }
+    ],
+
     "S_STICK_TO_USER_END": [
         {
             "patch": 75,

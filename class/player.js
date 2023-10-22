@@ -24,7 +24,7 @@ class player{
         this.alive = true;
         // Inventory
         this.inven = {weapon: false, effects: []};
-        let inventoryBuffer = [];
+        let inventoryBuffer = {};
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
         this.pos = {x: 0, y: 0, z: 0, w: 0, updated: 0};
@@ -215,24 +215,30 @@ class player{
         // Inventory
         // this is ugly but guess what, if you're reading my code idk what you expect -- I know you're reading this Caali and I know you hate it
         if(dispatch.majorPatchVersion >= 85) {
+            const pocketSizes = {};
             this.sInven = (e) => {
                 if(!this.isMe(e.gameId)) return;
 
-                inventoryBuffer = e.first ? e.items : inventoryBuffer.concat(e.items);
+                inventoryBuffer[e.pocket] = e.first ? e.items : inventoryBuffer[e.pocket].concat(e.items);
+                pocketSizes[e.pocket] = e.size;
                 this.gold = e.money;
     
                 if(!e.more) {
                     switch(e.container) {
                         // inven
                         case 0: {
-                            this.inven.slots = e.size;
+                            this.inven.slots = 0;
                             this.inven.items = {};
 
-                            for(const item of inventoryBuffer) {
-                                if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
-                                this.inven.items[item.id].push(Object.assign(item, {
-                                    itemId: item.id
-                                }));
+                            for(const pocket in inventoryBuffer) {
+                                this.inven.slots += pocketSizes[pocket];
+
+                                for(const item of inventoryBuffer[pocket]) {
+                                    if(!this.inven.items[item.id]) this.inven.items[item.id] = [];
+                                    this.inven.items[item.id].push(Object.assign(item, {
+                                        itemId: item.id
+                                    }));
+                                }
                             }
                             break;
                         }
@@ -242,7 +248,7 @@ class player{
                             this.inven.weapon = false;
                             this.inven.effects = [];
                             
-                            for(const item of inventoryBuffer) {
+                            for(const item of (inventoryBuffer[0] || [])) {
                                 switch(item.slot) {
                                     case 1: {
                                         this.inven.weapon = true;
@@ -261,8 +267,6 @@ class player{
                             break;
                         }
                     }
-    
-                    inventoryBuffer = [];
                 }
             };
             dispatch.hook(...mods.packet.get_all("S_ITEMLIST"), DEFAULT_HOOK_SETTINGS, this.sInven);
