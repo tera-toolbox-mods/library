@@ -23,7 +23,7 @@ class player{
         // Alive
         this.alive = true;
         // Inventory
-        this.inven = {weapon: false, effects: []};
+        this.inven = {weapon: false, effects: [], crystals: []};
         let inventoryBuffer = {};
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
@@ -246,23 +246,21 @@ class player{
                         // equip
                         case 14: {
                             this.inven.weapon = false;
+                            this.inven.crystals = [];
                             this.inven.effects = [];
                             
                             for(const item of (inventoryBuffer[0] || [])) {
-                                switch(item.slot) {
-                                    case 1: {
-                                        this.inven.weapon = true;
-                                        break;
-                                    }
-                                    case 3: {
-                                        let activeSet = item.passivitySets[item.passivitySet];
-                                        if(!activeSet) activeSet = item.passivitySets[0];
-                                        if(!activeSet) break;
-
-                                        this.inven.effects = activeSet.passivities;
-                                        break;
-                                    }
+                                if(item.slot === 1) {
+                                    this.inven.weapon = true;
                                 }
+
+                                this.inven.crystals.push(...item.crystals);
+                                
+                                let activeSet = item.passivitySets[item.passivitySet];
+                                if(!activeSet) activeSet = item.passivitySets[0];
+                                if(!activeSet) continue;
+
+                                this.inven.effects.push(...activeSet.passivities);
                             }
                             break;
                         }
