@@ -23,7 +23,7 @@ class player{
         // Alive
         this.alive = true;
         // Inventory
-        this.inven = {weapon: false, effects: [], crystals: []};
+        this.inven = {weapon: false, effects: [], crystals: [], equipment: []};
         let inventoryBuffer = {};
         // Location
         this.loc = {x: 0, y: 0, z: 0, w: 0, updated: 0};
@@ -248,8 +248,10 @@ class player{
                             this.inven.weapon = false;
                             this.inven.crystals = [];
                             this.inven.effects = [];
+                            this.inven.equipment = [];
                             
                             for(const item of (inventoryBuffer[0] || [])) {
+                                this.inven.equipment.push(item.id);
                                 if(item.slot === 1) {
                                     this.inven.weapon = true;
                                 }

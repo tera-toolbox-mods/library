@@ -1,13 +1,13 @@
 {
     "files": {
-        "index.js": "85e7f468071fc607134b61beacec6202ed4bc6b6b6fc3fe32e2f3bc8fa196bd0",
+        "index.js": "ecd4ac8df6b66742790bbc1cdd3c3675aced1b5fe92b41919cce3814af3c74d1",
         "module.json": "68b4af07ae32e76fde9d7b315b7ce2b0b227f9e60b72eb42ef00874f6249b3e0",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "77c902a60571a995d2af95ca0acb60bf9e866a308340f70140b5652028b94ffb",
         "class/entity.js": "5f819cedf4d4728c4e6be3b81d7706e2c7557a43322179c0369d90b0f7c8ebbc",
         "class/library.js": "c30bdeae2b81c9321898357d8982b33c5f1f47722f49f3e58ab91060a387a459",
         "class/packet.js": "32dd3a05e922874ee68b6d92403f581d9b6cada6f1bfceb8552b20e9cae551d0",
-        "class/player.js": "185538acb3c70353f5589212732139844d0ddc30abdff1f10cab2a04de610da2"
+        "class/player.js": "9bf33e8e5e8933ce7e9b534df4d496fc4205972907bc7c398bf33e9c32cd7060"
     },
     "defs": {}
 }
