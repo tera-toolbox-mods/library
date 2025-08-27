@@ -289,7 +289,7 @@ class EntityManager{
 
         // Entity despawned
         this.despawnEntity = (e) => {
-            delete this.entities[e.gameId];
+            if(this.entities[e.gameId]) delete this.entities[e.gameId];
 
             let id = e.gameId.toString();
             
@@ -303,7 +303,7 @@ class EntityManager{
 
         // Move location update
         this.updatePosition = (mob, e) => {
-            this.entities[e.gameId].updateLocation(e);
+            if(this.entities[e.gameId]) this.entities[e.gameId].updateLocation(e);
 
             let id = e.gameId.toString();
 
@@ -320,7 +320,7 @@ class EntityManager{
 
         // Direction update
         this.directionUpdate = (e) => {
-            this.entities[e.gameId].updateDirection(e);
+            if(this.entities[e.gameId]) this.entities[e.gameId].updateDirection(e);
 
             let id = e.gameId.toString();
             if(this.mobs[id]) this.mobs[id].pos.w = e.w;
@@ -334,7 +334,7 @@ class EntityManager{
         dispatch.hook(...mods.packet.get_all("S_EACH_SKILL_RESULT"), DEFAULT_HOOK_SETTINGS, e=> {
             if(mods.player.isMe(e.target)) return;
 
-            this.entities[e.target].updateAction(e, ACTION_TYPES.REACTION);
+            if(this.entities[e.target]) this.entities[e.target].updateAction(e, ACTION_TYPES.REACTION);
 
             let id = e.target.toString();
             let loc = null;
@@ -360,7 +360,7 @@ class EntityManager{
         this.sAction = (end) => (e) => {
             if(mods.player.isMe(e.gameId)) return;
 
-            this.entities[e.gameId].updateAction(e, end ? ACTION_TYPES.END : ACTION_TYPES.STAGE);
+            if(this.entities[e.gameId]) this.entities[e.gameId].updateAction(e, end ? ACTION_TYPES.END : ACTION_TYPES.STAGE);
 
             let id = e.gameId.toString();
 
@@ -413,7 +413,7 @@ class EntityManager{
 
         // Relation got updated
         dispatch.hook(...mods.packet.get_all("S_CHANGE_RELATION"), DEFAULT_HOOK_SETTINGS, e=> {
-            this.entities[e.target].relation = e.relation;
+            if(this.entities[e.target]) this.entities[e.target].relation = e.relation;
 
             let id = e.target.toString();
 
