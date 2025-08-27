@@ -2,7 +2,7 @@ const PACKET_DATA = {
     /* ABNORMALITY PACKETS */
     "S_ABNORMALITY_BEGIN": [
         {
-            "patch": 67,
+            "patch": 27,
             "version": 2
         },
         {
@@ -467,6 +467,10 @@ const PACKET_DATA = {
 
     "S_LOGIN": [
         {
+            "patch": 27,
+            "version": 12
+        },
+        {
             "patch": 67,
             "version": 10
         },
@@ -573,6 +577,10 @@ const PACKET_DATA = {
     ],
 
     "S_PLAYER_STAT_UPDATE": [
+        {
+            "patch": 27,
+            "version": 11
+        },
         {
             "patch": 67,
             "version": 8
@@ -691,6 +699,10 @@ const PACKET_DATA = {
 
     "S_SPAWN_NPC": [
         {
+            "patch": 27,
+            "version": 8,
+        },
+        {
             "patch": 80,
             "version": 11
         },
@@ -747,6 +759,10 @@ const PACKET_DATA = {
     ],
     
     "S_CURRENT_CHANNEL": [
+        {
+            "patch": 27,
+            "version": 1
+        },
         {
             "patch": 80,
             "version": 2
@@ -839,7 +855,7 @@ const PACKET_DATA = {
 
     "S_USER_STATUS": [
         {
-            "patch": 80,
+            "patch": 27,
             "version": 3
         },
         {
@@ -932,6 +948,17 @@ const PACKET_DATA = {
             "version": 2,
         },
     ],
+
+    "S_PARTY_MEMBER_INTERVAL_POS_UPDATE": [
+        {
+            "patch": 90,
+            "version": 3,
+        },
+        {
+            "patch": 101,
+            "version": 4
+        }
+    ],
 };
 
 class PacketHandler {
@@ -952,6 +979,7 @@ class PacketHandler {
 
         if(version === null) {
             console.log("Trying to get packet version that does not exist in patch:", name);
+            return array.at(-1).version;
         }
 
         return version;

@@ -149,9 +149,12 @@ class player{
 
             this.partyLeader = e.leader.serverId === this.serverId && e.leader.playerId == this.playerId;
 			for(let member of e.members){
+                member.alive = true;
 				// If the member isn't me, we can add him/her/helicopter. Let's not assume genders here
 				if(!this.isMe(member.gameId)) {
-                    if(member.gameId) this.playersInParty.set(member.gameId, member);
+                    if(member.gameId) {
+                        this.playersInParty.set(member.gameId, member);
+                    }
                     else {
                         let found = false;
                         for(const [gameId, {serverId, playerId}] of Object.entries(mods.entity.players)) {
@@ -168,24 +171,38 @@ class player{
                 }
 			}
         }
-        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_LIST"), this.sPartyMemberList);
+        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_LIST"), DEFAULT_HOOK_SETTINGS, this.sPartyMemberList);
 
         this.sPartyMemberStatUpdate = (e) => {
+            this.playersInParty.forEach((gameId, member)=> {
+                if(e.serverId !== member.serverId || e.playerId !== member.playerId) return;
+                this.playersInParty.set(gameId, { ...member, ...e, alive: !!e.alive });
+            });
+        }
+        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_STAT_UPDATE"), DEFAULT_HOOK_SETTINGS, this.sPartyMemberStatUpdate);
+
+        this.sPartyMemberIntervalPosUpdate = (e) => {
             this.playersInParty.forEach((gameId, member)=> {
                 if(e.serverId !== member.serverId || e.playerId !== member.playerId) return;
                 this.playersInParty.set(gameId, { ...member, ...e });
             });
         }
-        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_STAT_UPDATE"), this.sPartyMemberStatUpdate);
+        dispatch.hook(...mods.packet.get_all("S_PARTY_MEMBER_INTERVAL_POS_UPDATE"), DEFAULT_HOOK_SETTINGS, this.sPartyMemberIntervalPosUpdate);
 
         this.sSpawnUser = (e) => {
-            if(!this.unsetPlayersInParty.length) return;
+            if(!this.unsetPlayersInParty.length) {
+                const member = this.playersInParty.get(e.gameId);
+                if(member) {
+                    this.playersInParty.set(e.gameId, { ...member, zone: this.zone, alive: true });
+                }
+                return;
+            }
 
             for(const idx in this.unsetPlayersInParty) {
                 const { serverId, playerId } = this.unsetPlayersInParty[idx];
                 if(serverId !== e.serverId || playerId !== e.playerId) continue;
 
-                this.playersInParty.set(e.gameId, { ...this.unsetPlayersInParty[idx], ...e });
+                this.playersInParty.set(e.gameId, { ...this.unsetPlayersInParty[idx], ...e, alive: true });
                 this.unsetPlayersInParty.splice(this.unsetPlayersInParty.indexOf(this.unsetPlayersInParty[idx]), 1);
                 break;
             }
@@ -208,6 +225,8 @@ class player{
             if(this.isMe(e.gameId)) {
                 this.alive = e.alive;
                 Object.assign(this.loc, e.loc);
+            } else if(this.playersInParty.has(e.gameId)) {
+                this.playersInParty.get(e.gameId).alive = e.alive;
             }
         }
         dispatch.hook(...mods.packet.get_all("S_CREATURE_LIFE"), DEFAULT_HOOK_SETTINGS, this.sCreatureLife);
@@ -294,17 +313,17 @@ class player{
                                 break;
                             case 3:
                                 // We put a try statement here because fuck everything and everyone. :)
-                                let activeSet = [];
+                                // let activeSet = [];
     
-                                activeSet = item.passivitySets[item.passivitySet];
-                                if(!activeSet)
-                                    activeSet = item.passivitySets[0];
+                                // activeSet = item.passivitySets[item.passivitySet];
+                                // if(!activeSet)
+                                //     activeSet = item.passivitySets[0];
     
-                                try {
-                                    for (const effect of activeSet.passivities) {
-                                        this.inven.effects.push(Number(effect.id));
-                                    }
-                                }catch(e) {this.inven.effects = [];}
+                                // try {
+                                //     for (const effect of activeSet.passivities) {
+                                //         this.inven.effects.push(Number(effect.id));
+                                //     }
+                                // }catch(e) {this.inven.effects = [];}
     
                                 break;
                         }
@@ -347,7 +366,11 @@ class player{
         dispatch.hook(...mods.packet.get_all("C_PLAYER_LOCATION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         // Notify location in action
         dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_ACTION"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
-        dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_DASH"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        try {
+            dispatch.hook(...mods.packet.get_all("C_NOTIFY_LOCATION_IN_DASH"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
+        }catch(err) {
+            console.error("Could not hook CNLID")
+        }
         // skills
         dispatch.hook(...mods.packet.get_all("C_START_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
         dispatch.hook(...mods.packet.get_all("C_START_TARGETED_SKILL"), {filter: {fake: null}, order: -10000}, this.handleMovement.bind(null, false));
