@@ -1,10 +1,10 @@
 {
     "files": {
-        "index.js": "19e74731afa91c406d5f15ff6c42985e9cbc874965e13d88c9cea608951f5a45",
+        "index.js": "5a3d17c6af89da8353c8ec426bda9ce065215bd87744a91bb6e2c696a72ee863",
         "module.json": "68b4af07ae32e76fde9d7b315b7ce2b0b227f9e60b72eb42ef00874f6249b3e0",
         "README.md": "c6a0560ba92924bfc0effa998e7e1c30ed1d4f603fbb4dd286d645370239ef8f",
         "class/effect.js": "77c902a60571a995d2af95ca0acb60bf9e866a308340f70140b5652028b94ffb",
-        "class/entity.js": "4b08844d6f9396d42507cb9108f7eda1daccc0d1cd9e5eab5b3dfb652f2771e2",
+        "class/entity.js": "16abea1e220c983c0f2448f33bbf95032c863db828f688ff5dde6e7adbb2a17d",
         "class/library.js": "c30bdeae2b81c9321898357d8982b33c5f1f47722f49f3e58ab91060a387a459",
         "class/packet.js": "e95c1b5eae6f5e51e92770b39d07abe612791e721b9237217a7f58e98c87e2aa",
         "class/player.js": "fb1bf76a05689123d81420cbbd72d53f545018c49bc0a266812e262b86d8ac5e"

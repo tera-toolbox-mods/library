@@ -22,7 +22,7 @@ class Entity {
         this._mods = mods;
 
         this.isPlayer = !!e.name;
-        this.isMob = !this.isPlayer && e.villager;
+        this.isMob = !this.isPlayer && !e.villager;
         
         this.name = e.name || e.npcName;
         this.huntingZoneId = e.huntingZoneId;
